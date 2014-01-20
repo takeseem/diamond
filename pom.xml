@@ -6,7 +6,7 @@
 	<groupId>com.taobao.diamond</groupId>
 	<artifactId>diamond-all</artifactId>
 	<packaging>pom</packaging>
-	<version>2.0.5.4.taocode-SNAPSHOT</version>
+	<version>2.0.5.4.bbg-SNAPSHOT</version>
 	<name>taobao diamond v${project.version}</name>
 
 	<modules>
