@@ -45,13 +45,13 @@ public class Constants {
 
     public static final String SPACING_INTERVAL = "client-spacing-interval";
 
-    public static final int POLLING_INTERVAL_TIME = 15;// Ãë
+    public static final int POLLING_INTERVAL_TIME = 15;// ç§’
 
-    public static final int ONCE_TIMEOUT = 2000;// ºÁÃë
+    public static final int ONCE_TIMEOUT = 2000;// æ¯«ç§’
 
-    public static final int CONN_TIMEOUT = 2000;// ºÁÃë
+    public static final int CONN_TIMEOUT = 2000;// æ¯«ç§’
 
-    public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// ºÁÃë
+    public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// æ¯«ç§’
 
     public static final String HTTP_URI_FILE = "/url";
 
@@ -70,17 +70,17 @@ public class Constants {
     public static final String DEFAULT_PASSWORD = "xxx";
     
     /*
-     * ÅúÁ¿²Ù×÷Ê±, µ¥ÌõÊı¾İµÄ×´Ì¬Âë
+     * æ‰¹é‡æ“ä½œæ—¶, å•æ¡æ•°æ®çš„çŠ¶æ€ç 
      */
-    // ·¢ÉúÒì³£
+    // å‘ç”Ÿå¼‚å¸¸
     public static final int BATCH_OP_ERROR = -1;
-    // ²éÑ¯³É¹¦, Êı¾İ´æÔÚ
+    // æŸ¥è¯¢æˆåŠŸ, æ•°æ®å­˜åœ¨
     public static final int BATCH_QUERY_EXISTS = 1;
-    // ²éÑ¯³É¹¦, Êı¾İ²»´æÔÚ
+    // æŸ¥è¯¢æˆåŠŸ, æ•°æ®ä¸å­˜åœ¨
     public static final int BATCH_QUERY_NONEXISTS = 2;
-    // ĞÂÔö³É¹¦
+    // æ–°å¢æˆåŠŸ
     public static final int BATCH_ADD_SUCCESS = 3;
-    // ¸üĞÂ³É¹¦
+    // æ›´æ–°æˆåŠŸ
     public static final int BATCH_UPDATE_SUCCESS = 4;
 
 }

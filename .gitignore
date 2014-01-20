@@ -1,1 +1,7 @@
+.classpath
 .project
+.settings
+.svn
+/diamond-server/src/main/webapp/config-data
+logs
+target

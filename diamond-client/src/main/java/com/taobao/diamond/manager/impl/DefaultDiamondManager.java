@@ -27,7 +27,7 @@ import com.taobao.diamond.manager.ManagerListener;
 
 
 /**
- * ĞèÒª×¢ÒâµÄÊÇ£ºÒ»¸öJVMÖĞÒ»¸öDataIDÖ»ÄÜ¶ÔÓ¦Ò»¸öDiamondManager
+ * éœ€è¦æ³¨æ„çš„æ˜¯ï¼šä¸€ä¸ªJVMä¸­ä¸€ä¸ªDataIDåªèƒ½å¯¹åº”ä¸€ä¸ªDiamondManager
  * 
  * @author aoqiong
  * 
@@ -68,7 +68,7 @@ public class DefaultDiamondManager implements DiamondManager {
 
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄ¼¯ÈºÀàĞÍclusterType
+     * ä½¿ç”¨æŒ‡å®šçš„é›†ç¾¤ç±»å‹clusterType
      * 
      * @param group
      * @param dataId
@@ -102,7 +102,7 @@ public class DefaultDiamondManager implements DiamondManager {
 
     public void close() {
         /**
-         * ÒòÎªÍ¬Ò»¸öDataIDÖ»ÄÜ¶ÔÓ¦Ò»¸öMnanagerListener£¬ËùÒÔ£¬¹Ø±ÕÊ±Ò»´ÎĞÔ¹Ø±ÕËùÓĞManagerListener¼´¿É
+         * å› ä¸ºåŒä¸€ä¸ªDataIDåªèƒ½å¯¹åº”ä¸€ä¸ªMnanagerListenerï¼Œæ‰€ä»¥ï¼Œå…³é—­æ—¶ä¸€æ¬¡æ€§å…³é—­æ‰€æœ‰ManagerListenerå³å¯
          */
         ((DefaultSubscriberListener) diamondSubscriber.getSubscriberListener()).removeManagerListeners(this.dataId,
             this.group);
@@ -138,8 +138,8 @@ public class DefaultDiamondManager implements DiamondManager {
             return properties;
         }
         catch (IOException e) {
-            log.warn("×°ÔØpropertiesÊ§°Ü£º" + configInfo, e);
-            throw new RuntimeException("×°ÔØpropertiesÊ§°Ü£º" + configInfo, e);
+            log.warn("è£…è½½propertieså¤±è´¥ï¼š" + configInfo, e);
+            throw new RuntimeException("è£…è½½propertieså¤±è´¥ï¼š" + configInfo, e);
         }
     }
 
@@ -152,8 +152,8 @@ public class DefaultDiamondManager implements DiamondManager {
             return properties;
         }
         catch (IOException e) {
-            log.warn("×°ÔØpropertiesÊ§°Ü£º" + configInfo, e);
-            throw new RuntimeException("×°ÔØpropertiesÊ§°Ü£º" + configInfo, e);
+            log.warn("è£…è½½propertieså¤±è´¥ï¼š" + configInfo, e);
+            throw new RuntimeException("è£…è½½propertieså¤±è´¥ï¼š" + configInfo, e);
         }
     }
 
@@ -187,8 +187,8 @@ public class DefaultDiamondManager implements DiamondManager {
             return properties;
         }
         catch (IOException e) {
-            log.warn("×°ÔØpropertiesÊ§°Ü£º" + configInfo, e);
-            throw new RuntimeException("×°ÔØpropertiesÊ§°Ü£º" + configInfo, e);
+            log.warn("è£…è½½propertieså¤±è´¥ï¼š" + configInfo, e);
+            throw new RuntimeException("è£…è½½propertieså¤±è´¥ï¼š" + configInfo, e);
         }
     }
 

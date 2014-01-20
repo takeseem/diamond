@@ -12,26 +12,26 @@ package com.taobao.diamond.domain;
 import java.io.Serializable;
 
 /**
- * ¸ù¾İdataId,groupName¾«È·²éÑ¯·µ»ØµÄ¶ÔÏó
+ * æ ¹æ®dataId,groupNameç²¾ç¡®æŸ¥è¯¢è¿”å›çš„å¯¹è±¡
  * 
  * @filename ContextResult.java
  * @author libinbin.pt
- * @datetime 2010-7-15 ÏÂÎç06:49:12
+ * @datetime 2010-7-15 ä¸‹åˆ06:49:12
  */
 /**
  * 
  * @filename ContextResult.java
  * @author libinbin.pt
  * @param <T>
- * @datetime 2010-7-16 ÏÂÎç05:48:54
+ * @datetime 2010-7-16 ä¸‹åˆ05:48:54
  */
 @SuppressWarnings("serial")
 public class ContextResult implements Serializable {
-	private boolean isSuccess; // ÊÇ·ñ³É¹¦
-	private int statusCode; // ×´Ì¬Âë
-	private String statusMsg = ""; // ×´Ì¬ĞÅÏ¢
-	private String receiveResult; // »Ø´«ĞÅÏ¢
-	private ConfigInfo configInfo; // ÅäÖÃ¶ÔÏó°üÀ¨[ÄÚÈİ£¬dataId£¬groupName]
+	private boolean isSuccess; // æ˜¯å¦æˆåŠŸ
+	private int statusCode; // çŠ¶æ€ç 
+	private String statusMsg = ""; // çŠ¶æ€ä¿¡æ¯
+	private String receiveResult; // å›ä¼ ä¿¡æ¯
+	private ConfigInfo configInfo; // é…ç½®å¯¹è±¡åŒ…æ‹¬[å†…å®¹ï¼ŒdataIdï¼ŒgroupName]
 
 	public ContextResult() {
 

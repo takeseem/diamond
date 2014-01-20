@@ -10,19 +10,19 @@
 package com.taobao.diamond.util;
 
 /**
- * Ä£ºı²éÑ¯Ê±ºÏ³É sqlµÄ¹¤¾ßÀà
+ * æ¨¡ç³ŠæŸ¥è¯¢æ—¶åˆæˆ sqlçš„å·¥å…·ç±»
  * 
  * @filename PatternUtils.java
  * @author libinbin.pt
- * @datetime 2010-7-23 ÉÏÎç11:42:58
+ * @datetime 2010-7-23 ä¸Šåˆ11:42:58
  */
 public class PatternUtils {
 
     /**
-     * ¼ì²é²ÎÊı×Ö·û´®ÖĞÊÇ·ñ°üº¬·ûºÅ '*'
+     * æ£€æŸ¥å‚æ•°å­—ç¬¦ä¸²ä¸­æ˜¯å¦åŒ…å«ç¬¦å· '*'
      * 
      * @param patternStr
-     * @return °üº¬·µ»Øtrue, ·ñÔò·µ»Øfalse
+     * @return åŒ…å«è¿”å›true, å¦åˆ™è¿”å›false
      */
     public static boolean hasCharPattern(String patternStr) {
         if (patternStr == null)
@@ -38,10 +38,10 @@ public class PatternUtils {
 
 
     /**
-     * Ìæ»»µôËùÓĞµÄ·ûºÅ'*'Îª'%'
+     * æ›¿æ¢æ‰æ‰€æœ‰çš„ç¬¦å·'*'ä¸º'%'
      * 
      * @param sourcePattern
-     * @return ·µ»ØÌæ»»ºóµÄ×Ö·û´®
+     * @return è¿”å›æ›¿æ¢åçš„å­—ç¬¦ä¸²
      */
     public static String generatePattern(String sourcePattern) {
         if (sourcePattern == null)

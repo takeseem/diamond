@@ -18,20 +18,20 @@
 
 var ValidationDefaultOptions = function(){};
 ValidationDefaultOptions.prototype = {
-	onSubmit : true, //ÊÇ·ñ¼àÌıformµÄsubmitÊÂ¼ş
-	onReset : true, //ÊÇ·ñ¼àÌıformµÄresetÊÂ¼ş
-	stopOnFirst : false, //±íµ¥ÑéÖ¤Ê±Í£ÁôÔÚµÚÒ»¸öÑéÖ¤µÄµØ·½,²»¼ÌĞøÑéÖ¤ÏÂÈ¥
-	immediate : false, //ÊÇ·ñÊµÊ±¼ì²éÊı¾İµÄºÏ·¨ĞÔ
-	focusOnError : true, //ÊÇ·ñ³ö´íÊ±½«¹â±êÖ¸ÕëÒÆµ½³ö´íµÄÊäÈë¿òÉÏ
-	useTitles : false, //ÊÇ·ñÊ¹ÓÃinputµÄtitleÊôĞÔ×÷Îª³ö´íÊ±µÄÌáÊ¾ĞÅÏ¢
-	onFormValidate : function(result, form) {return result;},//FormÑéÖ¤Ê±µÄ»Øµ÷º¯Êı,¿ÉÒÔĞŞ¸Ä×îÖÕµÄ·µ»Ø½á¹û
-	onElementValidate : function(result, elm) {} //Ä³¸öinputÑéÖ¤Ê±µÄ»Øµ÷º¯Êı
+	onSubmit : true, //æ˜¯å¦ç›‘å¬formçš„submitäº‹ä»¶
+	onReset : true, //æ˜¯å¦ç›‘å¬formçš„resetäº‹ä»¶
+	stopOnFirst : false, //è¡¨å•éªŒè¯æ—¶åœç•™åœ¨ç¬¬ä¸€ä¸ªéªŒè¯çš„åœ°æ–¹,ä¸ç»§ç»­éªŒè¯ä¸‹å»
+	immediate : false, //æ˜¯å¦å®æ—¶æ£€æŸ¥æ•°æ®çš„åˆæ³•æ€§
+	focusOnError : true, //æ˜¯å¦å‡ºé”™æ—¶å°†å…‰æ ‡æŒ‡é’ˆç§»åˆ°å‡ºé”™çš„è¾“å…¥æ¡†ä¸Š
+	useTitles : false, //æ˜¯å¦ä½¿ç”¨inputçš„titleå±æ€§ä½œä¸ºå‡ºé”™æ—¶çš„æç¤ºä¿¡æ¯
+	onFormValidate : function(result, form) {return result;},//ForméªŒè¯æ—¶çš„å›è°ƒå‡½æ•°,å¯ä»¥ä¿®æ”¹æœ€ç»ˆçš„è¿”å›ç»“æœ
+	onElementValidate : function(result, elm) {} //æŸä¸ªinputéªŒè¯æ—¶çš„å›è°ƒå‡½æ•°
 }
 
 var ValidatorDefaultOptions = function(){}
 ValidatorDefaultOptions.prototype = {
-	ignoreEmptyValue : true, //ÊÇ·ñºöÂÔ¿ÕÖµ
-	depends : [] //Ïà¹ØÒÀÀµÏî
+	ignoreEmptyValue : true, //æ˜¯å¦å¿½ç•¥ç©ºå€¼
+	depends : [] //ç›¸å…³ä¾èµ–é¡¹
 }
 
 //compatible with prototype
@@ -73,7 +73,7 @@ Validator.messageSource['en-us'] = [
 	['validate-file' , function(v,elm,args,metadata) {
 		return ValidationUtils.format("Please enter file type in [%s]",[args.join(',')]);
 	}],
-	//ÖĞ¹úÌØÓĞµÄÏà¹ØÑéÖ¤ÌáÊ¾ĞÅÏ¢
+	//ä¸­å›½ç‰¹æœ‰çš„ç›¸å…³éªŒè¯æç¤ºä¿¡æ¯
 	['validate-id-number','Please enter a valid id number.'],
 	['validate-chinese','Please enter chinese'],
 	['validate-phone','Please enter a valid phone number,current length is %s.'],
@@ -85,43 +85,43 @@ Validator.messageSource['en-us'] = [
 Validator.messageSource['en'] = Validator.messageSource['en-us']
 
 Validator.messageSource['zh-cn'] = [
-	['validation-failed' , 'ÑéÖ¤Ê§°Ü.'],
-	['required' , 'ÇëÊäÈëÖµ.'],
-	['validate-number' , 'ÇëÊäÈëÓĞĞ§µÄÊı×Ö.'],
-	['validate-digits' , 'ÇëÊäÈëÊı×Ö.'],
-	['validate-alpha' , 'ÇëÊäÈëÓ¢ÎÄ×ÖÄ¸.'],
-	['validate-alphanum' , 'ÇëÊäÈëÓ¢ÎÄ×ÖÄ¸»òÊÇÊı×Ö,ÆäËü×Ö·ûÊÇ²»ÔÊĞíµÄ.'],
-	['validate-email' , 'ÇëÊäÈëÓĞĞ§µÄÓÊ¼şµØÖ·,Èç username@example.com.'],
-	['validate-url' , 'ÇëÊäÈëÓĞĞ§µÄURLµØÖ·.'],
+	['validation-failed' , 'éªŒè¯å¤±è´¥.'],
+	['required' , 'è¯·è¾“å…¥å€¼.'],
+	['validate-number' , 'è¯·è¾“å…¥æœ‰æ•ˆçš„æ•°å­—.'],
+	['validate-digits' , 'è¯·è¾“å…¥æ•°å­—.'],
+	['validate-alpha' , 'è¯·è¾“å…¥è‹±æ–‡å­—æ¯.'],
+	['validate-alphanum' , 'è¯·è¾“å…¥è‹±æ–‡å­—æ¯æˆ–æ˜¯æ•°å­—,å…¶å®ƒå­—ç¬¦æ˜¯ä¸å…è®¸çš„.'],
+	['validate-email' , 'è¯·è¾“å…¥æœ‰æ•ˆçš„é‚®ä»¶åœ°å€,å¦‚ username@example.com.'],
+	['validate-url' , 'è¯·è¾“å…¥æœ‰æ•ˆçš„URLåœ°å€.'],
 	['validate-currency-dollar' , 'Please enter a valid $ amount. For example $100.00 .'],
-	['validate-one-required' , 'ÔÚÇ°ÃæÑ¡ÏîÖÁÉÙÑ¡ÔñÒ»¸ö.'],
-	['validate-integer' , 'ÇëÊäÈëÕıÈ·µÄÕûÊı'],
-	['validate-pattern' , 'ÊäÈëµÄÖµ²»Æ¥Åä'],
-	['validate-ip','ÇëÊäÈëÕıÈ·µÄIPµØÖ·'],
-	['min-value' , '×îĞ¡ÖµÎª%s'],
-	['max-value' , '×î´óÖµÎª%s'],
-	['min-length' , '×îĞ¡³¤¶ÈÎª%s,µ±Ç°³¤¶ÈÎª%s.'],
-	['max-length', '×î´ó³¤¶ÈÎª%s,µ±Ç°³¤¶ÈÎª%s.'],
-	['int-range' , 'ÊäÈëÖµÓ¦¸ÃÎª %s ÖÁ %s µÄÕûÊı'],
-	['float-range' , 'ÊäÈëÖµÓ¦¸ÃÎª %s ÖÁ %s µÄÊı×Ö'],
-	['length-range' , 'ÊäÈëÖµµÄ³¤¶ÈÓ¦¸ÃÔÚ %s ÖÁ %s Ö®¼ä,µ±Ç°³¤¶ÈÎª%s'],
-	['equals','Á½´ÎÊäÈë²»Ò»ÖÂ,ÇëÖØĞÂÊäÈë'],
-	['less-than','ÇëÊäÈëĞ¡ÓÚÇ°ÃæµÄÖµ'],
-	['less-than-equal','ÇëÊäÈëĞ¡ÓÚ»òµÈÓÚÇ°ÃæµÄÖµ'],
-	['great-than','ÇëÊäÈë´óÓÚÇ°ÃæµÄÖµ'],
-	['great-than-equal','ÇëÊäÈë´óÓÚ»òµÈÓÚÇ°ÃæµÄÖµ'],
-	['validate-date' , 'ÇëÊäÈëÓĞĞ§µÄÈÕÆÚ,¸ñÊ½Îª %s. ÀıÈç:%s.'],
-	['validate-selection' , 'ÇëÑ¡Ôñ.'],
+	['validate-one-required' , 'åœ¨å‰é¢é€‰é¡¹è‡³å°‘é€‰æ‹©ä¸€ä¸ª.'],
+	['validate-integer' , 'è¯·è¾“å…¥æ­£ç¡®çš„æ•´æ•°'],
+	['validate-pattern' , 'è¾“å…¥çš„å€¼ä¸åŒ¹é…'],
+	['validate-ip','è¯·è¾“å…¥æ­£ç¡®çš„IPåœ°å€'],
+	['min-value' , 'æœ€å°å€¼ä¸º%s'],
+	['max-value' , 'æœ€å¤§å€¼ä¸º%s'],
+	['min-length' , 'æœ€å°é•¿åº¦ä¸º%s,å½“å‰é•¿åº¦ä¸º%s.'],
+	['max-length', 'æœ€å¤§é•¿åº¦ä¸º%s,å½“å‰é•¿åº¦ä¸º%s.'],
+	['int-range' , 'è¾“å…¥å€¼åº”è¯¥ä¸º %s è‡³ %s çš„æ•´æ•°'],
+	['float-range' , 'è¾“å…¥å€¼åº”è¯¥ä¸º %s è‡³ %s çš„æ•°å­—'],
+	['length-range' , 'è¾“å…¥å€¼çš„é•¿åº¦åº”è¯¥åœ¨ %s è‡³ %s ä¹‹é—´,å½“å‰é•¿åº¦ä¸º%s'],
+	['equals','ä¸¤æ¬¡è¾“å…¥ä¸ä¸€è‡´,è¯·é‡æ–°è¾“å…¥'],
+	['less-than','è¯·è¾“å…¥å°äºå‰é¢çš„å€¼'],
+	['less-than-equal','è¯·è¾“å…¥å°äºæˆ–ç­‰äºå‰é¢çš„å€¼'],
+	['great-than','è¯·è¾“å…¥å¤§äºå‰é¢çš„å€¼'],
+	['great-than-equal','è¯·è¾“å…¥å¤§äºæˆ–ç­‰äºå‰é¢çš„å€¼'],
+	['validate-date' , 'è¯·è¾“å…¥æœ‰æ•ˆçš„æ—¥æœŸ,æ ¼å¼ä¸º %s. ä¾‹å¦‚:%s.'],
+	['validate-selection' , 'è¯·é€‰æ‹©.'],
 	['validate-file' , function(v,elm,args,metadata) {
-		return ValidationUtils.format("ÎÄ¼şÀàĞÍÓ¦¸ÃÎª[%s]ÆäÖĞÖ®Ò»",[args.join(',')]);
+		return ValidationUtils.format("æ–‡ä»¶ç±»å‹åº”è¯¥ä¸º[%s]å…¶ä¸­ä¹‹ä¸€",[args.join(',')]);
 	}],
-	//ÖĞ¹úÌØÓĞµÄÏà¹ØÑéÖ¤ÌáÊ¾ĞÅÏ¢
-	['validate-id-number','ÇëÊäÈëºÏ·¨µÄÉí·İÖ¤ºÅÂë'],
-	['validate-chinese','ÇëÊäÈëÖĞÎÄ'],
-	['validate-phone','ÇëÊäÈëÕıÈ·µÄµç»°ºÅÂë,Èç:010-29392929,µ±Ç°³¤¶ÈÎª%s.'],
-	['validate-mobile-phone','ÇëÊäÈëÕıÈ·µÄÊÖ»úºÅÂë,µ±Ç°³¤¶ÈÎª%s.'],
-	['validate-zip','ÇëÊäÈëÓĞĞ§µÄÓÊÕş±àÂë'],
-	['validate-qq','ÇëÊäÈëÓĞĞ§µÄQQºÅÂë.']
+	//ä¸­å›½ç‰¹æœ‰çš„ç›¸å…³éªŒè¯æç¤ºä¿¡æ¯
+	['validate-id-number','è¯·è¾“å…¥åˆæ³•çš„èº«ä»½è¯å·ç '],
+	['validate-chinese','è¯·è¾“å…¥ä¸­æ–‡'],
+	['validate-phone','è¯·è¾“å…¥æ­£ç¡®çš„ç”µè¯å·ç ,å¦‚:010-29392929,å½“å‰é•¿åº¦ä¸º%s.'],
+	['validate-mobile-phone','è¯·è¾“å…¥æ­£ç¡®çš„æ‰‹æœºå·ç ,å½“å‰é•¿åº¦ä¸º%s.'],
+	['validate-zip','è¯·è¾“å…¥æœ‰æ•ˆçš„é‚®æ”¿ç¼–ç '],
+	['validate-qq','è¯·è¾“å…¥æœ‰æ•ˆçš„QQå·ç .']
 ]
 
 ValidationUtils = {
@@ -159,8 +159,8 @@ ValidationUtils = {
 		}
 		return result;
 	},
-	// Í¨¹ıclassname´«µİµÄ²ÎÊı±ØĞëÍ¨¹ı'-'·Ö¸ô¸÷¸ö²ÎÊı
-	// ·µ»ØÖµ°üº¬Ò»¸ö²ÎÊısingleArgument,Àı:validate-pattern-/[a-c]/gi,singleArgumentÖµÎª/[a-c]/gi
+	// é€šè¿‡classnameä¼ é€’çš„å‚æ•°å¿…é¡»é€šè¿‡'-'åˆ†éš”å„ä¸ªå‚æ•°
+	// è¿”å›å€¼åŒ…å«ä¸€ä¸ªå‚æ•°singleArgument,ä¾‹:validate-pattern-/[a-c]/gi,singleArgumentå€¼ä¸º/[a-c]/gi
 	getArgumentsByClassName : function(prefix,className) {
 		if(!className || !prefix)
 			return [];
@@ -728,7 +728,7 @@ Validation.addAllThese([
 	['validate-integer',/^[-+]?[1-9]\d*$|^0$/],
 	['validate-ip',/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/],
 	
-	//ÖĞ¹úÏà¹ØÑéÖ¤¿ªÊ¼
+	//ä¸­å›½ç›¸å…³éªŒè¯å¼€å§‹
 	['validate-id-number',function(v,elm,args,metadata) {
 		if(!(/^\d{17}(\d|x)$/i.test(v) || /^\d{15}$/i.test(v))) return false;
 		var provinceCode = parseInt(v.substr(0,2));

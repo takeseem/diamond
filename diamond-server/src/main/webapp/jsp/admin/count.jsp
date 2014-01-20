@@ -1,9 +1,9 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
-<title>添加配置信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>娣诲姞閰嶇疆淇℃伅</title>
 
 	<script src="../../../js/prototype_for_validation.js" type="text/javascript"></script>
     <script src="../../../js/effects.js" type="text/javascript"></script>
@@ -26,7 +26,7 @@
 </head>
 <body>
 <c:import url="/jsp/common/message.jsp"/>
-<center><h1><strong>设置拒绝请求参数</strong></h1></center>
+<center><h1><strong>璁剧疆鎷掔粷璇锋眰鍙傛暟</strong></h1></center>
 <p align='center'>
      <c:url var="setRefuseRequestCountUrl" value="/admin.do" >
         <c:param name="method" value="setRefuseRequestCount" />
@@ -34,18 +34,18 @@
      <form action="${setRefuseRequestCountUrl}" method="post" id="count-form">
         <table align='center'>
         <tr>
-            <td>当前值:</td>
+            <td>褰撳墠鍊�:</td>
             <td><c:out value="${count}"/></td>
         </tr>
         
         <tr>
-            <td>设置值:</td>
+            <td>璁剧疆鍊�:</td>
             <td>
                <input type='text' name='count' width="256" class="required validate-number"/>
             </td>
         </tr>
         <tr> 
-            <td colspan="2"><input type="submit" value="提交"/>
+            <td colspan="2"><input type="submit" value="鎻愪氦"/>
         </tr>
      </form>
   </p>

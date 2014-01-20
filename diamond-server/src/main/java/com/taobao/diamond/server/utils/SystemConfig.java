@@ -27,7 +27,7 @@ public class SystemConfig {
     private static final Log log = LogFactory.getLog(SystemConfig.class);
 
     /**
-     * Dump配置信息的时间间隔，默认10分钟
+     * Dump閰嶇疆淇℃伅鐨勬椂闂撮棿闅旓紝榛樿10鍒嗛挓
      */
     private static int dumpConfigInterval = 600;
 
@@ -42,7 +42,7 @@ public class SystemConfig {
             dumpConfigInterval = Integer.parseInt(props.getProperty("dump_config_interval", "600"));
         }
         catch (IOException e) {
-            log.error("加载system.properties出错", e);
+            log.error("鍔犺浇system.properties鍑洪敊", e);
         }
         finally {
             if (in != null) {
@@ -50,7 +50,7 @@ public class SystemConfig {
                     in.close();
                 }
                 catch (IOException e) {
-                    log.error("关闭system.properties出错", e);
+                    log.error("鍏抽棴system.properties鍑洪敊", e);
                 }
             }
         }

@@ -56,31 +56,31 @@ import com.taobao.diamond.utils.JSONUtils;
 
 
 /**
- * SDK¶ÔÍâ¿ª·ÅµÄÊı¾İ½Ó¿ÚµÄ¹¦ÄÜÊµÏÖ
+ * SDKå¯¹å¤–å¼€æ”¾çš„æ•°æ®æ¥å£çš„åŠŸèƒ½å®ç°
  * 
  * @filename DiamondSDKManagerImpl.java
  * @author libinbin.pt
- * @datetime 2010-7-16 ÏÂÎç04:00:19
+ * @datetime 2010-7-16 ä¸‹åˆ04:00:19
  */
 public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
     private static final Log log = LogFactory.getLog("diamondSdkLog");
 
-    // DiamondSDKConfÅäÖÃ¼¯map
+    // DiamondSDKConfé…ç½®é›†map
     private Map<String, DiamondSDKConf> diamondSDKConfMaps;
 
-    // Á¬½Ó³¬Ê±Ê±¼ä
+    // è¿æ¥è¶…æ—¶æ—¶é—´
     private final int connection_timeout;
-    // ÇëÇó³¬Ê±Ê±¼ä
+    // è¯·æ±‚è¶…æ—¶æ—¶é—´
     private final int require_timeout;
 
 
-    // ¹¹ÔìÊ±ĞèÒª´«ÈëÁ¬½Ó³¬Ê±Ê±¼ä£¬ÇëÇó³¬Ê±Ê±¼ä
+    // æ„é€ æ—¶éœ€è¦ä¼ å…¥è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œè¯·æ±‚è¶…æ—¶æ—¶é—´
     public DiamondSDKManagerImpl(int connection_timeout, int require_timeout) throws IllegalArgumentException {
         if (connection_timeout < 0)
-            throw new IllegalArgumentException("Á¬½Ó³¬Ê±Ê±¼äÉèÖÃ±ØĞë´óÓÚ0[µ¥Î»(ºÁÃë)]!");
+            throw new IllegalArgumentException("è¿æ¥è¶…æ—¶æ—¶é—´è®¾ç½®å¿…é¡»å¤§äº0[å•ä½(æ¯«ç§’)]!");
         if (require_timeout < 0)
-            throw new IllegalArgumentException("ÇëÇó³¬Ê±Ê±¼äÉèÖÃ±ØĞë´óÓÚ0[µ¥Î»(ºÁÃë)]!");
+            throw new IllegalArgumentException("è¯·æ±‚è¶…æ—¶æ—¶é—´è®¾ç½®å¿…é¡»å¤§äº0[å•ä½(æ¯«ç§’)]!");
         this.connection_timeout = connection_timeout;
         this.require_timeout = require_timeout;
         int maxHostConnections = 50;
@@ -89,80 +89,80 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         connectionManager.getParams().setDefaultMaxConnectionsPerHost(maxHostConnections);
         connectionManager.getParams().setStaleCheckingEnabled(true);
         this.client = new HttpClient(connectionManager);
-        // ÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä
+        // è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´
         client.getHttpConnectionManager().getParams().setConnectionTimeout(this.connection_timeout);
-        // ÉèÖÃ¶Á³¬Ê±Îª1·ÖÖÓ
+        // è®¾ç½®è¯»è¶…æ—¶ä¸º1åˆ†é’Ÿ
         client.getHttpConnectionManager().getParams().setSoTimeout(60 * 1000);
         client.getParams().setContentCharset("GBK");
-        log.info("ÉèÖÃÁ¬½Ó³¬Ê±Ê±¼äÎª: " + this.connection_timeout + "ºÁÃë");
+        log.info("è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´ä¸º: " + this.connection_timeout + "æ¯«ç§’");
     }
 
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄdiamondÀ´ÍÆËÍÊı¾İ
+     * ä½¿ç”¨æŒ‡å®šçš„diamondæ¥æ¨é€æ•°æ®
      * 
      * @param dataId
      * @param groupName
      * @param context
      * @param serverId
-     * @return ContextResult µ¥¸ö¶ÔÏó
+     * @return ContextResult å•ä¸ªå¯¹è±¡
      */
     public synchronized ContextResult pulish(String dataId, String groupName, String context, String serverId) {
         ContextResult response = null;
-        // ½øĞĞdataId,groupName,context,serverIdÎª¿ÕÑéÖ¤
+        // è¿›è¡ŒdataId,groupName,context,serverIdä¸ºç©ºéªŒè¯
         if (validate(dataId, groupName, context)) {
             response = this.processPulishByDefinedServerId(dataId, groupName, context, serverId);
             return response;
         }
 
-        // Î´Í¨¹ıÎª¿ÕÑéÖ¤
+        // æœªé€šè¿‡ä¸ºç©ºéªŒè¯
         response = new ContextResult();
         response.setSuccess(false);
-        response.setStatusMsg("ÇëÈ·±£dataId,group,content²»Îª¿Õ");
+        response.setStatusMsg("è¯·ç¡®ä¿dataId,group,contentä¸ä¸ºç©º");
         return response;
     }
 
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄdiamondÀ´ÍÆËÍĞŞ¸ÄºóµÄÊı¾İ
+     * ä½¿ç”¨æŒ‡å®šçš„diamondæ¥æ¨é€ä¿®æ”¹åçš„æ•°æ®
      * 
      * @param dataId
      * @param groupName
      * @param context
      * @param serverId
-     * @return ContextResult µ¥¸ö¶ÔÏó
+     * @return ContextResult å•ä¸ªå¯¹è±¡
      */
     public synchronized ContextResult pulishAfterModified(String dataId, String groupName, String context,
             String serverId) {
 
         ContextResult response = null;
-        // ½øĞĞdataId,groupName,context,serverIdÎª¿ÕÑéÖ¤
+        // è¿›è¡ŒdataId,groupName,context,serverIdä¸ºç©ºéªŒè¯
         if (validate(dataId, groupName, context)) {
-            // Ïòdiamondserver·¢²¼ĞŞ¸ÄÊı¾İ
+            // å‘diamondserverå‘å¸ƒä¿®æ”¹æ•°æ®
             response = this.processPulishAfterModifiedByDefinedServerId(dataId, groupName, context, serverId);
             return response;
         }
         else {
             response = new ContextResult();
-            // Î´Í¨¹ıÎª¿ÕÑéÖ¤
+            // æœªé€šè¿‡ä¸ºç©ºéªŒè¯
             response.setSuccess(false);
-            response.setStatusMsg("ÇëÈ·±£dataId,group,content²»Îª¿Õ");
+            response.setStatusMsg("è¯·ç¡®ä¿dataId,group,contentä¸ä¸ºç©º");
             return response;
         }
 
     }
 
 
-    // -------------------------Ä£ºı²éÑ¯-------------------------------//
+    // -------------------------æ¨¡ç³ŠæŸ¥è¯¢-------------------------------//
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄdiamondÀ´Ä£ºı²éÑ¯Êı¾İ
+     * ä½¿ç”¨æŒ‡å®šçš„diamondæ¥æ¨¡ç³ŠæŸ¥è¯¢æ•°æ®
      * 
      * @param dataIdPattern
      * @param groupNamePattern
      * @param serverId
      * @param currentPage
      * @param sizeOfPerPage
-     * @return PageContextResult<ConfigInfo> µ¥¸ö¶ÔÏó
+     * @return PageContextResult<ConfigInfo> å•ä¸ªå¯¹è±¡
      * @throws SQLException
      */
     public synchronized PageContextResult<ConfigInfo> queryBy(String dataIdPattern, String groupNamePattern,
@@ -172,8 +172,8 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
 
     /**
-     * ¸ù¾İÖ¸¶¨µÄ dataId,×éÃûºÍcontentµ½Ö¸¶¨ÅäÖÃµÄdiamondÀ´²éÑ¯Êı¾İÁĞ±í Èç¹ûÄ£Ê½ÖĞ°üº¬·ûºÅ'*',Ôò»á×Ô¶¯Ìæ»»Îª'%'²¢Ê¹ÓÃ[
-     * like ]Óï¾ä Èç¹ûÄ£Ê½ÖĞ²»°üº¬·ûºÅ'*'²¢ÇÒ²»Îª¿Õ´®£¨°üÀ¨" "£©,ÔòÊ¹ÓÃ[ = ]Óï¾ä
+     * æ ¹æ®æŒ‡å®šçš„ dataId,ç»„åå’Œcontentåˆ°æŒ‡å®šé…ç½®çš„diamondæ¥æŸ¥è¯¢æ•°æ®åˆ—è¡¨ å¦‚æœæ¨¡å¼ä¸­åŒ…å«ç¬¦å·'*',åˆ™ä¼šè‡ªåŠ¨æ›¿æ¢ä¸º'%'å¹¶ä½¿ç”¨[
+     * like ]è¯­å¥ å¦‚æœæ¨¡å¼ä¸­ä¸åŒ…å«ç¬¦å·'*'å¹¶ä¸”ä¸ä¸ºç©ºä¸²ï¼ˆåŒ…æ‹¬" "ï¼‰,åˆ™ä½¿ç”¨[ = ]è¯­å¥
      * 
      * @param dataIdPattern
      * @param groupNamePattern
@@ -181,7 +181,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
      * @param serverId
      * @param currentPage
      * @param sizeOfPerPage
-     * @return PageContextResult<ConfigInfo> µ¥¸ö¶ÔÏó
+     * @return PageContextResult<ConfigInfo> å•ä¸ªå¯¹è±¡
      * @throws SQLException
      */
 
@@ -191,15 +191,15 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     }
 
 
-    // =====================¾«È·²éÑ¯ ==================================
+    // =====================ç²¾ç¡®æŸ¥è¯¢ ==================================
 
     /**
-     * Ê¹ÓÃÖ¸¶¨µÄdiamondºÍÖ¸¶¨µÄdataId,groupNameÀ´¾«È·²éÑ¯Êı¾İ
+     * ä½¿ç”¨æŒ‡å®šçš„diamondå’ŒæŒ‡å®šçš„dataId,groupNameæ¥ç²¾ç¡®æŸ¥è¯¢æ•°æ®
      * 
      * @param dataId
      * @param groupName
      * @param serverId
-     * @return ContextResult µ¥¸ö¶ÔÏó
+     * @return ContextResult å•ä¸ªå¯¹è±¡
      * @throws SQLException
      */
     public synchronized ContextResult queryByDataIdAndGroupName(String dataId, String groupName, String serverId) {
@@ -221,84 +221,84 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         return result;
     }
 
-    // ========================¾«È·²éÑ¯½áÊø==================================
+    // ========================ç²¾ç¡®æŸ¥è¯¢ç»“æŸ==================================
 
-    // /////////////////////////Ë½ÓĞ¹¤¾ß¶ÔÏó¶¨ÒåºÍ¹¤¾ß·½·¨ÊµÏÖ////////////////////////////////////////
+    // /////////////////////////ç§æœ‰å·¥å…·å¯¹è±¡å®šä¹‰å’Œå·¥å…·æ–¹æ³•å®ç°////////////////////////////////////////
 
     private final HttpClient client;
 
 
-    // =========================== ÍÆËÍ ===============================
+    // =========================== æ¨é€ ===============================
 
     private ContextResult processPulishByDefinedServerId(String dataId, String groupName, String context,
             String serverId) {
         ContextResult response = new ContextResult();
-        // µÇÂ¼
+        // ç™»å½•
         if (!login(serverId)) {
             response.setSuccess(false);
-            response.setStatusMsg("µÇÂ¼Ê§°Ü,Ôì³É´íÎóµÄÔ­Òò¿ÉÄÜÊÇÖ¸¶¨µÄserverIdÎª¿Õ»ò²»´æÔÚ");
+            response.setStatusMsg("ç™»å½•å¤±è´¥,é€ æˆé”™è¯¯çš„åŸå› å¯èƒ½æ˜¯æŒ‡å®šçš„serverIdä¸ºç©ºæˆ–ä¸å­˜åœ¨");
             return response;
         }
         if (log.isDebugEnabled())
-            log.debug("Ê¹ÓÃprocessPulishByDefinedServerId(" + dataId + "," + groupName + "," + context + "," + serverId
-                    + ")½øĞĞÍÆËÍ");
+            log.debug("ä½¿ç”¨processPulishByDefinedServerId(" + dataId + "," + groupName + "," + context + "," + serverId
+                    + ")è¿›è¡Œæ¨é€");
 
         String postUrl = "/diamond-server/admin.do?method=postConfig";
         PostMethod post = new PostMethod(postUrl);
-        // ÉèÖÃÇëÇó³¬Ê±Ê±¼ä
+        // è®¾ç½®è¯·æ±‚è¶…æ—¶æ—¶é—´
         post.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, require_timeout);
         try {
             NameValuePair dataId_value = new NameValuePair("dataId", dataId);
             NameValuePair group_value = new NameValuePair("group", groupName);
             NameValuePair content_value = new NameValuePair("content", context);
 
-            // ÉèÖÃ²ÎÊı
+            // è®¾ç½®å‚æ•°
             post.setRequestBody(new NameValuePair[] { dataId_value, group_value, content_value });
-            // ÅäÖÃ¶ÔÏó
+            // é…ç½®å¯¹è±¡
             ConfigInfo configInfo = new ConfigInfo();
             configInfo.setDataId(dataId);
             configInfo.setGroup(groupName);
             configInfo.setContent(context);
             if (log.isDebugEnabled())
-                log.debug("´ıÍÆËÍµÄConfigInfo: " + configInfo);
-            // Ìí¼ÓÒ»¸öÅäÖÃ¶ÔÏóµ½ÏìÓ¦½á¹ûÖĞ
+                log.debug("å¾…æ¨é€çš„ConfigInfo: " + configInfo);
+            // æ·»åŠ ä¸€ä¸ªé…ç½®å¯¹è±¡åˆ°å“åº”ç»“æœä¸­
             response.setConfigInfo(configInfo);
-            // Ö´ĞĞ·½·¨²¢·µ»Øhttp×´Ì¬Âë
+            // æ‰§è¡Œæ–¹æ³•å¹¶è¿”å›httpçŠ¶æ€ç 
             int status = client.executeMethod(post);
             response.setReceiveResult(post.getResponseBodyAsString());
             response.setStatusCode(status);
-            log.info("×´Ì¬Âë£º" + status + ",ÏìÓ¦½á¹û£º" + post.getResponseBodyAsString());
+            log.info("çŠ¶æ€ç ï¼š" + status + ",å“åº”ç»“æœï¼š" + post.getResponseBodyAsString());
             if (status == HttpStatus.SC_OK) {
                 response.setSuccess(true);
-                response.setStatusMsg("ÍÆËÍ´¦Àí³É¹¦");
-                log.info("ÍÆËÍ´¦Àí³É¹¦, dataId=" + dataId + ",group=" + groupName + ",content=" + context + ",serverId="
+                response.setStatusMsg("æ¨é€å¤„ç†æˆåŠŸ");
+                log.info("æ¨é€å¤„ç†æˆåŠŸ, dataId=" + dataId + ",group=" + groupName + ",content=" + context + ",serverId="
                         + serverId);
             }
             else if (status == HttpStatus.SC_REQUEST_TIMEOUT) {
                 response.setSuccess(false);
-                response.setStatusMsg("ÍÆËÍ´¦Àí³¬Ê±, Ä¬ÈÏ³¬Ê±Ê±¼äÎª:" + require_timeout + "ºÁÃë");
-                log.error("ÍÆËÍ´¦Àí³¬Ê±£¬Ä¬ÈÏ³¬Ê±Ê±¼äÎª:" + require_timeout + "ºÁÃë, dataId=" + dataId + ",group=" + groupName
+                response.setStatusMsg("æ¨é€å¤„ç†è¶…æ—¶, é»˜è®¤è¶…æ—¶æ—¶é—´ä¸º:" + require_timeout + "æ¯«ç§’");
+                log.error("æ¨é€å¤„ç†è¶…æ—¶ï¼Œé»˜è®¤è¶…æ—¶æ—¶é—´ä¸º:" + require_timeout + "æ¯«ç§’, dataId=" + dataId + ",group=" + groupName
                         + ",content=" + context + ",serverId=" + serverId);
             }
             else {
                 response.setSuccess(false);
-                response.setStatusMsg("ÍÆËÍ´¦ÀíÊ§°Ü, ×´Ì¬ÂëÎª:" + status);
-                log.error("ÍÆËÍ´¦ÀíÊ§°Ü:" + response.getReceiveResult() + ",dataId=" + dataId + ",group=" + groupName
+                response.setStatusMsg("æ¨é€å¤„ç†å¤±è´¥, çŠ¶æ€ç ä¸º:" + status);
+                log.error("æ¨é€å¤„ç†å¤±è´¥:" + response.getReceiveResult() + ",dataId=" + dataId + ",group=" + groupName
                         + ",content=" + context + ",serverId=" + serverId);
             }
         }
         catch (HttpException e) {
-            response.setStatusMsg("ÍÆËÍ´¦Àí·¢ÉúHttpException£º" + e.getMessage());
-            log.error("ÍÆËÍ´¦Àí·¢ÉúHttpException: dataId=" + dataId + ",group=" + groupName + ",content=" + context
+            response.setStatusMsg("æ¨é€å¤„ç†å‘ç”ŸHttpExceptionï¼š" + e.getMessage());
+            log.error("æ¨é€å¤„ç†å‘ç”ŸHttpException: dataId=" + dataId + ",group=" + groupName + ",content=" + context
                     + ",serverId=" + serverId, e);
         }
         catch (IOException e) {
-            response.setStatusMsg("ÍÆËÍ´¦Àí·¢ÉúIOException£º" + e.getMessage());
-            log.error("ÍÆËÍ´¦Àí·¢ÉúIOException: dataId=" + dataId + ",group=" + groupName + ",content=" + context
+            response.setStatusMsg("æ¨é€å¤„ç†å‘ç”ŸIOExceptionï¼š" + e.getMessage());
+            log.error("æ¨é€å¤„ç†å‘ç”ŸIOException: dataId=" + dataId + ",group=" + groupName + ",content=" + context
                     + ",serverId=" + serverId, e);
         }
         finally {
-            // ÊÍ·ÅÁ¬½Ó×ÊÔ´
+            // é‡Šæ”¾è¿æ¥èµ„æº
             post.releaseConnection();
         }
 
@@ -306,94 +306,94 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     }
 
 
-    // =========================== ÍÆËÍ½áÊø ===============================
+    // =========================== æ¨é€ç»“æŸ ===============================
 
-    // =========================== ĞŞ¸Ä ===============================
+    // =========================== ä¿®æ”¹ ===============================
 
     private ContextResult processPulishAfterModifiedByDefinedServerId(String dataId, String groupName, String context,
             String serverId) {
         ContextResult response = new ContextResult();
-        // µÇÂ¼
+        // ç™»å½•
         if (!login(serverId)) {
             response.setSuccess(false);
-            response.setStatusMsg("µÇÂ¼Ê§°Ü,Ôì³É´íÎóµÄÔ­Òò¿ÉÄÜÊÇÖ¸¶¨µÄserverIdÎª¿Õ");
+            response.setStatusMsg("ç™»å½•å¤±è´¥,é€ æˆé”™è¯¯çš„åŸå› å¯èƒ½æ˜¯æŒ‡å®šçš„serverIdä¸ºç©º");
             return response;
         }
         if (log.isDebugEnabled())
-            log.debug("Ê¹ÓÃprocessPulishAfterModifiedByDefinedServerId(" + dataId + "," + groupName + "," + context + ","
-                    + serverId + ")½øĞĞÍÆËÍĞŞ¸Ä");
-        // ÊÇ·ñ´æÔÚ´ËdataId,groupNameµÄÊı¾İ¼ÇÂ¼
+            log.debug("ä½¿ç”¨processPulishAfterModifiedByDefinedServerId(" + dataId + "," + groupName + "," + context + ","
+                    + serverId + ")è¿›è¡Œæ¨é€ä¿®æ”¹");
+        // æ˜¯å¦å­˜åœ¨æ­¤dataId,groupNameçš„æ•°æ®è®°å½•
         ContextResult result = null;
         result = queryByDataIdAndGroupName(dataId, groupName, serverId);
         if (null == result || !result.isSuccess()) {
             response.setSuccess(false);
-            response.setStatusMsg("ÕÒ²»µ½ĞèÒªĞŞ¸ÄµÄÊı¾İ¼ÇÂ¼£¬¼ÇÂ¼²»´æÔÚ!");
-            log.warn("ÕÒ²»µ½ĞèÒªĞŞ¸ÄµÄÊı¾İ¼ÇÂ¼£¬¼ÇÂ¼²»´æÔÚ! dataId=" + dataId + ",group=" + groupName + ",serverId=" + serverId);
+            response.setStatusMsg("æ‰¾ä¸åˆ°éœ€è¦ä¿®æ”¹çš„æ•°æ®è®°å½•ï¼Œè®°å½•ä¸å­˜åœ¨!");
+            log.warn("æ‰¾ä¸åˆ°éœ€è¦ä¿®æ”¹çš„æ•°æ®è®°å½•ï¼Œè®°å½•ä¸å­˜åœ¨! dataId=" + dataId + ",group=" + groupName + ",serverId=" + serverId);
             return response;
         }
-        // ÓĞÊı¾İ£¬ÔòĞŞ¸Ä
+        // æœ‰æ•°æ®ï¼Œåˆ™ä¿®æ”¹
         else {
             String postUrl = "/diamond-server/admin.do?method=updateConfig";
             PostMethod post = new PostMethod(postUrl);
-            // ÉèÖÃÇëÇó³¬Ê±Ê±¼ä
+            // è®¾ç½®è¯·æ±‚è¶…æ—¶æ—¶é—´
             post.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, require_timeout);
             try {
                 NameValuePair dataId_value = new NameValuePair("dataId", dataId);
                 NameValuePair group_value = new NameValuePair("group", groupName);
                 NameValuePair content_value = new NameValuePair("content", context);
-                // ÉèÖÃ²ÎÊı
+                // è®¾ç½®å‚æ•°
                 post.setRequestBody(new NameValuePair[] { dataId_value, group_value, content_value });
-                // ÅäÖÃ¶ÔÏó
+                // é…ç½®å¯¹è±¡
                 ConfigInfo configInfo = new ConfigInfo();
                 configInfo.setDataId(dataId);
                 configInfo.setGroup(groupName);
                 configInfo.setContent(context);
                 if (log.isDebugEnabled())
-                    log.debug("´ıÍÆËÍµÄĞŞ¸ÄConfigInfo: " + configInfo);
-                // Ìí¼ÓÒ»¸öÅäÖÃ¶ÔÏóµ½ÏìÓ¦½á¹ûÖĞ
+                    log.debug("å¾…æ¨é€çš„ä¿®æ”¹ConfigInfo: " + configInfo);
+                // æ·»åŠ ä¸€ä¸ªé…ç½®å¯¹è±¡åˆ°å“åº”ç»“æœä¸­
                 response.setConfigInfo(configInfo);
-                // Ö´ĞĞ·½·¨²¢·µ»Øhttp×´Ì¬Âë
+                // æ‰§è¡Œæ–¹æ³•å¹¶è¿”å›httpçŠ¶æ€ç 
                 int status = client.executeMethod(post);
                 response.setReceiveResult(post.getResponseBodyAsString());
                 response.setStatusCode(status);
-                log.info("×´Ì¬Âë£º" + status + ",ÏìÓ¦½á¹û£º" + post.getResponseBodyAsString());
+                log.info("çŠ¶æ€ç ï¼š" + status + ",å“åº”ç»“æœï¼š" + post.getResponseBodyAsString());
                 if (status == HttpStatus.SC_OK) {
                     response.setSuccess(true);
-                    response.setStatusMsg("ÍÆËÍĞŞ¸Ä´¦Àí³É¹¦");
-                    log.info("ÍÆËÍĞŞ¸Ä´¦Àí³É¹¦");
+                    response.setStatusMsg("æ¨é€ä¿®æ”¹å¤„ç†æˆåŠŸ");
+                    log.info("æ¨é€ä¿®æ”¹å¤„ç†æˆåŠŸ");
                 }
                 else if (status == HttpStatus.SC_REQUEST_TIMEOUT) {
                     response.setSuccess(false);
-                    response.setStatusMsg("ÍÆËÍĞŞ¸Ä´¦Àí³¬Ê±£¬Ä¬ÈÏ³¬Ê±Ê±¼äÎª:" + require_timeout + "ºÁÃë");
-                    log.error("ÍÆËÍĞŞ¸Ä´¦Àí³¬Ê±£¬Ä¬ÈÏ³¬Ê±Ê±¼äÎª:" + require_timeout + "ºÁÃë, dataId=" + dataId + ",group=" + groupName
+                    response.setStatusMsg("æ¨é€ä¿®æ”¹å¤„ç†è¶…æ—¶ï¼Œé»˜è®¤è¶…æ—¶æ—¶é—´ä¸º:" + require_timeout + "æ¯«ç§’");
+                    log.error("æ¨é€ä¿®æ”¹å¤„ç†è¶…æ—¶ï¼Œé»˜è®¤è¶…æ—¶æ—¶é—´ä¸º:" + require_timeout + "æ¯«ç§’, dataId=" + dataId + ",group=" + groupName
                             + ",content=" + context + ",serverId=" + serverId);
                 }
                 else {
                     response.setSuccess(false);
-                    response.setStatusMsg("ÍÆËÍĞŞ¸Ä´¦ÀíÊ§°Ü,Ê§°ÜÔ­ÒòÇëÍ¨¹ıContextResultµÄgetReceiveResult()·½·¨²é¿´");
-                    log.error("ÍÆËÍĞŞ¸Ä´¦ÀíÊ§°Ü:" + response.getReceiveResult() + ",dataId=" + dataId + ",group=" + groupName
+                    response.setStatusMsg("æ¨é€ä¿®æ”¹å¤„ç†å¤±è´¥,å¤±è´¥åŸå› è¯·é€šè¿‡ContextResultçš„getReceiveResult()æ–¹æ³•æŸ¥çœ‹");
+                    log.error("æ¨é€ä¿®æ”¹å¤„ç†å¤±è´¥:" + response.getReceiveResult() + ",dataId=" + dataId + ",group=" + groupName
                             + ",content=" + context + ",serverId=" + serverId);
                 }
 
             }
             catch (HttpException e) {
                 response.setSuccess(false);
-                response.setStatusMsg("ÍÆËÍĞŞ¸Ä·½·¨Ö´ĞĞ¹ı³Ì·¢ÉúHttpException£º" + e.getMessage());
+                response.setStatusMsg("æ¨é€ä¿®æ”¹æ–¹æ³•æ‰§è¡Œè¿‡ç¨‹å‘ç”ŸHttpExceptionï¼š" + e.getMessage());
                 log.error(
-                    "ÔÚÍÆËÍĞŞ¸Ä·½·¨processPulishAfterModifiedByDefinedServerId(String dataId, String groupName, String context,String serverId)Ö´ĞĞ¹ı³ÌÖĞ·¢ÉúHttpException£ºdataId="
+                    "åœ¨æ¨é€ä¿®æ”¹æ–¹æ³•processPulishAfterModifiedByDefinedServerId(String dataId, String groupName, String context,String serverId)æ‰§è¡Œè¿‡ç¨‹ä¸­å‘ç”ŸHttpExceptionï¼šdataId="
                             + dataId + ",group=" + groupName + ",content=" + context + ",serverId=" + serverId, e);
                 return response;
             }
             catch (IOException e) {
                 response.setSuccess(false);
-                response.setStatusMsg("ÍÆËÍĞŞ¸Ä·½·¨Ö´ĞĞ¹ı³Ì·¢ÉúIOException£º" + e.getMessage());
+                response.setStatusMsg("æ¨é€ä¿®æ”¹æ–¹æ³•æ‰§è¡Œè¿‡ç¨‹å‘ç”ŸIOExceptionï¼š" + e.getMessage());
                 log.error(
-                    "ÔÚÍÆËÍĞŞ¸Ä·½·¨processPulishAfterModifiedByDefinedServerId(String dataId, String groupName, String context,String serverId)Ö´ĞĞ¹ı³ÌÖĞ·¢ÉúIOException£ºdataId="
+                    "åœ¨æ¨é€ä¿®æ”¹æ–¹æ³•processPulishAfterModifiedByDefinedServerId(String dataId, String groupName, String context,String serverId)æ‰§è¡Œè¿‡ç¨‹ä¸­å‘ç”ŸIOExceptionï¼šdataId="
                             + dataId + ",group=" + groupName + ",content=" + context + ",serverId=" + serverId, e);
                 return response;
             }
             finally {
-                // ÊÍ·ÅÁ¬½Ó×ÊÔ´
+                // é‡Šæ”¾è¿æ¥èµ„æº
                 post.releaseConnection();
             }
 
@@ -402,74 +402,74 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     }
 
 
-    // =========================== ĞŞ¸Ä½áÊø ===============================
+    // =========================== ä¿®æ”¹ç»“æŸ ===============================
 
     /**
-     * ÀûÓÃ httpclientÊµÏÖÒ³ÃæµÇÂ¼
+     * åˆ©ç”¨ httpclientå®ç°é¡µé¢ç™»å½•
      * 
-     * @return µÇÂ¼½á¹û true:µÇÂ¼³É¹¦,false:µÇÂ¼Ê§°Ü
+     * @return ç™»å½•ç»“æœ true:ç™»å½•æˆåŠŸ,false:ç™»å½•å¤±è´¥
      */
 
     private boolean login(String serverId) {
-        // serverId Îª¿ÕÅĞ¶Ï
+        // serverId ä¸ºç©ºåˆ¤æ–­
         if (StringUtils.isEmpty(serverId) || StringUtils.isBlank(serverId))
             return false;
         DiamondSDKConf defaultConf = diamondSDKConfMaps.get(serverId);
-        log.info("[login] µÇÂ¼Ê¹ÓÃserverId:" + serverId + ",¸Ã»·¾³¶ÔÏóÊôĞÔ£º" + defaultConf);
+        log.info("[login] ç™»å½•ä½¿ç”¨serverId:" + serverId + ",è¯¥ç¯å¢ƒå¯¹è±¡å±æ€§ï¼š" + defaultConf);
         if (null == defaultConf)
             return false;
         RandomDiamondUtils util = new RandomDiamondUtils();
-        // ³õÊ¼»¯Ëæ»úÈ¡ÖµÆ÷
+        // åˆå§‹åŒ–éšæœºå–å€¼å™¨
         util.init(defaultConf.getDiamondConfs());
         if (defaultConf.getDiamondConfs().size() == 0)
             return false;
         boolean flag = false;
-        log.info("[randomSequence] ´Ë´Î·ÃÎÊĞòÁĞÎª: " + util.getSequenceToString());
-        // ×î¶àÖØÊÔ´ÎÊıÎª£ºÄ³¸ö»·¾³µÄËùÓĞÒÑÅäÖÃµÄdiamondConfµÄ³¤¶È
+        log.info("[randomSequence] æ­¤æ¬¡è®¿é—®åºåˆ—ä¸º: " + util.getSequenceToString());
+        // æœ€å¤šé‡è¯•æ¬¡æ•°ä¸ºï¼šæŸä¸ªç¯å¢ƒçš„æ‰€æœ‰å·²é…ç½®çš„diamondConfçš„é•¿åº¦
         while (util.getRetry_times() < util.getMax_times()) {
 
-            // µÃµ½Ëæ»úÈ¡µÃµÄdiamondConf
+            // å¾—åˆ°éšæœºå–å¾—çš„diamondConf
             DiamondConf diamondConf = util.generatorOneDiamondConf();
-            log.info("µÚ" + util.getRetry_times() + "´Î³¢ÊÔ:" + diamondConf);
+            log.info("ç¬¬" + util.getRetry_times() + "æ¬¡å°è¯•:" + diamondConf);
             if (diamondConf == null)
                 break;
             client.getHostConfiguration().setHost(diamondConf.getDiamondIp(),
                 Integer.parseInt(diamondConf.getDiamondPort()), "http");
             PostMethod post = new PostMethod("/diamond-server/login.do?method=login");
-            // ÉèÖÃÇëÇó³¬Ê±Ê±¼ä
+            // è®¾ç½®è¯·æ±‚è¶…æ—¶æ—¶é—´
             post.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, require_timeout);
-            // Ìî³äÓÃ»§Ãû£¬ÃÜÂë
+            // å¡«å……ç”¨æˆ·åï¼Œå¯†ç 
             NameValuePair username_value = new NameValuePair("username", diamondConf.getDiamondUsername());
             NameValuePair password_value = new NameValuePair("password", diamondConf.getDiamondPassword());
-            // ÉèÖÃÇëÇóÄÚÈİ
+            // è®¾ç½®è¯·æ±‚å†…å®¹
             post.setRequestBody(new NameValuePair[] { username_value, password_value });
-            log.info("Ê¹ÓÃdiamondIp: " + diamondConf.getDiamondIp() + ",diamondPort: " + diamondConf.getDiamondPort()
+            log.info("ä½¿ç”¨diamondIp: " + diamondConf.getDiamondIp() + ",diamondPort: " + diamondConf.getDiamondPort()
                     + ",diamondUsername: " + diamondConf.getDiamondUsername() + ",diamondPassword: "
-                    + diamondConf.getDiamondPassword() + "µÇÂ¼diamondServerUrl: [" + diamondConf.getDiamondConUrl() + "]");
+                    + diamondConf.getDiamondPassword() + "ç™»å½•diamondServerUrl: [" + diamondConf.getDiamondConUrl() + "]");
 
             try {
                 int state = client.executeMethod(post);
-                log.info("µÇÂ¼·µ»Ø×´Ì¬Âë£º" + state);
-                // ×´Ì¬ÂëÎª200£¬ÔòµÇÂ¼³É¹¦,Ìø³öÑ­»·²¢·µ»Øtrue
+                log.info("ç™»å½•è¿”å›çŠ¶æ€ç ï¼š" + state);
+                // çŠ¶æ€ç ä¸º200ï¼Œåˆ™ç™»å½•æˆåŠŸ,è·³å‡ºå¾ªç¯å¹¶è¿”å›true
                 if (state == HttpStatus.SC_OK) {
-                    log.info("µÚ" + util.getRetry_times() + "´Î³¢ÊÔ³É¹¦");
+                    log.info("ç¬¬" + util.getRetry_times() + "æ¬¡å°è¯•æˆåŠŸ");
                     flag = true;
                     break;
                 }
 
             }
             catch (HttpException e) {
-                log.error("µÇÂ¼¹ı³Ì·¢ÉúHttpException", e);
+                log.error("ç™»å½•è¿‡ç¨‹å‘ç”ŸHttpException", e);
             }
             catch (IOException e) {
-                log.error("µÇÂ¼¹ı³Ì·¢ÉúIOException", e);
+                log.error("ç™»å½•è¿‡ç¨‹å‘ç”ŸIOException", e);
             }
             finally {
                 post.releaseConnection();
             }
         }
         if (flag == false) {
-            log.error("Ôì³ÉloginÊ§°ÜµÄÔ­Òò¿ÉÄÜÊÇ£ºËùÓĞdiamondServerµÄÅäÖÃ»·¾³Ä¿Ç°¾ù²»¿ÉÓÃ£®serverId=" + serverId);
+            log.error("é€ æˆloginå¤±è´¥çš„åŸå› å¯èƒ½æ˜¯ï¼šæ‰€æœ‰diamondServerçš„é…ç½®ç¯å¢ƒç›®å‰å‡ä¸å¯ç”¨ï¼serverId=" + serverId);
         }
         return flag;
     }
@@ -481,7 +481,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
 
     /**
-     * ´¦Àí²éÑ¯
+     * å¤„ç†æŸ¥è¯¢
      * 
      * @param dataIdPattern
      * @param groupNamePattern
@@ -495,24 +495,24 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     private PageContextResult<ConfigInfo> processQuery(String dataIdPattern, String groupNamePattern,
             String contentPattern, String serverId, long currentPage, long sizeOfPerPage) {
         PageContextResult<ConfigInfo> response = new PageContextResult<ConfigInfo>();
-        // µÇÂ¼
+        // ç™»å½•
         if (!login(serverId)) {
             response.setSuccess(false);
-            response.setStatusMsg("µÇÂ¼Ê§°Ü,Ôì³É´íÎóµÄÔ­Òò¿ÉÄÜÊÇÖ¸¶¨µÄserverIdÎª¿Õ»ò²»´æÔÚ");
+            response.setStatusMsg("ç™»å½•å¤±è´¥,é€ æˆé”™è¯¯çš„åŸå› å¯èƒ½æ˜¯æŒ‡å®šçš„serverIdä¸ºç©ºæˆ–ä¸å­˜åœ¨");
             return response;
         }
         if (log.isDebugEnabled())
-            log.debug("Ê¹ÓÃprocessQuery(" + dataIdPattern + "," + groupNamePattern + "," + contentPattern + ","
-                    + serverId + ")½øĞĞ²éÑ¯");
+            log.debug("ä½¿ç”¨processQuery(" + dataIdPattern + "," + groupNamePattern + "," + contentPattern + ","
+                    + serverId + ")è¿›è¡ŒæŸ¥è¯¢");
         boolean hasPattern =
                 PatternUtils.hasCharPattern(dataIdPattern) || PatternUtils.hasCharPattern(groupNamePattern)
                         || PatternUtils.hasCharPattern(contentPattern);
         String url = null;
         if (hasPattern) {
             if (!StringUtils.isBlank(contentPattern)) {
-                log.warn("×¢Òâ, ÕıÔÚ¸ù¾İÄÚÈİÀ´½øĞĞÄ£ºı²éÑ¯, dataIdPattern=" + dataIdPattern + ",groupNamePattern=" + groupNamePattern
+                log.warn("æ³¨æ„, æ­£åœ¨æ ¹æ®å†…å®¹æ¥è¿›è¡Œæ¨¡ç³ŠæŸ¥è¯¢, dataIdPattern=" + dataIdPattern + ",groupNamePattern=" + groupNamePattern
                         + ",contentPattern=" + contentPattern);
-                // Ä£ºı²éÑ¯ÄÚÈİ£¬È«²¿²é³öÀ´
+                // æ¨¡ç³ŠæŸ¥è¯¢å†…å®¹ï¼Œå…¨éƒ¨æŸ¥å‡ºæ¥
                 url = String.format(LIST_LIKE_FORMAT_URL, groupNamePattern, dataIdPattern, 1, Integer.MAX_VALUE);
             }
             else
@@ -547,7 +547,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                         if (!StringUtils.isBlank(contentPattern)) {
                             Pattern pattern = Pattern.compile(contentPattern.replaceAll("\\*", ".*"));
                             List<ConfigInfo> newList = new ArrayList<ConfigInfo>();
-                            // Ç¿ÖÆÅÅĞò
+                            // å¼ºåˆ¶æ’åº
                             Collections.sort(diamondData);
                             int totalCount = 0;
                             long begin = sizeOfPerPage * (currentPage - 1);
@@ -556,7 +556,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                                 if (configInfo.getContent() != null) {
                                     Matcher m = pattern.matcher(configInfo.getContent());
                                     if (m.find()) {
-                                        // Ö»Ìí¼ÓsizeOfPerPage¸ö
+                                        // åªæ·»åŠ sizeOfPerPageä¸ª
                                         if (totalCount >= begin && totalCount < end) {
                                             newList.add(configInfo);
                                         }
@@ -585,26 +585,26 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                     }
                     response.setDiamondData(pageItems);
                     response.setSuccess(true);
-                    response.setStatusMsg("Ö¸¶¨diamondµÄ²éÑ¯Íê³É");
-                    log.info("Ö¸¶¨diamondµÄ²éÑ¯Íê³É, url=" + url);
+                    response.setStatusMsg("æŒ‡å®šdiamondçš„æŸ¥è¯¢å®Œæˆ");
+                    log.info("æŒ‡å®šdiamondçš„æŸ¥è¯¢å®Œæˆ, url=" + url);
                 }
                 catch (Exception e) {
                     response.setSuccess(false);
-                    response.setStatusMsg("·´ĞòÁĞ»¯Ê§°Ü,´íÎóĞÅÏ¢Îª£º" + e.getLocalizedMessage());
-                    log.error("·´ĞòÁĞ»¯page¶ÔÏóÊ§°Ü, dataId=" + dataIdPattern + ",group=" + groupNamePattern + ",serverId="
+                    response.setStatusMsg("ååºåˆ—åŒ–å¤±è´¥,é”™è¯¯ä¿¡æ¯ä¸ºï¼š" + e.getLocalizedMessage());
+                    log.error("ååºåˆ—åŒ–pageå¯¹è±¡å¤±è´¥, dataId=" + dataIdPattern + ",group=" + groupNamePattern + ",serverId="
                             + serverId + ",json=" + json, e);
                 }
                 break;
             case HttpStatus.SC_REQUEST_TIMEOUT:
                 response.setSuccess(false);
-                response.setStatusMsg("²éÑ¯Êı¾İ³¬Ê±" + require_timeout + "ºÁÃë");
-                log.error("²éÑ¯Êı¾İ³¬Ê±£¬Ä¬ÈÏ³¬Ê±Ê±¼äÎª:" + require_timeout + "ºÁÃë, dataId=" + dataIdPattern + ",group="
+                response.setStatusMsg("æŸ¥è¯¢æ•°æ®è¶…æ—¶" + require_timeout + "æ¯«ç§’");
+                log.error("æŸ¥è¯¢æ•°æ®è¶…æ—¶ï¼Œé»˜è®¤è¶…æ—¶æ—¶é—´ä¸º:" + require_timeout + "æ¯«ç§’, dataId=" + dataIdPattern + ",group="
                         + groupNamePattern + ",serverId=" + serverId);
                 break;
             default:
                 response.setSuccess(false);
-                response.setStatusMsg("²éÑ¯Êı¾İ³ö´í£¬·şÎñÆ÷·µ»Ø×´Ì¬ÂëÎª" + status);
-                log.error("²éÑ¯Êı¾İ³ö´í£¬×´Ì¬ÂëÎª£º" + status + ",dataId=" + dataIdPattern + ",group=" + groupNamePattern
+                response.setStatusMsg("æŸ¥è¯¢æ•°æ®å‡ºé”™ï¼ŒæœåŠ¡å™¨è¿”å›çŠ¶æ€ç ä¸º" + status);
+                log.error("æŸ¥è¯¢æ•°æ®å‡ºé”™ï¼ŒçŠ¶æ€ç ä¸ºï¼š" + status + ",dataId=" + dataIdPattern + ",group=" + groupNamePattern
                         + ",serverId=" + serverId);
                 break;
             }
@@ -612,16 +612,16 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         }
         catch (HttpException e) {
             response.setSuccess(false);
-            response.setStatusMsg("²éÑ¯Êı¾İ³ö´í,´íÎóĞÅÏ¢ÈçÏÂ£º" + e.getMessage());
-            log.error("²éÑ¯Êı¾İ³ö´í, dataId=" + dataIdPattern + ",group=" + groupNamePattern + ",serverId=" + serverId, e);
+            response.setStatusMsg("æŸ¥è¯¢æ•°æ®å‡ºé”™,é”™è¯¯ä¿¡æ¯å¦‚ä¸‹ï¼š" + e.getMessage());
+            log.error("æŸ¥è¯¢æ•°æ®å‡ºé”™, dataId=" + dataIdPattern + ",group=" + groupNamePattern + ",serverId=" + serverId, e);
         }
         catch (IOException e) {
             response.setSuccess(false);
-            response.setStatusMsg("²éÑ¯Êı¾İ³ö´í,´íÎóĞÅÏ¢ÈçÏÂ£º" + e.getMessage());
-            log.error("²éÑ¯Êı¾İ³ö´í, dataId=" + dataIdPattern + ",group=" + groupNamePattern + ",serverId=" + serverId, e);
+            response.setStatusMsg("æŸ¥è¯¢æ•°æ®å‡ºé”™,é”™è¯¯ä¿¡æ¯å¦‚ä¸‹ï¼š" + e.getMessage());
+            log.error("æŸ¥è¯¢æ•°æ®å‡ºé”™, dataId=" + dataIdPattern + ",group=" + groupNamePattern + ",serverId=" + serverId, e);
         }
         finally {
-            // ÊÍ·ÅÁ¬½Ó×ÊÔ´
+            // é‡Šæ”¾è¿æ¥èµ„æº
             method.releaseConnection();
         }
 
@@ -630,7 +630,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
 
     /**
-     * ²é¿´ÊÇ·ñÎªÑ¹ËõµÄÄÚÈİ
+     * æŸ¥çœ‹æ˜¯å¦ä¸ºå‹ç¼©çš„å†…å®¹
      * 
      * @param httpMethod
      * @return
@@ -647,7 +647,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
 
     /**
-     * »ñÈ¡ResponseµÄÅäÖÃĞÅÏ¢
+     * è·å–Responseçš„é…ç½®ä¿¡æ¯
      * 
      * @param httpMethod
      * @return
@@ -655,7 +655,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     String getContent(HttpMethod httpMethod) throws UnsupportedEncodingException {
         StringBuilder contentBuilder = new StringBuilder();
         if (isZipContent(httpMethod)) {
-            // ´¦ÀíÑ¹Ëõ¹ıµÄÅäÖÃĞÅÏ¢µÄÂß¼­
+            // å¤„ç†å‹ç¼©è¿‡çš„é…ç½®ä¿¡æ¯çš„é€»è¾‘
             InputStream is = null;
             GZIPInputStream gzin = null;
             InputStreamReader isr = null;
@@ -663,7 +663,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
             try {
                 is = httpMethod.getResponseBodyAsStream();
                 gzin = new GZIPInputStream(is);
-                isr = new InputStreamReader(gzin, ((HttpMethodBase) httpMethod).getResponseCharSet()); // ÉèÖÃ¶ÁÈ¡Á÷µÄ±àÂë¸ñÊ½£¬×Ô¶¨Òå±àÂë
+                isr = new InputStreamReader(gzin, ((HttpMethodBase) httpMethod).getResponseCharSet()); // è®¾ç½®è¯»å–æµçš„ç¼–ç æ ¼å¼ï¼Œè‡ªå®šä¹‰ç¼–ç 
                 br = new BufferedReader(isr);
                 char[] buffer = new char[4096];
                 int readlen = -1;
@@ -672,7 +672,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                 }
             }
             catch (Exception e) {
-                log.error("½âÑ¹ËõÊ§°Ü", e);
+                log.error("è§£å‹ç¼©å¤±è´¥", e);
             }
             finally {
                 try {
@@ -702,13 +702,13 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
             }
         }
         else {
-            // ´¦ÀíÃ»ÓĞ±»Ñ¹Ëõ¹ıµÄÅäÖÃĞÅÏ¢µÄÂß¼­
+            // å¤„ç†æ²¡æœ‰è¢«å‹ç¼©è¿‡çš„é…ç½®ä¿¡æ¯çš„é€»è¾‘
             String content = null;
             try {
                 content = httpMethod.getResponseBodyAsString();
             }
             catch (Exception e) {
-                log.error("»ñÈ¡ÅäÖÃĞÅÏ¢Ê§°Ü", e);
+                log.error("è·å–é…ç½®ä¿¡æ¯å¤±è´¥", e);
             }
             if (null == content) {
                 return null;
@@ -722,13 +722,13 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     private void configureGetMethod(GetMethod method) {
         method.addRequestHeader(Constants.ACCEPT_ENCODING, "gzip,deflate");
         method.addRequestHeader("Accept", "application/json");
-        // ÉèÖÃÇëÇó³¬Ê±Ê±¼ä
+        // è®¾ç½®è¯·æ±‚è¶…æ—¶æ—¶é—´
         method.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, require_timeout);
     }
 
 
     /**
-     * ×Ö¶ÎdataId,groupName,contextÎª¿ÕÑéÖ¤,ÓĞÒ»¸öÎª¿ÕÁ¢¼´·µ»Øfalse
+     * å­—æ®µdataId,groupName,contextä¸ºç©ºéªŒè¯,æœ‰ä¸€ä¸ªä¸ºç©ºç«‹å³è¿”å›false
      * 
      * @param dataId
      * @param groupName
@@ -749,7 +749,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
 
     /**
-     * ´¦ÀíÉ¾³ı
+     * å¤„ç†åˆ é™¤
      * 
      * @param serverId
      * @param id
@@ -757,13 +757,13 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
      */
     private ContextResult processDelete(String serverId, long id) {
         ContextResult response = new ContextResult();
-        // µÇÂ¼
+        // ç™»å½•
         if (!login(serverId)) {
             response.setSuccess(false);
-            response.setStatusMsg("µÇÂ¼Ê§°Ü,Ôì³É´íÎóµÄÔ­Òò¿ÉÄÜÊÇÖ¸¶¨µÄserverIdÎª¿Õ»ò²»´æÔÚ");
+            response.setStatusMsg("ç™»å½•å¤±è´¥,é€ æˆé”™è¯¯çš„åŸå› å¯èƒ½æ˜¯æŒ‡å®šçš„serverIdä¸ºç©ºæˆ–ä¸å­˜åœ¨");
             return response;
         }
-        log.info("Ê¹ÓÃprocessDelete(" + serverId + "," + id);
+        log.info("ä½¿ç”¨processDelete(" + serverId + "," + id);
         String url = "/diamond-server/admin.do?method=deleteConfig&id=" + id;
         GetMethod method = new GetMethod(url);
         configureGetMethod(method);
@@ -775,34 +775,34 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
             case HttpStatus.SC_OK:
                 response.setSuccess(true);
                 response.setReceiveResult(getContent(method));
-                response.setStatusMsg("É¾³ı³É¹¦, url=" + url);
-                log.warn("É¾³ıÅäÖÃÊı¾İ³É¹¦, url=" + url);
+                response.setStatusMsg("åˆ é™¤æˆåŠŸ, url=" + url);
+                log.warn("åˆ é™¤é…ç½®æ•°æ®æˆåŠŸ, url=" + url);
                 break;
             case HttpStatus.SC_REQUEST_TIMEOUT:
                 response.setSuccess(false);
-                response.setStatusMsg("É¾³ıÊı¾İ³¬Ê±" + require_timeout + "ºÁÃë");
-                log.error("É¾³ıÊı¾İ³¬Ê±£¬Ä¬ÈÏ³¬Ê±Ê±¼äÎª:" + require_timeout + "ºÁÃë, id=" + id + ",serverId=" + serverId);
+                response.setStatusMsg("åˆ é™¤æ•°æ®è¶…æ—¶" + require_timeout + "æ¯«ç§’");
+                log.error("åˆ é™¤æ•°æ®è¶…æ—¶ï¼Œé»˜è®¤è¶…æ—¶æ—¶é—´ä¸º:" + require_timeout + "æ¯«ç§’, id=" + id + ",serverId=" + serverId);
                 break;
             default:
                 response.setSuccess(false);
-                response.setStatusMsg("É¾³ıÊı¾İ³ö´í£¬·şÎñÆ÷·µ»Ø×´Ì¬ÂëÎª" + status);
-                log.error("É¾³ıÊı¾İ³ö´í£¬×´Ì¬ÂëÎª£º" + status + ", id=" + id + ",serverId=" + serverId);
+                response.setStatusMsg("åˆ é™¤æ•°æ®å‡ºé”™ï¼ŒæœåŠ¡å™¨è¿”å›çŠ¶æ€ç ä¸º" + status);
+                log.error("åˆ é™¤æ•°æ®å‡ºé”™ï¼ŒçŠ¶æ€ç ä¸ºï¼š" + status + ", id=" + id + ",serverId=" + serverId);
                 break;
             }
 
         }
         catch (HttpException e) {
             response.setSuccess(false);
-            response.setStatusMsg("É¾³ıÊı¾İ³ö´í,´íÎóĞÅÏ¢ÈçÏÂ£º" + e.getMessage());
-            log.error("É¾³ıÊı¾İ³ö´í, id=" + id + ",serverId=" + serverId, e);
+            response.setStatusMsg("åˆ é™¤æ•°æ®å‡ºé”™,é”™è¯¯ä¿¡æ¯å¦‚ä¸‹ï¼š" + e.getMessage());
+            log.error("åˆ é™¤æ•°æ®å‡ºé”™, id=" + id + ",serverId=" + serverId, e);
         }
         catch (IOException e) {
             response.setSuccess(false);
-            response.setStatusMsg("É¾³ıÊı¾İ³ö´í,´íÎóĞÅÏ¢ÈçÏÂ£º" + e.getMessage());
-            log.error("É¾³ıÊı¾İ³ö´í, id=" + id + ",serverId=" + serverId, e);
+            response.setStatusMsg("åˆ é™¤æ•°æ®å‡ºé”™,é”™è¯¯ä¿¡æ¯å¦‚ä¸‹ï¼š" + e.getMessage());
+            log.error("åˆ é™¤æ•°æ®å‡ºé”™, id=" + id + ",serverId=" + serverId, e);
         }
         finally {
-            // ÊÍ·ÅÁ¬½Ó×ÊÔ´
+            // é‡Šæ”¾è¿æ¥èµ„æº
             method.releaseConnection();
         }
 
@@ -818,10 +818,10 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
 
     @Override
     public BatchContextResult<ConfigInfoEx> batchQuery(String serverId, String groupName, List<String> dataIds) {
-        // ´´½¨·µ»Ø½á¹û
+        // åˆ›å»ºè¿”å›ç»“æœ
         BatchContextResult<ConfigInfoEx> response = new BatchContextResult<ConfigInfoEx>();
 
-        // ÅĞ¶ÏlistÊÇ·ñÎªnull
+        // åˆ¤æ–­listæ˜¯å¦ä¸ºnull
         if (dataIds == null) {
             log.error("dataId list cannot be null, serverId=" + serverId + ",group=" + groupName);
             response.setSuccess(false);
@@ -829,31 +829,31 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
             return response;
         }
 
-        // ½«dataIdµÄlist´¦ÀíÎªÓÃÒ»¸ö²»¿É¼û×Ö·û·Ö¸ôµÄ×Ö·û´®
+        // å°†dataIdçš„listå¤„ç†ä¸ºç”¨ä¸€ä¸ªä¸å¯è§å­—ç¬¦åˆ†éš”çš„å­—ç¬¦ä¸²
         StringBuilder dataIdBuilder = new StringBuilder();
         for (String dataId : dataIds) {
             dataIdBuilder.append(dataId).append(Constants.LINE_SEPARATOR);
         }
         String dataIdStr = dataIdBuilder.toString();
-        // µÇÂ¼
+        // ç™»å½•
         if (!login(serverId)) {
             response.setSuccess(false);
             response.setStatusMsg("login fail, serverId=" + serverId);
             return response;
         }
 
-        // ¹¹ÔìHTTP method
+        // æ„é€ HTTP method
         PostMethod post = new PostMethod("/diamond-server/admin.do?method=batchQuery");
-        // ÉèÖÃÇëÇó³¬Ê±Ê±¼ä
+        // è®¾ç½®è¯·æ±‚è¶…æ—¶æ—¶é—´
         post.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, require_timeout);
         try {
-            // ÉèÖÃ²ÎÊı
+            // è®¾ç½®å‚æ•°
             NameValuePair dataId_value = new NameValuePair("dataIds", dataIdStr);
             NameValuePair group_value = new NameValuePair("group", groupName);
 
             post.setRequestBody(new NameValuePair[] { dataId_value, group_value });
 
-            // Ö´ĞĞ·½·¨²¢·µ»Øhttp×´Ì¬Âë
+            // æ‰§è¡Œæ–¹æ³•å¹¶è¿”å›httpçŠ¶æ€ç 
             int status = client.executeMethod(post);
             response.setStatusCode(status);
             String responseMsg = post.getResponseBodyAsString();
@@ -864,7 +864,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                 try {
                     json = responseMsg;
 
-                    // ·´ĞòÁĞ»¯json×Ö·û´®, ²¢½«½á¹û´¦Àíºó·ÅÈëBatchContextResultÖĞ
+                    // ååºåˆ—åŒ–jsonå­—ç¬¦ä¸², å¹¶å°†ç»“æœå¤„ç†åæ”¾å…¥BatchContextResultä¸­
                     List<ConfigInfoEx> configInfoExList = new LinkedList<ConfigInfoEx>();
                     Object resultObj = JSONUtils.deserializeObject(json, new TypeReference<List<ConfigInfoEx>>() {
                     });
@@ -877,7 +877,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                     }
                     response.getResult().addAll(configInfoExList);
 
-                    // ·´ĞòÁĞ»¯³É¹¦, ±¾´ÎÅúÁ¿²éÑ¯³É¹¦
+                    // ååºåˆ—åŒ–æˆåŠŸ, æœ¬æ¬¡æ‰¹é‡æŸ¥è¯¢æˆåŠŸ
                     response.setSuccess(true);
                     response.setStatusMsg("batch query success");
                     log.info("batch query success, serverId=" + serverId + ",dataIds=" + dataIdStr + ",group="
@@ -906,18 +906,18 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         }
         catch (HttpException e) {
             response.setSuccess(false);
-            response.setStatusMsg("batch query http exception£º" + e.getMessage());
+            response.setStatusMsg("batch query http exceptionï¼š" + e.getMessage());
             log.error("batch query http exception, serverId=" + serverId + ",dataIds=" + dataIdStr + ",group="
                     + groupName, e);
         }
         catch (IOException e) {
             response.setSuccess(false);
-            response.setStatusMsg("batch query io exception£º" + e.getMessage());
+            response.setStatusMsg("batch query io exceptionï¼š" + e.getMessage());
             log.error("batch query io exception, serverId=" + serverId + ",dataIds=" + dataIdStr + ",group="
                     + groupName, e);
         }
         finally {
-            // ÊÍ·ÅÁ¬½Ó×ÊÔ´
+            // é‡Šæ”¾è¿æ¥èµ„æº
             post.releaseConnection();
         }
 
@@ -928,10 +928,10 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
     @Override
     public BatchContextResult<ConfigInfoEx> batchAddOrUpdate(String serverId, String groupName,
             Map<String, String> dataId2ContentMap) {
-        // ´´½¨·µ»Ø½á¹û
+        // åˆ›å»ºè¿”å›ç»“æœ
         BatchContextResult<ConfigInfoEx> response = new BatchContextResult<ConfigInfoEx>();
 
-        // ÅĞ¶ÏmapÊÇ·ñÎªnull
+        // åˆ¤æ–­mapæ˜¯å¦ä¸ºnull
         if (dataId2ContentMap == null) {
             log.error("dataId2ContentMap cannot be null, serverId=" + serverId + " ,group=" + groupName);
             response.setSuccess(false);
@@ -939,7 +939,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
             return response;
         }
 
-        // ½«dataIdºÍcontentµÄmap´¦ÀíÎªÓÃÒ»¸ö²»¿É¼û×Ö·û·Ö¸ôµÄ×Ö·û´®
+        // å°†dataIdå’Œcontentçš„mapå¤„ç†ä¸ºç”¨ä¸€ä¸ªä¸å¯è§å­—ç¬¦åˆ†éš”çš„å­—ç¬¦ä¸²
         StringBuilder allDataIdAndContentBuilder = new StringBuilder();
         for (String dataId : dataId2ContentMap.keySet()) {
             String content = dataId2ContentMap.get(dataId);
@@ -948,25 +948,25 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         }
         String allDataIdAndContent = allDataIdAndContentBuilder.toString();
 
-        // µÇÂ¼
+        // ç™»å½•
         if (!login(serverId)) {
             response.setSuccess(false);
             response.setStatusMsg("login fail, serverId=" + serverId);
             return response;
         }
 
-        // ¹¹ÔìHTTP method
+        // æ„é€ HTTP method
         PostMethod post = new PostMethod("/diamond-server/admin.do?method=batchAddOrUpdate");
-        // ÉèÖÃÇëÇó³¬Ê±Ê±¼ä
+        // è®¾ç½®è¯·æ±‚è¶…æ—¶æ—¶é—´
         post.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, require_timeout);
         try {
-            // ÉèÖÃ²ÎÊı
+            // è®¾ç½®å‚æ•°
             NameValuePair dataId_value = new NameValuePair("allDataIdAndContent", allDataIdAndContent);
             NameValuePair group_value = new NameValuePair("group", groupName);
 
             post.setRequestBody(new NameValuePair[] { dataId_value, group_value });
 
-            // Ö´ĞĞ·½·¨²¢·µ»Øhttp×´Ì¬Âë
+            // æ‰§è¡Œæ–¹æ³•å¹¶è¿”å›httpçŠ¶æ€ç 
             int status = client.executeMethod(post);
             response.setStatusCode(status);
             String responseMsg = post.getResponseBodyAsString();
@@ -977,7 +977,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                 try {
                     json = responseMsg;
 
-                    // ·´ĞòÁĞ»¯json×Ö·û´®, ²¢½«½á¹û´¦Àíºó·ÅÈëBatchContextResultÖĞ
+                    // ååºåˆ—åŒ–jsonå­—ç¬¦ä¸², å¹¶å°†ç»“æœå¤„ç†åæ”¾å…¥BatchContextResultä¸­
                     List<ConfigInfoEx> configInfoExList = new LinkedList<ConfigInfoEx>();
                     Object resultObj = JSONUtils.deserializeObject(json, new TypeReference<List<ConfigInfoEx>>() {
                     });
@@ -989,7 +989,7 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
                         configInfoExList.add(configInfoEx);
                     }
                     response.getResult().addAll(configInfoExList);
-                    // ·´ĞòÁĞ»¯³É¹¦, ±¾´ÎÅúÁ¿²Ù×÷³É¹¦
+                    // ååºåˆ—åŒ–æˆåŠŸ, æœ¬æ¬¡æ‰¹é‡æ“ä½œæˆåŠŸ
                     response.setStatusMsg("batch write success");
                     log.info("batch write success,serverId=" + serverId + ",allDataIdAndContent=" + allDataIdAndContent
                             + ",group=" + groupName + ",json=" + json);
@@ -1016,18 +1016,18 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         }
         catch (HttpException e) {
             response.setSuccess(false);
-            response.setStatusMsg("batch write http exception£º" + e.getMessage());
+            response.setStatusMsg("batch write http exceptionï¼š" + e.getMessage());
             log.error("batch write http exception, serverId=" + serverId + ",allDataIdAndContent="
                     + allDataIdAndContent + ",group=" + groupName, e);
         }
         catch (IOException e) {
             response.setSuccess(false);
-            response.setStatusMsg("batch write io exception£º" + e.getMessage());
+            response.setStatusMsg("batch write io exceptionï¼š" + e.getMessage());
             log.error("batch write io exception, serverId=" + serverId + ",allDataIdAndContent=" + allDataIdAndContent
                     + ",group=" + groupName, e);
         }
         finally {
-            // ÊÍ·ÅÁ¬½Ó×ÊÔ´
+            // é‡Šæ”¾è¿æ¥èµ„æº
             post.releaseConnection();
         }
 

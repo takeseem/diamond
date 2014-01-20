@@ -22,7 +22,7 @@ import com.taobao.diamond.io.watch.Watchable;
 
 
 /**
- * File¶ÔÏóµÄ·â×°
+ * Fileå¯¹è±¡çš„å°è£…
  * 
  * @author boyan
  * @date 2010-5-4

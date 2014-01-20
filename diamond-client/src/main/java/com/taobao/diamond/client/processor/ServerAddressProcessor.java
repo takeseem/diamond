@@ -58,7 +58,7 @@ public class ServerAddressProcessor {
     }
 
 
-    // ÓÃÓÚ²âÊÔ
+    // ç”¨äºæµ‹è¯•
     void setAsynAcquireIntervalInSec(int asynAcquireIntervalInSec) {
         this.asynAcquireIntervalInSec = asynAcquireIntervalInSec;
     }
@@ -108,10 +108,10 @@ public class ServerAddressProcessor {
 
     protected void acquireServerAddressFromLocal() {
         if (!isRun) {
-            throw new RuntimeException("ServerAddressProcessor²»ÔÚÔËĞĞ×´Ì¬£¬ÎŞ·¨Í¬²½»ñÈ¡·şÎñÆ÷µØÖ·ÁĞ±í");
+            throw new RuntimeException("ServerAddressProcessorä¸åœ¨è¿è¡ŒçŠ¶æ€ï¼Œæ— æ³•åŒæ­¥è·å–æœåŠ¡å™¨åœ°å€åˆ—è¡¨");
         }
         if (MockServer.isTestMode()) {
-            diamondConfigure.addDomainName("²âÊÔÄ£Ê½£¬Ã»ÓĞÊ¹ÓÃµÄÕæÊµ·şÎñÆ÷");
+            diamondConfigure.addDomainName("æµ‹è¯•æ¨¡å¼ï¼Œæ²¡æœ‰ä½¿ç”¨çš„çœŸå®æœåŠ¡å™¨");
             return;
         }
 
@@ -122,22 +122,22 @@ public class ServerAddressProcessor {
                 if (!acquireServerAddressOnce(acquireCount)) {
                     acquireCount++;
                     if (acquireServerAddressOnce(acquireCount)) {
-                        // ´æÈë±¾µØÎÄ¼ş
+                        // å­˜å…¥æœ¬åœ°æ–‡ä»¶
                         storeServerAddressesToLocal();
-                        log.info("ÔÚÍ¬²½»ñÈ¡·şÎñÆ÷ÁĞ±íÊ±£¬ÏòÈÕ³£ConfigServer·şÎñÆ÷»ñÈ¡µ½ÁË·şÎñÆ÷ÁĞ±í");
+                        log.info("åœ¨åŒæ­¥è·å–æœåŠ¡å™¨åˆ—è¡¨æ—¶ï¼Œå‘æ—¥å¸¸ConfigServeræœåŠ¡å™¨è·å–åˆ°äº†æœåŠ¡å™¨åˆ—è¡¨");
                     }
                     else {
-                        throw new RuntimeException("µ±Ç°Ã»ÓĞ¿ÉÓÃµÄ·şÎñÆ÷ÁĞ±í");
+                        throw new RuntimeException("å½“å‰æ²¡æœ‰å¯ç”¨çš„æœåŠ¡å™¨åˆ—è¡¨");
                     }
                 }
                 else {
-                    log.info("ÔÚÍ¬²½»ñÈ¡·şÎñÆ÷ÁĞ±íÊ±£¬ÏòÏßÉÏConfigServer·şÎñÆ÷»ñÈ¡µ½ÁË·şÎñÆ÷ÁĞ±í");
-                    // ´æÈë±¾µØÎÄ¼ş
+                    log.info("åœ¨åŒæ­¥è·å–æœåŠ¡å™¨åˆ—è¡¨æ—¶ï¼Œå‘çº¿ä¸ŠConfigServeræœåŠ¡å™¨è·å–åˆ°äº†æœåŠ¡å™¨åˆ—è¡¨");
+                    // å­˜å…¥æœ¬åœ°æ–‡ä»¶
                     storeServerAddressesToLocal();
                 }
             }
             else {
-                log.info("ÔÚÍ¬²½»ñÈ¡·şÎñÆ÷ÁĞ±íÊ±£¬ÓÉÓÚ±¾µØÖ¸¶¨ÁË·şÎñÆ÷ÁĞ±í£¬²»ÏòConfigServer·şÎñÆ÷Í¬²½»ñÈ¡·şÎñÆ÷ÁĞ±í");
+                log.info("åœ¨åŒæ­¥è·å–æœåŠ¡å™¨åˆ—è¡¨æ—¶ï¼Œç”±äºæœ¬åœ°æŒ‡å®šäº†æœåŠ¡å™¨åˆ—è¡¨ï¼Œä¸å‘ConfigServeræœåŠ¡å™¨åŒæ­¥è·å–æœåŠ¡å™¨åˆ—è¡¨");
             }
         }
     }
@@ -145,10 +145,10 @@ public class ServerAddressProcessor {
 
     protected void synAcquireServerAddress() {
         if (!isRun) {
-            throw new RuntimeException("ServerAddressProcessor²»ÔÚÔËĞĞ×´Ì¬£¬ÎŞ·¨Í¬²½»ñÈ¡·şÎñÆ÷µØÖ·ÁĞ±í");
+            throw new RuntimeException("ServerAddressProcessorä¸åœ¨è¿è¡ŒçŠ¶æ€ï¼Œæ— æ³•åŒæ­¥è·å–æœåŠ¡å™¨åœ°å€åˆ—è¡¨");
         }
         if (MockServer.isTestMode()) {
-            diamondConfigure.addDomainName("²âÊÔÄ£Ê½£¬Ã»ÓĞÊ¹ÓÃµÄÕæÊµ·şÎñÆ÷");
+            diamondConfigure.addDomainName("æµ‹è¯•æ¨¡å¼ï¼Œæ²¡æœ‰ä½¿ç”¨çš„çœŸå®æœåŠ¡å™¨");
             return;
         }
 
@@ -157,20 +157,20 @@ public class ServerAddressProcessor {
             if (!acquireServerAddressOnce(acquireCount)) {
                 acquireCount++;
                 if (acquireServerAddressOnce(acquireCount)) {
-                    // ´æÈë±¾µØÎÄ¼ş
+                    // å­˜å…¥æœ¬åœ°æ–‡ä»¶
                     storeServerAddressesToLocal();
-                    log.info("ÔÚÍ¬²½»ñÈ¡·şÎñÆ÷ÁĞ±íÊ±£¬ÏòÈÕ³£ConfigServer·şÎñÆ÷»ñÈ¡µ½ÁË·şÎñÆ÷ÁĞ±í");
+                    log.info("åœ¨åŒæ­¥è·å–æœåŠ¡å™¨åˆ—è¡¨æ—¶ï¼Œå‘æ—¥å¸¸ConfigServeræœåŠ¡å™¨è·å–åˆ°äº†æœåŠ¡å™¨åˆ—è¡¨");
                 }
                 else {
-                    log.info("´Ó±¾µØ»ñÈ¡DiamondµØÖ·ÁĞ±í");
+                    log.info("ä»æœ¬åœ°è·å–Diamondåœ°å€åˆ—è¡¨");
                     reloadServerAddresses();
                     if (diamondConfigure.getDomainNameList().size() == 0)
-                        throw new RuntimeException("µ±Ç°Ã»ÓĞ¿ÉÓÃµÄ·şÎñÆ÷ÁĞ±í");
+                        throw new RuntimeException("å½“å‰æ²¡æœ‰å¯ç”¨çš„æœåŠ¡å™¨åˆ—è¡¨");
                 }
             }
             else {
-                log.info("ÔÚÍ¬²½»ñÈ¡·şÎñÆ÷ÁĞ±íÊ±£¬ÏòÏßÉÏConfigServer·şÎñÆ÷»ñÈ¡µ½ÁË·şÎñÆ÷ÁĞ±í");
-                // ´æÈë±¾µØÎÄ¼ş
+                log.info("åœ¨åŒæ­¥è·å–æœåŠ¡å™¨åˆ—è¡¨æ—¶ï¼Œå‘çº¿ä¸ŠConfigServeræœåŠ¡å™¨è·å–åˆ°äº†æœåŠ¡å™¨åˆ—è¡¨");
+                // å­˜å…¥æœ¬åœ°æ–‡ä»¶
                 storeServerAddressesToLocal();
             }
         }
@@ -184,19 +184,19 @@ public class ServerAddressProcessor {
         this.scheduledExecutor.schedule(new Runnable() {
             public void run() {
                 if (!isRun) {
-                    log.warn("ServerAddressProcessor²»ÔÚÔËĞĞ×´Ì¬£¬ÎŞ·¨Òì²½»ñÈ¡·şÎñÆ÷µØÖ·ÁĞ±í");
+                    log.warn("ServerAddressProcessorä¸åœ¨è¿è¡ŒçŠ¶æ€ï¼Œæ— æ³•å¼‚æ­¥è·å–æœåŠ¡å™¨åœ°å€åˆ—è¡¨");
                     return;
                 }
                 int acquireCount = 0;
                 if (!acquireServerAddressOnce(acquireCount)) {
                     acquireCount++;
                     if (acquireServerAddressOnce(acquireCount)) {
-                        // ´æÈë±¾µØÎÄ¼ş
+                        // å­˜å…¥æœ¬åœ°æ–‡ä»¶
                         storeServerAddressesToLocal();
                     }
                 }
                 else {
-                    // ´æÈë±¾µØÎÄ¼ş
+                    // å­˜å…¥æœ¬åœ°æ–‡ä»¶
                     storeServerAddressesToLocal();
                 }
 
@@ -225,7 +225,7 @@ public class ServerAddressProcessor {
             bufferedWriter.flush();
         }
         catch (Exception e) {
-            log.error("´æ´¢·şÎñÆ÷µØÖ·µ½±¾µØÎÄ¼şÊ§°Ü", e);
+            log.error("å­˜å‚¨æœåŠ¡å™¨åœ°å€åˆ°æœ¬åœ°æ–‡ä»¶å¤±è´¥", e);
         }
         finally {
             if (bufferedWriter != null) {
@@ -269,7 +269,7 @@ public class ServerAddressProcessor {
             fis.close();
         }
         catch (Exception e) {
-            log.error("´Ó±¾µØÎÄ¼şÈ¡·şÎñÆ÷µØÖ·Ê§°Ü", e);
+            log.error("ä»æœ¬åœ°æ–‡ä»¶å–æœåŠ¡å™¨åœ°å€å¤±è´¥", e);
         }
         finally {
             if (bufferedReader != null) {
@@ -316,10 +316,10 @@ public class ServerAddressProcessor {
 
 
     /**
-     * »ñÈ¡diamond·şÎñÆ÷µØÖ·ÁĞ±í
+     * è·å–diamondæœåŠ¡å™¨åœ°å€åˆ—è¡¨
      * 
      * @param acquireCount
-     *            ¸ù¾İ0»ò1¾ö¶¨´ÓÈÕ³£»òÏßÉÏ»ñÈ¡
+     *            æ ¹æ®0æˆ–1å†³å®šä»æ—¥å¸¸æˆ–çº¿ä¸Šè·å–
      * @return
      */
     private boolean acquireServerAddressOnce(int acquireCount) {
@@ -345,7 +345,7 @@ public class ServerAddressProcessor {
         String serverAddressUrl = Constants.CONFIG_HTTP_URI_FILE;
 
         HttpMethod httpMethod = new GetMethod(serverAddressUrl);
-        // ÉèÖÃHttpMethodµÄ²ÎÊı
+        // è®¾ç½®HttpMethodçš„å‚æ•°
         HttpMethodParams params = new HttpMethodParams();
         params.setSoTimeout(diamondConfigure.getOnceTimeout());
         // ///////////////////////
@@ -364,13 +364,13 @@ public class ServerAddressProcessor {
                     }
                 }
                 if (newDomainNameList.size() > 0) {
-                    log.debug("¸üĞÂÊ¹ÓÃµÄ·şÎñÆ÷ÁĞ±í");
+                    log.debug("æ›´æ–°ä½¿ç”¨çš„æœåŠ¡å™¨åˆ—è¡¨");
                     this.diamondConfigure.setDomainNameList(newDomainNameList);
                     return true;
                 }
             }
             else {
-                log.warn("Ã»ÓĞ¿ÉÓÃµÄĞÂ·şÎñÆ÷ÁĞ±í");
+                log.warn("æ²¡æœ‰å¯ç”¨çš„æ–°æœåŠ¡å™¨åˆ—è¡¨");
             }
         }
         catch (HttpException e) {
@@ -391,10 +391,10 @@ public class ServerAddressProcessor {
 
     public String getErrorMessage(String configServerAddress) {
         if (configServerAddress.equals(Constants.DEFAULT_DOMAINNAME)) {
-            return "»ñÈ¡·şÎñÆ÷µØÖ·ÁĞ±íĞÅÏ¢HttpÒì³£,Èç¹ûÄãÊÇÔÚÈÕ³£»·¾³£¬ÇëºöÂÔÕâ¸öÒì³£,configServerAddress=" + configServerAddress + ",";
+            return "è·å–æœåŠ¡å™¨åœ°å€åˆ—è¡¨ä¿¡æ¯Httpå¼‚å¸¸,å¦‚æœä½ æ˜¯åœ¨æ—¥å¸¸ç¯å¢ƒï¼Œè¯·å¿½ç•¥è¿™ä¸ªå¼‚å¸¸,configServerAddress=" + configServerAddress + ",";
         }
         else {
-            return "»ñÈ¡·şÎñÆ÷µØÖ·ÁĞ±íĞÅÏ¢HttpÒì³£, configServerAddress=" + configServerAddress + ",";
+            return "è·å–æœåŠ¡å™¨åœ°å€åˆ—è¡¨ä¿¡æ¯Httpå¼‚å¸¸, configServerAddress=" + configServerAddress + ",";
         }
     }
 

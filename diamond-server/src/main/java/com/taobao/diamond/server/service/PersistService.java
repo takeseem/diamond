@@ -24,7 +24,7 @@ import com.taobao.diamond.utils.TimeUtils;
 
 
 /**
- * Êı¾İ¿â·şÎñ£¬Ìá¹©ConfigInfoÔÚÊı¾İ¿âµÄ´æÈ¡<br>
+ * æ•°æ®åº“æœåŠ¡ï¼Œæä¾›ConfigInfoåœ¨æ•°æ®åº“çš„å­˜å–<br>
  * 
  * @author boyan
  * @author leiwen.zh
@@ -36,9 +36,9 @@ public class PersistService {
 
     private static final String JDBC_DRIVER_NAME = "com.mysql.jdbc.Driver";
 
-    // ×î´ó¼ÇÂ¼ÌõÊı
+    // æœ€å¤§è®°å½•æ¡æ•°
     private static final int MAX_ROWS = 10000;
-    // JDBCÖ´ĞĞ³¬Ê±Ê±¼ä, µ¥Î»Ãë
+    // JDBCæ‰§è¡Œè¶…æ—¶æ—¶é—´, å•ä½ç§’
     private static final int QUERY_TIMEOUT = 2;
 
     private static final ConfigInfoRowMapper CONFIG_INFO_ROW_MAPPER = new ConfigInfoRowMapper();
@@ -68,7 +68,7 @@ public class PersistService {
 
 
     /**
-     * µ¥Ôª²âÊÔÓÃ
+     * å•å…ƒæµ‹è¯•ç”¨
      * 
      * @return
      */
@@ -79,7 +79,7 @@ public class PersistService {
 
     @PostConstruct
     public void initDataSource() throws Exception {
-        // ¶ÁÈ¡jdbc.propertiesÅäÖÃ, ¼ÓÔØÊı¾İÔ´
+        // è¯»å–jdbc.propertiesé…ç½®, åŠ è½½æ•°æ®æº
         Properties props = ResourceUtils.getResourceAsProperties("jdbc.properties");
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName(JDBC_DRIVER_NAME);
@@ -95,9 +95,9 @@ public class PersistService {
 
         this.jt = new JdbcTemplate();
         this.jt.setDataSource(ds);
-        // ÉèÖÃ×î´ó¼ÇÂ¼Êı£¬·ÀÖ¹ÄÚ´æÅòÕÍ
+        // è®¾ç½®æœ€å¤§è®°å½•æ•°ï¼Œé˜²æ­¢å†…å­˜è†¨èƒ€
         this.jt.setMaxRows(MAX_ROWS);
-        // ÉèÖÃJDBCÖ´ĞĞ³¬Ê±Ê±¼ä
+        // è®¾ç½®JDBCæ‰§è¡Œè¶…æ—¶æ—¶é—´
         this.jt.setQueryTimeout(QUERY_TIMEOUT);
     }
 
@@ -157,7 +157,7 @@ public class PersistService {
                 new Object[] { dataId, group }, CONFIG_INFO_ROW_MAPPER);
         }
         catch (EmptyResultDataAccessException e) {
-            // ÊÇEmptyResultDataAccessException, ±íÃ÷Êı¾İ²»´æÔÚ, ·µ»Ønull
+            // æ˜¯EmptyResultDataAccessException, è¡¨æ˜æ•°æ®ä¸å­˜åœ¨, è¿”å›null
             return null;
         }
     }
