@@ -15,11 +15,11 @@ public class Constants {
     
     public static final String BASE_DIR = "config-data";
 
-    public static final String DEFAULT_DOMAINNAME = "a.b.c";
+    public static final String DEFAULT_DOMAINNAME = "localhost";
 
     public static final String DAILY_DOMAINNAME = "d.e.f";
 
-    public static final int DEFAULT_PORT = 0;
+    public static final int DEFAULT_PORT = 7000;
 
     public static final String NULL = "";
 
@@ -53,13 +53,13 @@ public class Constants {
 
     public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// 毫秒
 
-    public static final String HTTP_URI_FILE = "/url";
+    public static final String HTTP_URI_FILE = "/diamond-server/config.co";
 
-    public static final String CONFIG_HTTP_URI_FILE = "/url";
+    public static final String CONFIG_HTTP_URI_FILE = HTTP_URI_FILE;
 
-    public static final String HTTP_URI_LOGIN = "/url";
+    public static final String HTTP_URI_LOGIN = HTTP_URI_FILE;
 
-    public static final String ENCODE = "GBK";
+    public static final String ENCODE = "UTF-8";
 
     public static final String LINE_SEPARATOR = Character.toString((char) 1);
 
@@ -82,5 +82,8 @@ public class Constants {
     public static final int BATCH_ADD_SUCCESS = 3;
     // 更新成功
     public static final int BATCH_UPDATE_SUCCESS = 4;
+
+    /** FIXME: yanghao, 获取配置，本地 快照 服务地址？ */
+	public static Object GETCONFIG_LOCAL_SNAPSHOT_SERVER;
 
 }

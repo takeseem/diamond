@@ -80,7 +80,7 @@ public class ConfigServlet extends HttpServlet {
         String dataId = request.getParameter("dataId");
 
         if (!StringUtils.hasLength(dataId)) {
-            throw new IOException("无效的dataId");
+            throw new IOException("无效的dataId: " + dataId);
         }
 
         String page = this.configController.getConfig(request, response, dataId, group);
