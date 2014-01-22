@@ -1034,7 +1034,4 @@ public class DiamondSDKManagerImpl implements DiamondSDKManager {
         return response;
     }
 
-    public static void main(String[] args) {
-		DiamondSDKManagerImpl dm = new DiamondSDKManagerImpl(1000, 1000);
-	}
 }
