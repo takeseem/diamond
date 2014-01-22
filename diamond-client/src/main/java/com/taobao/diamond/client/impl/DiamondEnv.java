@@ -23,8 +23,7 @@ import com.taobao.diamond.manager.impl.DefaultDiamondManager;
  */
 public class DiamondEnv {
 	protected final Log logger = LogFactory.getLog(getClass());
-	private String unitName;
-	private Map<String, DiamondManager> dmMap = new HashMap<String, DiamondManager>();
+	private Map<String, DiamondManager> dmMap = new HashMap<>();
 	
 	private DiamondManager getDiamondManager(String dataId, String group) {
 		String key = dataId + "#_#" + group;
@@ -37,7 +36,6 @@ public class DiamondEnv {
 	}
 	
 	public DiamondEnv(String unitName) {
-		this.unitName = unitName;
 	}
 
 	public String getConfig(String dataId, String group, Object gETCONFIG_LOCAL_SNAPSHOT_SERVER, long timeout) throws IOException {

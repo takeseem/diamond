@@ -114,13 +114,13 @@ public class Constants {
 		try {
 			Constants.class.getDeclaredField(field).set(Constants.class,
 					Constants.class.getDeclaredField(fromField).get(Constants.class));
-		} catch (Exception e) {
+		} catch (IllegalAccessException | NoSuchFieldException e) {
 			throw new IllegalArgumentException("设置：" + field + ", 从：" + fromField, e);
-		} 
+		}
 	}
 	/** 配置优先级别：-D &gt; env &gt; diamond.properties  */
 	public static void init() {
-		List<Field> fields = new ArrayList<Field>();
+		List<Field> fields = new ArrayList<>();
 		for (Field field : Constants.class.getDeclaredFields()) {
 			if (Modifier.isPublic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())) {
 				fields.add(field);
@@ -131,24 +131,16 @@ public class Constants {
 		{
 			ClassLoader cl = Thread.currentThread().getContextClassLoader();
 			if (cl == null) cl = Constants.class.getClassLoader();
-			InputStream in = null;
-			try {
-				in = cl.getResourceAsStream("diamond.properties");
+			try (InputStream in = cl.getResourceAsStream("diamond.properties")) {
 				if (in != null) props.load(in);
 			} catch (IOException e) {
 				log.warn("load diamond.properties", e);
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-					} catch (IOException e) {}
-				}
 			}
 		}
 		props.putAll(System.getenv());
 		props.putAll(System.getProperties());
 		
-		Map<String, Object> old = new HashMap<String, Object>(); 
+		Map<String, Object> old = new HashMap<>(); 
 		try {
 			for (Field field : fields) {
 				if (!props.containsKey(field.getName())) continue;

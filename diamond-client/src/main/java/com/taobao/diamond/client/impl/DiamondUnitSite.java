@@ -10,7 +10,7 @@ import java.util.Map;
  * @since 0.1.0
  */
 public class DiamondUnitSite {
-	private static Map<String, DiamondEnv> envs = new HashMap<String, DiamondEnv>();
+	private static Map<String, DiamondEnv> envs = new HashMap<>();
 
 	public static DiamondEnv getDiamondUnitEnv(String unitName) {
 		if (unitName == null) unitName = "";
