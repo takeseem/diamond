@@ -9,17 +9,33 @@
  */
 package com.taobao.diamond.common;
 
-public class Constants {
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
-    public static final String DEFAULT_GROUP = "DEFAULT_GROUP";
+import javax.swing.SpringLayout.Constraints;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class Constants {
+	public static final Log log = LogFactory.getLog(Constants.class);
+	
+    public static String DEFAULT_GROUP = "DEFAULT_GROUP";
     
     public static final String BASE_DIR = "config-data";
 
-    public static final String DEFAULT_DOMAINNAME = "localhost";
+    public static String DEFAULT_DOMAINNAME = "a.b.c";
 
-    public static final String DAILY_DOMAINNAME = "d.e.f";
+    public static String DAILY_DOMAINNAME = "d.e.f";
 
-    public static final int DEFAULT_PORT = 7000;
+    public static int DEFAULT_PORT = 8080;
 
     public static final String NULL = "";
 
@@ -53,11 +69,11 @@ public class Constants {
 
     public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// 毫秒
 
-    public static final String HTTP_URI_FILE = "/diamond-server/config.co";
+    public static String HTTP_URI_FILE = "/url";
 
-    public static final String CONFIG_HTTP_URI_FILE = HTTP_URI_FILE;
+    public static String CONFIG_HTTP_URI_FILE = HTTP_URI_FILE;
 
-    public static final String HTTP_URI_LOGIN = HTTP_URI_FILE;
+    public static String HTTP_URI_LOGIN = HTTP_URI_FILE;
 
     public static final String ENCODE = "UTF-8";
 
@@ -84,6 +100,82 @@ public class Constants {
     public static final int BATCH_UPDATE_SUCCESS = 4;
 
     /** FIXME: yanghao, 获取配置，本地 快照 服务地址？ */
-	public static Object GETCONFIG_LOCAL_SNAPSHOT_SERVER;
+	public static String GETCONFIG_LOCAL_SNAPSHOT_SERVER;
 
+	/**
+	 * 如果field的值未发生改变，那么使用fromField字段的值
+	 * @param old Map&lt;字段名, 久值&gt;
+	 * @param field 要改变的字段
+	 * @param fromField 提取值的字段
+	 */
+	private static void setValue(Map<String, Object> old, String field, String fromField) {
+		if (old.containsKey(field)) return; //改变了值，直接跳出
+		
+		try {
+			Constants.class.getDeclaredField(field).set(Constants.class,
+					Constants.class.getDeclaredField(fromField).get(Constants.class));
+		} catch (Exception e) {
+			throw new IllegalArgumentException("设置：" + field + ", 从：" + fromField, e);
+		} 
+	}
+	/** 配置优先级别：-D &gt; env &gt; diamond.properties  */
+	public static void init() {
+		List<Field> fields = new ArrayList<Field>();
+		for (Field field : Constants.class.getDeclaredFields()) {
+			if (Modifier.isPublic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())) {
+				fields.add(field);
+			}
+		}
+		
+		Properties props = new Properties();
+		{
+			ClassLoader cl = Thread.currentThread().getContextClassLoader();
+			if (cl == null) cl = Constants.class.getClassLoader();
+			InputStream in = null;
+			try {
+				in = cl.getResourceAsStream("diamond.properties");
+				if (in != null) props.load(in);
+			} catch (IOException e) {
+				log.warn("load diamond.properties", e);
+			} finally {
+				if (in != null) {
+					try {
+						in.close();
+					} catch (IOException e) {}
+				}
+			}
+		}
+		props.putAll(System.getenv());
+		props.putAll(System.getProperties());
+		
+		Map<String, Object> old = new HashMap<String, Object>(); 
+		try {
+			for (Field field : fields) {
+				if (!props.containsKey(field.getName())) continue;
+				old.put(field.getName(), field.get(Constants.class));
+				
+				String value = props.getProperty(field.getName());
+				Class<?> clazz = field.getType();
+				if (String.class.equals(clazz)) {
+					field.set(Constraints.class, value);
+				} else if (int.class.equals(clazz)) {
+					if (value != null) {
+						field.set(Constraints.class, Integer.parseInt(value));
+					}
+				} else {
+					throw new IllegalArgumentException(field + " 设置 " + value + " 还未支持");
+				}
+			}
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		}
+		
+		setValue(old, "CONFIG_HTTP_URI_FILE", "HTTP_URI_FILE");
+		setValue(old, "HTTP_URI_LOGIN", "HTTP_URI_FILE");
+		setValue(old, "DAILY_DOMAINNAME", "DEFAULT_DOMAINNAME");
+	}
+	
+	static {
+		init();
+	}
 }
