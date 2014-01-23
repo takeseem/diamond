@@ -115,7 +115,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><!-- compile插件 -->
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding><!-- site插件  -->
-		<archiveClasses>true</archiveClasses><!-- maven-war-plugin: WEB-INF/classes/内容打包到singer jar -->
 		<maven.compiler.source>1.7</maven.compiler.source><!-- compile插件 -->
 		<maven.compiler.target>1.7</maven.compiler.target><!-- compile插件 -->
 	</properties>
