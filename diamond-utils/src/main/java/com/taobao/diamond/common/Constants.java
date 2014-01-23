@@ -9,8 +9,11 @@
  */
 package com.taobao.diamond.common;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -69,10 +72,12 @@ public class Constants {
 
     public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// 毫秒
 
+    /** 获取数据的URI地址，如果不带ip，那么轮换使用ServerAddress中的地址请求 */
     public static String HTTP_URI_FILE = "/url";
 
+    /** 获取ServerAddress的配置uri */
     public static String CONFIG_HTTP_URI_FILE = HTTP_URI_FILE;
-
+    
     public static String HTTP_URI_LOGIN = HTTP_URI_FILE;
 
     public static final String ENCODE = "UTF-8";
@@ -120,6 +125,15 @@ public class Constants {
 	}
 	/** 配置优先级别：-D &gt; env &gt; diamond.properties  */
 	public static void init() {
+		File diamondFile = new File(System.getProperty("user.home"), "diamond/ServerAddress");
+		if (!diamondFile.exists()) {
+			diamondFile.getParentFile().mkdirs();
+			try (OutputStream out = new FileOutputStream(diamondFile)) {
+				out.write("localhost".getBytes());
+			} catch (IOException e) {
+				throw new IllegalStateException(diamondFile.toString(), e);
+			}
+		}
 		List<Field> fields = new ArrayList<>();
 		for (Field field : Constants.class.getDeclaredFields()) {
 			if (Modifier.isPublic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())) {
