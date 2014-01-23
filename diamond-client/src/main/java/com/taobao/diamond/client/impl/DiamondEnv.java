@@ -21,7 +21,7 @@ import com.taobao.diamond.manager.impl.DefaultDiamondManager;
  * @author <a href="mailto:takeseem@gmail.com">杨浩</a>
  * @since 0.1.0
  */
-public class DiamondEnv {
+public class DiamondEnv implements AutoCloseable {
 	protected final Log logger = LogFactory.getLog(getClass());
 	private Map<String, DiamondManager> dmMap = new HashMap<>();
 	
@@ -36,6 +36,14 @@ public class DiamondEnv {
 	}
 	
 	public DiamondEnv(String unitName) {
+	}
+	
+	@Override
+	public void close() {
+		for (DiamondManager dm : dmMap.values()) {
+			dm.close();
+		}
+		dmMap.clear();
 	}
 
 	public String getConfig(String dataId, String group, Object gETCONFIG_LOCAL_SNAPSHOT_SERVER, long timeout) throws IOException {
