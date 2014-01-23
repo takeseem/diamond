@@ -165,7 +165,7 @@ public class ServerAddressProcessor {
                     log.info("从本地获取Diamond地址列表");
                     reloadServerAddresses();
                     if (diamondConfigure.getDomainNameList().size() == 0)
-                        throw new RuntimeException("当前没有可用的服务器列表");
+                        throw new RuntimeException("当前没有可用的服务器列表，请检查~/diamond/ServerAddress文件");
                 }
             }
             else {
