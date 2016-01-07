@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 
 /**
- * 配置信息的类
+ * 閰嶇疆淇℃伅鐨勭被
  * 
  * @author aoqiong
  * 

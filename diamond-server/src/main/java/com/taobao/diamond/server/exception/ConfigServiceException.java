@@ -10,7 +10,7 @@
 package com.taobao.diamond.server.exception;
 
 /**
- * Service层的任何异常都包装成这个Runtime异常抛出
+ * Service灞傜殑浠讳綍寮傚父閮藉寘瑁呮垚杩欎釜Runtime寮傚父鎶涘嚭
  * 
  * @author boyan
  * @date 2010-5-5

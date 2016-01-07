@@ -13,7 +13,7 @@ import com.taobao.diamond.io.watch.WatchService;
 
 
 /**
- * 文件系统类，提供基础操作
+ * 鏂囦欢绯荤粺绫伙紝鎻愪緵鍩虹鎿嶄綔
  * 
  * @author boyan
  * @date 2010-5-4
@@ -35,7 +35,7 @@ public class FileSystem {
 
 
     /**
-     * 生成一个新的WatchService
+     * 鐢熸垚涓�涓柊鐨刉atchService
      * 
      * @return
      */

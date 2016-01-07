@@ -39,7 +39,7 @@ public class ConfigService {
     private NotifyService notifyService;
 
     /**
-     * contentµÄMD5µÄ»º´æ,keyÎªgroup/dataId£¬valueÎªmd5Öµ
+     * contentçš„MD5çš„ç¼“å­˜,keyä¸ºgroup/dataIdï¼Œvalueä¸ºmd5å€¼
      */
     private final ConcurrentHashMap<String, String> contentMD5Cache = new ConcurrentHashMap<String, String>();
 
@@ -64,7 +64,7 @@ public class ConfigService {
         String md5 = this.contentMD5Cache.get(key);
         if (md5 == null) {
             synchronized (this) {
-                // ¶şÖØ¼ì²é
+                // äºŒé‡æ£€æŸ¥
                 return this.contentMD5Cache.get(key);
             }
         }
@@ -95,12 +95,12 @@ public class ConfigService {
             this.diskService.removeConfigInfo(configInfo.getDataId(), configInfo.getGroup());
             this.contentMD5Cache.remove(generateMD5CacheKey(configInfo.getDataId(), configInfo.getGroup()));
             this.persistService.removeConfigInfo(configInfo);
-            // Í¨ÖªÆäËû½Úµã
+            // é€šçŸ¥å…¶ä»–èŠ‚ç‚¹
             this.notifyOtherNodes(configInfo.getDataId(), configInfo.getGroup());
 
         }
         catch (Exception e) {
-            log.error("É¾³ıÅäÖÃĞÅÏ¢´íÎó", e);
+            log.error("åˆ é™¤é…ç½®ä¿¡æ¯é”™è¯¯", e);
             throw new ConfigServiceException(e);
         }
     }
@@ -109,24 +109,24 @@ public class ConfigService {
     public void addConfigInfo(String dataId, String group, String content) {
         checkParameter(dataId, group, content);
         ConfigInfo configInfo = new ConfigInfo(dataId, group, content);
-        // ±£´æË³Ğò£ºÏÈÊı¾İ¿â£¬ÔÙ´ÅÅÌ
+        // ä¿å­˜é¡ºåºï¼šå…ˆæ•°æ®åº“ï¼Œå†ç£ç›˜
         try {
             persistService.addConfigInfo(configInfo);
-            // ÇĞ¼Ç¸üĞÂ»º´æ
+            // åˆ‡è®°æ›´æ–°ç¼“å­˜
             this.contentMD5Cache.put(generateMD5CacheKey(dataId, group), configInfo.getMd5());
             diskService.saveToDisk(configInfo);
-            // Í¨ÖªÆäËû½Úµã
+            // é€šçŸ¥å…¶ä»–èŠ‚ç‚¹
             this.notifyOtherNodes(dataId, group);
         }
         catch (Exception e) {
-            log.error("±£´æConfigInfoÊ§°Ü", e);
+            log.error("ä¿å­˜ConfigInfoå¤±è´¥", e);
             throw new ConfigServiceException(e);
         }
     }
 
 
     /**
-     * ¸üĞÂÅäÖÃĞÅÏ¢
+     * æ›´æ–°é…ç½®ä¿¡æ¯
      * 
      * @param dataId
      * @param group
@@ -135,24 +135,24 @@ public class ConfigService {
     public void updateConfigInfo(String dataId, String group, String content) {
         checkParameter(dataId, group, content);
         ConfigInfo configInfo = new ConfigInfo(dataId, group, content);
-        // ÏÈ¸üĞÂÊı¾İ¿â£¬ÔÙ¸üĞÂ´ÅÅÌ
+        // å…ˆæ›´æ–°æ•°æ®åº“ï¼Œå†æ›´æ–°ç£ç›˜
         try {
             persistService.updateConfigInfo(configInfo);
-            // ÇĞ¼Ç¸üĞÂ»º´æ
+            // åˆ‡è®°æ›´æ–°ç¼“å­˜
             this.contentMD5Cache.put(generateMD5CacheKey(dataId, group), configInfo.getMd5());
             diskService.saveToDisk(configInfo);
-            // Í¨ÖªÆäËû½Úµã
+            // é€šçŸ¥å…¶ä»–èŠ‚ç‚¹
             this.notifyOtherNodes(dataId, group);
         }
         catch (Exception e) {
-            log.error("±£´æConfigInfoÊ§°Ü", e);
+            log.error("ä¿å­˜ConfigInfoå¤±è´¥", e);
             throw new ConfigServiceException(e);
         }
     }
 
 
     /**
-     * ½«ÅäÖÃĞÅÏ¢´ÓÊı¾İ¿â¼ÓÔØµ½´ÅÅÌ
+     * å°†é…ç½®ä¿¡æ¯ä»æ•°æ®åº“åŠ è½½åˆ°ç£ç›˜
      * 
      * @param id
      */
@@ -164,13 +164,13 @@ public class ConfigService {
                 this.diskService.saveToDisk(configInfo);
             }
             else {
-                // É¾³ıÎÄ¼ş
+                // åˆ é™¤æ–‡ä»¶
                 this.contentMD5Cache.remove(generateMD5CacheKey(dataId, group));
                 this.diskService.removeConfigInfo(dataId, group);
             }
         }
         catch (Exception e) {
-            log.error("±£´æConfigInfoµ½´ÅÅÌÊ§°Ü", e);
+            log.error("ä¿å­˜ConfigInfoåˆ°ç£ç›˜å¤±è´¥", e);
             throw new ConfigServiceException(e);
         }
     }
@@ -182,7 +182,7 @@ public class ConfigService {
 
 
     /**
-     * ·ÖÒ³²éÕÒÅäÖÃĞÅÏ¢
+     * åˆ†é¡µæŸ¥æ‰¾é…ç½®ä¿¡æ¯
      * 
      * @param pageNo
      * @param pageSize
@@ -215,7 +215,7 @@ public class ConfigService {
 
 
     /**
-     * ·ÖÒ³Ä£ºı²éÕÒÅäÖÃĞÅÏ¢
+     * åˆ†é¡µæ¨¡ç³ŠæŸ¥æ‰¾é…ç½®ä¿¡æ¯
      * 
      * @param pageNo
      * @param pageSize
@@ -231,13 +231,13 @@ public class ConfigService {
 
     private void checkParameter(String dataId, String group, String content) {
         if (!StringUtils.hasLength(dataId) || StringUtils.containsWhitespace(dataId))
-            throw new ConfigServiceException("ÎŞĞ§µÄdataId");
+            throw new ConfigServiceException("æ— æ•ˆçš„dataId");
 
         if (!StringUtils.hasLength(group) || StringUtils.containsWhitespace(group))
-            throw new ConfigServiceException("ÎŞĞ§µÄgroup");
+            throw new ConfigServiceException("æ— æ•ˆçš„group");
 
         if (!StringUtils.hasLength(content))
-            throw new ConfigServiceException("ÎŞĞ§µÄcontent");
+            throw new ConfigServiceException("æ— æ•ˆçš„content");
     }
 
 

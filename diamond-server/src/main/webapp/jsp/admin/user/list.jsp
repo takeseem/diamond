@@ -1,34 +1,34 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
-<title>DiamondÅäÖÃĞÅÏ¢¹ÜÀí</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Diamondé…ç½®ä¿¡æ¯ç®¡ç†</title>
 <script type="text/javascript">
    function confirmForDelete(){
-       return window.confirm("ÄãÈ·ÈÏÒªÉ¾³ı¸ÃÓÃ»§Âğ??");  
+       return window.confirm("ä½ ç¡®è®¤è¦åˆ é™¤è¯¥ç”¨æˆ·å—??");  
    }
    
    function changePassword(user,link){
-       var newPass=window.prompt("ÇëÊäÈëĞÂÃÜÂë£º");
+       var newPass=window.prompt("è¯·è¾“å…¥æ–°å¯†ç ï¼š");
        if(newPass==null||newPass.length==0)
          return false;
        link.href=link.href+"&password="+newPass;
-       return window.confirm("ÄãÈ·ÈÏÒª½«"+user+"µÄÃÜÂëĞŞ¸ÄÎª"+newPass+"Âğ??");  
+       return window.confirm("ä½ ç¡®è®¤è¦å°†"+user+"çš„å¯†ç ä¿®æ”¹ä¸º"+newPass+"å—??");  
    }
   
 </script>
 </head>
 <body>
 <c:import url="/jsp/common/message.jsp"/>
-<center><h1><strong>ÓÃ»§¹ÜÀí</strong></h1></center>
+<center><h1><strong>ç”¨æˆ·ç®¡ç†</strong></h1></center>
    <p align='center'>
      <c:if test="${userMap!=null}">
       <table border='1' width="800">
           <tr>
-              <td>ÓÃ»§Ãû</td>
-              <td>ÃÜÂë</td>
-              <td>²Ù×÷</td>
+              <td>ç”¨æˆ·å</td>
+              <td>å¯†ç </td>
+              <td>æ“ä½œ</td>
           </tr>
           <c:forEach items="${userMap}" var="user">
             <tr>
@@ -48,8 +48,8 @@
                   <c:param name="password" value="${user.value}" />
               </c:url>
               <td>
-                 <a href="${changePasswordUrl}" onclick="return changePassword('${user.key}',this);">ĞŞ¸ÄÃÜÂë</a>&nbsp;&nbsp;&nbsp;
-                 <a href="${deleteUserUrl}" onclick="return confirmForDelete();">É¾³ı</a>&nbsp;&nbsp;&nbsp;
+                 <a href="${changePasswordUrl}" onclick="return changePassword('${user.key}',this);">ä¿®æ”¹å¯†ç </a>&nbsp;&nbsp;&nbsp;
+                 <a href="${deleteUserUrl}" onclick="return confirmForDelete();">åˆ é™¤</a>&nbsp;&nbsp;&nbsp;
               </td>
             </tr>
           </c:forEach>
@@ -57,7 +57,7 @@
     </c:if>
   </p>
   <p align='center'>
-    <a href="<c:url value='/jsp/admin/user/new.jsp' />">Ìí¼ÓÓÃ»§</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value='/admin.do?method=reloadUser' />">ÖØĞÂ¼ÓÔØÓÃ»§ĞÅÏ¢</a>
+    <a href="<c:url value='/jsp/admin/user/new.jsp' />">æ·»åŠ ç”¨æˆ·</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value='/admin.do?method=reloadUser' />">é‡æ–°åŠ è½½ç”¨æˆ·ä¿¡æ¯</a>
   </p>
 </body>
 </html>

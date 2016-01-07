@@ -14,28 +14,28 @@ import java.util.List;
 
 public class PageContextResult<T> {
 
-    // ×Ü¼ÇÂ¼Êı
+    // æ€»è®°å½•æ•°
     private long totalCounts = 0;
-    // ×ÜÒ³Êı
+    // æ€»é¡µæ•°
     private long totalPages = 1;
-    // µ±Ç°ÊÇÄÄÒ³
+    // å½“å‰æ˜¯å“ªé¡µ
     private long currentPage = 1;
-    // Æ«ÒÆÎ»ÖÃ
+    // åç§»ä½ç½®
     private long offset = 0;
-    // Æ«ÒÆ³¤¶È
+    // åç§»é•¿åº¦
     private long length = 1;
-    // Ã¿Ò³¼ÇÂ¼Êı
+    // æ¯é¡µè®°å½•æ•°
     private long sizeOfPerPage = 10;
-    // ¼ÇÂ¼Êı¾İ¼¯
+    // è®°å½•æ•°æ®é›†
     private List<T> diamondData;
-    // Êı¾İ¼¯µÄ´óĞ¡
+    // æ•°æ®é›†çš„å¤§å°
     private long originalDataSize = 0;
 
-    private int statusCode; // ×´Ì¬Âë
+    private int statusCode; // çŠ¶æ€ç 
 
-    // ÊÇ·ñ³É¹¦
+    // æ˜¯å¦æˆåŠŸ
     private boolean isSuccess = false;
-    // ×´Ì¬ĞÅÏ¢
+    // çŠ¶æ€ä¿¡æ¯
     private String statusMsg;
 
 
@@ -51,42 +51,42 @@ public class PageContextResult<T> {
 
 
     public void operation() {
-        // =========¼ìÑésizeOfPerPageºÏ·¨ĞÔ
+        // =========æ£€éªŒsizeOfPerPageåˆæ³•æ€§
         if (totalCounts < 0) {
             totalCounts = 0;
         }
 
-        // =========¼ìÑésizeOfPerPageºÏ·¨ĞÔ
+        // =========æ£€éªŒsizeOfPerPageåˆæ³•æ€§
         if (sizeOfPerPage <= 0)
             sizeOfPerPage = 1;
 
-        // =========¼ÆËã×ÜÒ³Êı
-        // Èç¹û×Ü¼ÇÂ¼ÊıÄÜ±»Ã¿Ò³´óĞ¡Õû³ı£¬Ôò×ÜÒ³ÊıÎª(×Ü¼ÇÂ¼Êı /Ã¿Ò³´óĞ¡)
-        // ·ñÔò×ÜÒ³ÊıÎª(×Ü¼ÇÂ¼Êı /Ã¿Ò³´óĞ¡+1)
+        // =========è®¡ç®—æ€»é¡µæ•°
+        // å¦‚æœæ€»è®°å½•æ•°èƒ½è¢«æ¯é¡µå¤§å°æ•´é™¤ï¼Œåˆ™æ€»é¡µæ•°ä¸º(æ€»è®°å½•æ•° /æ¯é¡µå¤§å°)
+        // å¦åˆ™æ€»é¡µæ•°ä¸º(æ€»è®°å½•æ•° /æ¯é¡µå¤§å°+1)
         if (totalCounts % sizeOfPerPage == 0) {
             totalPages = totalCounts / sizeOfPerPage;
         }
         else
             totalPages = totalCounts / sizeOfPerPage + 1;
 
-        // =========¾ÀÕı×ÜÒ³Êı
+        // =========çº æ­£æ€»é¡µæ•°
         if (totalPages <= 1)
             totalPages = 1;
 
-        // =========¼ìÑécurrentPageºÏ·¨ĞÔ
+        // =========æ£€éªŒcurrentPageåˆæ³•æ€§
         if (currentPage <= 1)
             currentPage = 1;
         else if (currentPage > totalPages)
             currentPage = totalPages;
 
-        // =========¼ÆËãÆ«ÒÆÎ»ÖÃ
+        // =========è®¡ç®—åç§»ä½ç½®
         offset = (currentPage - 1) * sizeOfPerPage;
 
-        // =========¼ìÑéoffsetºÏ·¨ĞÔ
+        // =========æ£€éªŒoffsetåˆæ³•æ€§
         if (offset < 0)
             offset = 0;
 
-        // =========¼ÆËã³¤¶È
+        // =========è®¡ç®—é•¿åº¦
         if (currentPage < totalPages)
             length = sizeOfPerPage;
         else

@@ -26,7 +26,7 @@ public class CacheData {
     private volatile long localConfigInfoVersion;
     private volatile boolean useLocalConfigInfo = false;
     /**
-     * Í³¼Æ³É¹¦»ñÈ¡ÅäÖÃĞÅÏ¢µÄ´ÎÊı
+     * ç»Ÿè®¡æˆåŠŸè·å–é…ç½®ä¿¡æ¯çš„æ¬¡æ•°
      */
     private final AtomicLong fetchCounter = new AtomicLong(0);
 

@@ -22,7 +22,7 @@ import com.taobao.diamond.domain.Page;
 
 
 /**
- * ·ÖÒ³¸¨ÖúÀà
+ * åˆ†é¡µè¾…åŠ©ç±»
  * 
  * @author boyan
  * @date 2010-5-6
@@ -31,20 +31,20 @@ import com.taobao.diamond.domain.Page;
 public class PaginationHelper<E> {
 
     /**
-     * È¡·ÖÒ³
+     * å–åˆ†é¡µ
      * 
      * @param jt
      *            jdbcTemplate
      * @param sqlCountRows
-     *            ²éÑ¯×ÜÊıµÄSQL
+     *            æŸ¥è¯¢æ€»æ•°çš„SQL
      * @param sqlFetchRows
-     *            ²éÑ¯Êı¾İµÄsql
+     *            æŸ¥è¯¢æ•°æ®çš„sql
      * @param args
-     *            ²éÑ¯²ÎÊı
+     *            æŸ¥è¯¢å‚æ•°
      * @param pageNo
-     *            Ò³Êı
+     *            é¡µæ•°
      * @param pageSize
-     *            Ã¿Ò³´óĞ¡
+     *            æ¯é¡µå¤§å°
      * @param rowMapper
      * @return
      */
@@ -54,16 +54,16 @@ public class PaginationHelper<E> {
             return null;
         }
 
-        // ²éÑ¯µ±Ç°¼ÇÂ¼×ÜÊı
+        // æŸ¥è¯¢å½“å‰è®°å½•æ€»æ•°
         final int rowCount = jt.queryForInt(sqlCountRows, args);
 
-        // ¼ÆËãÒ³Êı
+        // è®¡ç®—é¡µæ•°
         int pageCount = rowCount / pageSize;
         if (rowCount > pageSize * pageCount) {
             pageCount++;
         }
 
-        // ´´½¨Page¶ÔÏó
+        // åˆ›å»ºPageå¯¹è±¡
         final Page<E> page = new Page<E>();
         page.setPageNumber(pageNo);
         page.setPagesAvailable(pageCount);
@@ -71,9 +71,9 @@ public class PaginationHelper<E> {
 
         if (pageNo > pageCount)
             return null;
-        // È¡µ¥Ò³Êı¾İ£¬¼ÆËãÆğÊ¼Î»ÖÃ
+        // å–å•é¡µæ•°æ®ï¼Œè®¡ç®—èµ·å§‹ä½ç½®
         final int startRow = (pageNo - 1) * pageSize;
-        // TODO ÔÚÊı¾İÁ¿ºÜ´óÊ±£¬ limitĞ§ÂÊºÜµÍ
+        // TODO åœ¨æ•°æ®é‡å¾ˆå¤§æ—¶ï¼Œ limitæ•ˆç‡å¾ˆä½
         final String selectSQL = sqlFetchRows + " limit " + startRow + "," + pageSize;
         jt.query(selectSQL, args, new ResultSetExtractor() {
             public Object extractData(ResultSet rs) throws SQLException, DataAccessException {

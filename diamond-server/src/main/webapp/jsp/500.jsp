@@ -1,6 +1,6 @@
-<%@page contentType="text/html;charset=GBK" isErrorPage="true"%>
+<%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
 <html>
-<head><title>出现错误</title>
+<head><title>鍑虹幇閿欒</title>
 <script type="text/javascript">
   function displayErrorInfo()
   {
@@ -10,8 +10,8 @@
 </script>
 </head>
 <body>
-     <p>服务器出现内部错误，请联系管理员</p>
-     <p><a onclick="displayErrorInfo();" href="#">查看异常信息</a></p>
+     <p>鏈嶅姟鍣ㄥ嚭鐜板唴閮ㄩ敊璇紝璇疯仈绯荤鐞嗗憳</p>
+     <p><a onclick="displayErrorInfo();" href="#">鏌ョ湅寮傚父淇℃伅</a></p>
      <div id="errorInfo" style="display:none"><%=exception.getMessage()%></div>
 </body>
 </html>

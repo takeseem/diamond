@@ -19,7 +19,7 @@ public class DiamondUtils {
 
 
     /**
-     * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÓĞ¿Õ¸ñ
+     * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦æœ‰ç©ºæ ¼
      * 
      * @param str
      * @return

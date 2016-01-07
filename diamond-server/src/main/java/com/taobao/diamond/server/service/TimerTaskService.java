@@ -15,7 +15,7 @@ import com.taobao.diamond.server.utils.SystemConfig;
 
 
 /**
- * 定时任务服务
+ * 瀹氭椂浠诲姟鏈嶅姟
  * 
  * @author boyan
  */

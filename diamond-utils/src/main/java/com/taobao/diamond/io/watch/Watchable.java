@@ -10,7 +10,7 @@
 package com.taobao.diamond.io.watch;
 
 /**
- * 标记接口，实现此接口的类可以被注册到WatchService
+ * 鏍囪鎺ュ彛锛屽疄鐜版鎺ュ彛鐨勭被鍙互琚敞鍐屽埌WatchService
  * 
  * @author boyan
  * 

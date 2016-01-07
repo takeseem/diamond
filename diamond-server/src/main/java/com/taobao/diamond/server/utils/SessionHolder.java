@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 
 /**
- * Í¨¹ýThreadLocal´«µÝHttpSession
+ * é€šè¿‡ThreadLocalä¼ é€’HttpSession
  * 
  * @author boyan
  * @date 2010-5-26

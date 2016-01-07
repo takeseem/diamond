@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>diamond-all</artifactId>
 		<groupId>com.taobao.diamond</groupId>
-		<version>2.0.5.4.taocode-SNAPSHOT</version>
+		<version>2.0.5.4.bbg-SNAPSHOT</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -18,6 +18,12 @@
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
