@@ -1,7 +1,7 @@
 package com.taobao.diamond.domain;
 
 /**
- * ConfigInfoµÄÀ©Õ¹Àà, ½â¾öÀÏ°æ±¾µÄSDKÓëĞÂ°æ±¾µÄserverÓÉÓÚ·´ĞòÁĞ»¯×Ö¶Î´íÎó¶ø²úÉúµÄ²»¼æÈİÎÊÌâ
+ * ConfigInfoçš„æ‰©å±•ç±», è§£å†³è€ç‰ˆæœ¬çš„SDKä¸æ–°ç‰ˆæœ¬çš„serverç”±äºååºåˆ—åŒ–å­—æ®µé”™è¯¯è€Œäº§ç”Ÿçš„ä¸å…¼å®¹é—®é¢˜
  * 
  * @author leiwen.zh
  * 
@@ -10,9 +10,9 @@ public class ConfigInfoEx extends ConfigInfo {
 
     private static final long serialVersionUID = -1L;
 
-    // ÅúÁ¿²éÑ¯Ê±, µ¥ÌõÊı¾İµÄ×´Ì¬Âë, ¾ßÌåµÄ×´Ì¬ÂëÔÚConstants.javaÖĞ
+    // æ‰¹é‡æŸ¥è¯¢æ—¶, å•æ¡æ•°æ®çš„çŠ¶æ€ç , å…·ä½“çš„çŠ¶æ€ç åœ¨Constants.javaä¸­
     private int status;
-    // ÅúÁ¿²éÑ¯Ê±, µ¥ÌõÊı¾İµÄĞÅÏ¢
+    // æ‰¹é‡æŸ¥è¯¢æ—¶, å•æ¡æ•°æ®çš„ä¿¡æ¯
     private String message;
 
 

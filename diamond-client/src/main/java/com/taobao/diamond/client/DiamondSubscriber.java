@@ -16,14 +16,14 @@ import com.taobao.diamond.configinfo.CacheData;
 
 
 /**
- * DiamondSubscriberÓÃÓÚ¶©ÔÄ³Ö¾ÃµÄÎÄ±¾ÅäÖÃĞÅÏ¢¡£<br>
+ * DiamondSubscriberç”¨äºè®¢é˜…æŒä¹…çš„æ–‡æœ¬é…ç½®ä¿¡æ¯ã€‚<br>
  * 
  * @author aoqiong
  * 
  */
 public interface DiamondSubscriber extends DiamondClientSub {
     /**
-     * ÉèÖÃÒì²½¶©ÔÄµÄListener£¬¿ÉÒÔ¶¯Ì¬Ìæ»»
+     * è®¾ç½®å¼‚æ­¥è®¢é˜…çš„Listenerï¼Œå¯ä»¥åŠ¨æ€æ›¿æ¢
      * 
      * @param subscriberListener
      */
@@ -31,7 +31,7 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * »ñÈ¡Òì²½¶©ÔÄµÄListener
+     * è·å–å¼‚æ­¥è®¢é˜…çš„Listener
      * 
      * @return
      */
@@ -39,8 +39,8 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * »ñÈ¡group×éDataIDÎªdataIdµÄConfigureInfomation£¬±ØĞëÔÚstart()·½·¨ºóµ÷ÓÃ,,´Ë·½·¨ÓÅÏÈ´Ó${user.
-     * home}/diamond/dataÏÂ»ñÈ¡ÅäÖÃÎÄ¼ş£¬Èç¹ûÃ»ÓĞ£¬Ôò´Ódiamond server»ñÈ¡ÅäÖÃĞÅÏ¢
+     * è·å–groupç»„DataIDä¸ºdataIdçš„ConfigureInfomationï¼Œå¿…é¡»åœ¨start()æ–¹æ³•åè°ƒç”¨,,æ­¤æ–¹æ³•ä¼˜å…ˆä»${user.
+     * home}/diamond/dataä¸‹è·å–é…ç½®æ–‡ä»¶ï¼Œå¦‚æœæ²¡æœ‰ï¼Œåˆ™ä»diamond serverè·å–é…ç½®ä¿¡æ¯
      * 
      * @param dataId
      * @param group
@@ -51,8 +51,8 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * »ñÈ¡È±Ê¡×éµÄDataIDÎªdataIdµÄConfigureInfomation£¬±ØĞëÔÚstart()·½·¨ºóµ÷ÓÃ,´Ë·½·¨ÓÅÏÈ´Ó${user.home
-     * }/diamond/dataÏÂ»ñÈ¡ÅäÖÃÎÄ¼ş£¬Èç¹ûÃ»ÓĞ£¬Ôò´Ódiamond server»ñÈ¡ÅäÖÃĞÅÏ¢
+     * è·å–ç¼ºçœç»„çš„DataIDä¸ºdataIdçš„ConfigureInfomationï¼Œå¿…é¡»åœ¨start()æ–¹æ³•åè°ƒç”¨,æ­¤æ–¹æ³•ä¼˜å…ˆä»${user.home
+     * }/diamond/dataä¸‹è·å–é…ç½®æ–‡ä»¶ï¼Œå¦‚æœæ²¡æœ‰ï¼Œåˆ™ä»diamond serverè·å–é…ç½®ä¿¡æ¯
      * 
      * @param dataId
      * @param timeout
@@ -62,8 +62,8 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * »ñÈ¡Ò»·İ¿ÉÓÃµÄÅäÖÃĞÅÏ¢£¬°´ÕÕ<strong>±¾µØÎÄ¼ş->diamond·şÎñÆ÷->±¾µØÉÏÒ»´Î±£´æµÄsnapshot</strong>
-     * µÄÓÅÏÈË³Ğò»ñÈ¡Ò»·İÓĞĞ§µÄÅäÖÃĞÅÏ¢£¬Èç¹ûËùÓĞÍ¾¾¶¶¼ÎŞ·¨»ñÈ¡Ò»·İÓĞĞ§ÅäÖÃĞÅÏ¢ £¬ Ôò·µ»Ønull
+     * è·å–ä¸€ä»½å¯ç”¨çš„é…ç½®ä¿¡æ¯ï¼ŒæŒ‰ç…§<strong>æœ¬åœ°æ–‡ä»¶->diamondæœåŠ¡å™¨->æœ¬åœ°ä¸Šä¸€æ¬¡ä¿å­˜çš„snapshot</strong>
+     * çš„ä¼˜å…ˆé¡ºåºè·å–ä¸€ä»½æœ‰æ•ˆçš„é…ç½®ä¿¡æ¯ï¼Œå¦‚æœæ‰€æœ‰é€”å¾„éƒ½æ— æ³•è·å–ä¸€ä»½æœ‰æ•ˆé…ç½®ä¿¡æ¯ ï¼Œ åˆ™è¿”å›null
      * 
      * @param dataId
      * @param group
@@ -74,17 +74,17 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * Ìí¼ÓÒ»¸öDataID£¬Èç¹ûÔ­À´ÓĞ´ËDataIDºÍGroup£¬½«Ìæ»»ËüÃÇ
+     * æ·»åŠ ä¸€ä¸ªDataIDï¼Œå¦‚æœåŸæ¥æœ‰æ­¤DataIDå’ŒGroupï¼Œå°†æ›¿æ¢å®ƒä»¬
      * 
      * @param dataId
      * @param group
-     *            ×éÃû£¬¿ÉÎªnull£¬´ú±íÊ¹ÓÃÈ±Ê¡µÄ×éÃû
+     *            ç»„åï¼Œå¯ä¸ºnullï¼Œä»£è¡¨ä½¿ç”¨ç¼ºçœçš„ç»„å
      */
     public void addDataId(String dataId, String group);
 
 
     /**
-     * Ìí¼ÓÒ»¸öDataID£¬Ê¹ÓÃÈ±Ê¡µÄ×éÃû¡£Èç¹ûÔ­À´ÓĞ´ËDataIDºÍGroup£¬½«Ìæ»»ËüÃÇ
+     * æ·»åŠ ä¸€ä¸ªDataIDï¼Œä½¿ç”¨ç¼ºçœçš„ç»„åã€‚å¦‚æœåŸæ¥æœ‰æ­¤DataIDå’ŒGroupï¼Œå°†æ›¿æ¢å®ƒä»¬
      * 
      * @param dataId
      */
@@ -92,7 +92,7 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * Ä¿Ç°ÊÇ·ñÖ§³Ö¶ÔDataID¶ÔÓ¦µÄConfigInfo
+     * ç›®å‰æ˜¯å¦æ”¯æŒå¯¹DataIDå¯¹åº”çš„ConfigInfo
      * 
      * @param dataId
      * @return
@@ -125,13 +125,13 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * Çå¿ÕËùÓĞµÄDataID
+     * æ¸…ç©ºæ‰€æœ‰çš„DataID
      */
     public void clearAllDataIds();
 
 
     /**
-     * »ñÈ¡Ö§³ÖµÄËùÓĞµÄDataID
+     * è·å–æ”¯æŒçš„æ‰€æœ‰çš„DataID
      * 
      * @return
      */
@@ -139,7 +139,7 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * »ñÈ¡¿Í»§¶Ëcache
+     * è·å–å®¢æˆ·ç«¯cache
      * 
      * @return
      */
@@ -147,7 +147,7 @@ public interface DiamondSubscriber extends DiamondClientSub {
 
 
     /**
-     * »ñÈ¡Ò»·İ¿ÉÓÃµÄÅäÖÃĞÅÏ¢£¬°´ÕÕ±¾µØsnapshot -> ±¾µØÎÄ¼ş -> serverµÄË³Ğò
+     * è·å–ä¸€ä»½å¯ç”¨çš„é…ç½®ä¿¡æ¯ï¼ŒæŒ‰ç…§æœ¬åœ°snapshot -> æœ¬åœ°æ–‡ä»¶ -> serverçš„é¡ºåº
      * 
      * @param dataId
      * @param group

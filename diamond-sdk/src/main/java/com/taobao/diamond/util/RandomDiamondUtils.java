@@ -28,22 +28,22 @@ public class RandomDiamondUtils {
         if(allDiamondConfs==null){
             allDiamondConfs=diamondConfs;
         }
-        //×î´ó·ÃÎÊ´ÎÊıÎªdiamondConfs.size()
+        //æœ€å¤§è®¿é—®æ¬¡æ•°ä¸ºdiamondConfs.size()
         max_times=len;
-        //ÉèÖÃÖØÊÔ´ÎÊıÎª0
+        //è®¾ç½®é‡è¯•æ¬¡æ•°ä¸º0
         retry_times=0;
-        //µ±Ç°ÏÂ±êÉèÖÃÎª0
+        //å½“å‰ä¸‹æ ‡è®¾ç½®ä¸º0
         currentIndex=0;
-        //³õÊ¼»¯ÏÂ±êÊı×é
+        //åˆå§‹åŒ–ä¸‹æ ‡æ•°ç»„
         randomIndexSequence=new int[len];
-        //¸³Öµ
+        //èµ‹å€¼
         for(int i=0;i<len;i++){
             randomIndexSequence[i]=i;
         }
-        // 1.³¤¶ÈÎª£±Ö±½Ó·µ»Ø
+        // 1.é•¿åº¦ä¸ºï¼‘ç›´æ¥è¿”å›
         if(len==1)
             return;
-        // 2.³¤¶ÈÎª£²,50%µÄ¸ÅÂÊ»»Ò»ÏÂ
+        // 2.é•¿åº¦ä¸ºï¼’,50%çš„æ¦‚ç‡æ¢ä¸€ä¸‹
         Random random=new Random();
         if(len==2 && random.nextInt(2)==1) 
         {
@@ -52,11 +52,11 @@ public class RandomDiamondUtils {
            randomIndexSequence[1]=temp;
            return;
         }
-        // 3.Ëæ»ú²úÉúÒ»¸ö0~n-2µÄÏÂ±ê,²¢½«´ËÏÂ±êµÄÖµÓëÊı×é×îºóÒ»¸öÔªËØ½»»»,½øĞĞ2n´Î
+        // 3.éšæœºäº§ç”Ÿä¸€ä¸ª0~n-2çš„ä¸‹æ ‡,å¹¶å°†æ­¤ä¸‹æ ‡çš„å€¼ä¸æ•°ç»„æœ€åä¸€ä¸ªå…ƒç´ äº¤æ¢,è¿›è¡Œ2næ¬¡
         int times=2 * len;
         for(int j=0;j<times;j++){
             int selectedIndex=random.nextInt(len-1);
-            //½«Ëæ»ú²úÉúÏÂ±êµÄÖµÓë×îºóÒ»¸öÔªËØÖµ½»»»
+            //å°†éšæœºäº§ç”Ÿä¸‹æ ‡çš„å€¼ä¸æœ€åä¸€ä¸ªå…ƒç´ å€¼äº¤æ¢
             int temp=randomIndexSequence[selectedIndex];
             randomIndexSequence[selectedIndex]=randomIndexSequence[len-1];
             randomIndexSequence[len-1]=temp;
@@ -72,16 +72,16 @@ public class RandomDiamondUtils {
         return max_times;
     }
     /**
-     * Ëæ»úÈ¡µÃÒ»¸ödiamondServerÅäÖÃ¶ÔÏó
+     * éšæœºå–å¾—ä¸€ä¸ªdiamondServeré…ç½®å¯¹è±¡
      * 
      * @param diamondConfs
-     * @return DiamondConf diamondServerÅäÖÃ¶ÔÏó
+     * @return DiamondConf diamondServeré…ç½®å¯¹è±¡
      */
     public DiamondConf generatorOneDiamondConf(){
         DiamondConf diamondConf=null;
-        //·ÃÎÊÏÂ±êĞ¡ÓÚ×îºóÒ»¸öÏÂ±ê
+        //è®¿é—®ä¸‹æ ‡å°äºæœ€åä¸€ä¸ªä¸‹æ ‡
         if(retry_times < max_times){
-            //µÃµ½µ±Ç°·ÃÎÊÏÂ±ê
+            //å¾—åˆ°å½“å‰è®¿é—®ä¸‹æ ‡
             currentIndex=randomIndexSequence[retry_times];
             diamondConf = allDiamondConfs.get(currentIndex);
         }

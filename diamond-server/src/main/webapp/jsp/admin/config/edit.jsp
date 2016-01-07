@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
-<title>配置信息详情</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>閰嶇疆淇℃伅璇︽儏</title>
 	<script src="<c:url value='/js/prototype_for_validation.js'/>" type="text/javascript"></script>
     <script src="<c:url value='/js/effects.js'/>" type="text/javascript"></script>
 	<script src="<c:url value='/js/validation_cn.js'/>" type="text/javascript"></script>
@@ -49,11 +49,11 @@
             </td>
         </tr>
         <tr> 
-            <td colspan="2"><input type="submit" value="更改"/>
+            <td colspan="2"><input type="submit" value="鏇存敼"/>
         </tr>
     </table>
  </form>
- <!-- 上传表单 -->
+ <!-- 涓婁紶琛ㄥ崟 -->
  <c:url var="reuploadUrl" value="/admin.do" >
     <c:param name="method" value="reupload" />
 </c:url>
@@ -68,9 +68,9 @@
              <td colspan="2"> <input type='hidden' name='group' width="256" class="required max-length-128" value="${configInfo.group}"/></td>
         </tr>
          <tr>
-            <td>重新上传配置文件:</td>
+            <td>閲嶆柊涓婁紶閰嶇疆鏂囦欢:</td>
             <td>
-                <input type="file" name="contentFile" class="required"/>&nbsp;&nbsp;<input type="submit" value="上传"/>
+                <input type="file" name="contentFile" class="required"/>&nbsp;&nbsp;<input type="submit" value="涓婁紶"/>
             </td>
          </tr> 
  </form>

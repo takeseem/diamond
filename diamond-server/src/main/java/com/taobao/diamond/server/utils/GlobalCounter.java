@@ -10,7 +10,7 @@
 package com.taobao.diamond.server.utils;
 
 /**
- * È«¾Ö¼ÆÊýÆ÷
+ * å…¨å±€è®¡æ•°å™¨
  * 
  * @author boyan
  * @date 2010-5-31

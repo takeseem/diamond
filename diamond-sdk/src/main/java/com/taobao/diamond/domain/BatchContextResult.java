@@ -6,7 +6,7 @@ import java.util.List;
 
 
 /**
- * Åú´¦ÀíµÄ·µ»Ø½á¹û
+ * æ‰¹å¤„ç†çš„è¿”å›ç»“æœ
  * 
  * @author leiwen.zh
  * 
@@ -15,15 +15,15 @@ public class BatchContextResult<T> implements Serializable {
 
     private static final long serialVersionUID = -5170746311067772091L;
 
-    // Åú´¦ÀíÊÇ·ñ³É¹¦
+    // æ‰¹å¤„ç†æ˜¯å¦æˆåŠŸ
     private boolean success = true;
-    // ÇëÇó·µ»ØµÄ×´Ì¬Âë
+    // è¯·æ±‚è¿”å›çš„çŠ¶æ€ç 
     private int statusCode;
-    // ÓÃ»§¿É¶ÁµÄ·µ»ØĞÅÏ¢
+    // ç”¨æˆ·å¯è¯»çš„è¿”å›ä¿¡æ¯
     private String statusMsg;
-    // responseÖĞµÄÔªĞÅÏ¢
+    // responseä¸­çš„å…ƒä¿¡æ¯
     private String responseMsg;
-    // ·µ»ØµÄ½á¹û¼¯
+    // è¿”å›çš„ç»“æœé›†
     private List<T> result;
 
 

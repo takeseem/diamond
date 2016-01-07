@@ -1,12 +1,12 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=GBK" pageEncoding="GBK"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
-<title>DiamondÅäÖÃĞÅÏ¢¹ÜÀí</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Diamondé…ç½®ä¿¡æ¯ç®¡ç†</title>
 <script type="text/javascript">
    function confirmForDelete(){
-       return window.confirm("ÄãÈ·ÈÏÒªÉ¾³ı¸ÃÅäÖÃĞÅÏ¢Âğ??");  
+       return window.confirm("ä½ ç¡®è®¤è¦åˆ é™¤è¯¥é…ç½®ä¿¡æ¯å—??");  
    }
    function queryConfigInfo(method){
        document.all.queryForm.method.value=method;
@@ -23,21 +23,21 @@
 
 <body>
 <c:import url="/jsp/common/message.jsp"/>
-<center><h1><strong>ÅäÖÃĞÅÏ¢¹ÜÀí</strong></h1></center>
+<center><h1><strong>é…ç½®ä¿¡æ¯ç®¡ç†</strong></h1></center>
  <p align='center'>
        <form name="queryForm" action="${adminUrl}">
        <table align='center'>
            <tr>
                <td>dataId:</td>
                <td><input type="text" name="dataId"/></td>
-               <td>×éÃû:</td>
+               <td>ç»„å:</td>
                <td><input type="text" name="group"/></td>
                <td>
                   <input type='hidden' name="pageNo" value='1'/>
                   <input type='hidden' name="method" value='${method}'/>
                   <input type='hidden' name="pageSize" value='15'/>
-                  <input type='button' value='²éÑ¯' onclick="queryConfigInfo('listConfig');"/>
-                  <input type='button' value='Ä£ºı²éÑ¯' onclick="queryConfigInfo('listConfigLike');"/></td>
+                  <input type='button' value='æŸ¥è¯¢' onclick="queryConfigInfo('listConfig');"/>
+                  <input type='button' value='æ¨¡ç³ŠæŸ¥è¯¢' onclick="queryConfigInfo('listConfigLike');"/></td>
            </tr>
        </table>
        </form>
@@ -47,8 +47,8 @@
       <table border='1' width="800">
           <tr>
               <td>dataId</td>
-              <td>×éÃû</td>
-              <td>²Ù×÷</td>
+              <td>ç»„å</td>
+              <td>æ“ä½œ</td>
           </tr>
           <c:forEach items="${page.pageItems}" var="configInfo">
             <tr>
@@ -77,16 +77,16 @@
                   <c:param name="dataId" value="${configInfo.dataId}" />
               </c:url>
               <td>
-                 <a href="${getConfigInfoUrl}">±à¼­</a>&nbsp;&nbsp;&nbsp;
-                 <a href="${deleteConfigInfoUrl}" onclick="return confirmForDelete();">É¾³ı</a>&nbsp;&nbsp;&nbsp;
-                 <a href="${saveToDiskUrl}" target="_blank">±£´æ´ÅÅÌ</a>
-                 <a href="${previewUrl}" target="_blank">Ô¤ÀÀ</a>
+                 <a href="${getConfigInfoUrl}">ç¼–è¾‘</a>&nbsp;&nbsp;&nbsp;
+                 <a href="${deleteConfigInfoUrl}" onclick="return confirmForDelete();">åˆ é™¤</a>&nbsp;&nbsp;&nbsp;
+                 <a href="${saveToDiskUrl}" target="_blank">ä¿å­˜ç£ç›˜</a>
+                 <a href="${previewUrl}" target="_blank">é¢„è§ˆ</a>
               </td>
             </tr>
           </c:forEach>
        </table>
        <p align='center'>
-          ×ÜÒ³Êı:<c:out value="${page.pagesAvailable}"/>&nbsp;&nbsp;µ±Ç°Ò³:<c:out value="${page.pageNumber}"/>
+          æ€»é¡µæ•°:<c:out value="${page.pagesAvailable}"/>&nbsp;&nbsp;å½“å‰é¡µ:<c:out value="${page.pageNumber}"/>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <c:url var="nextPage" value="/admin.do" >
              <c:param name="method" value="${method}" />
@@ -116,27 +116,27 @@
              <c:param name="pageNo" value="${page.pagesAvailable}" />
              <c:param name="pageSize" value="15" />
          </c:url>
-         <a href="${firstPage}">Ê×Ò³</a>&nbsp;&nbsp; 
+         <a href="${firstPage}">é¦–é¡µ</a>&nbsp;&nbsp; 
           <c:choose>
              <c:when  test="${page.pageNumber==1 && page.pagesAvailable>1}">
-               <a href="${nextPage}">ÏÂÒ»Ò³</a>  &nbsp; &nbsp;
+               <a href="${nextPage}">ä¸‹ä¸€é¡µ</a>  &nbsp; &nbsp;
              </c:when>
              <c:when  test="${page.pageNumber>1 && page.pagesAvailable==page.pageNumber}">
-               <a href="${prevPage}">ÉÏÒ»Ò³</a>  &nbsp; &nbsp;
+               <a href="${prevPage}">ä¸Šä¸€é¡µ</a>  &nbsp; &nbsp;
              </c:when>
              <c:when  test="${page.pageNumber==1 && page.pagesAvailable==1}">
              </c:when>
              <c:otherwise>
-                <a href="${prevPage}">ÉÏÒ»Ò³</a>  &nbsp; &nbsp;
-                <a href="${nextPage}">ÏÂÒ»Ò³</a>  
+                <a href="${prevPage}">ä¸Šä¸€é¡µ</a>  &nbsp; &nbsp;
+                <a href="${nextPage}">ä¸‹ä¸€é¡µ</a>  
              </c:otherwise>
           </c:choose>
-          <a href="${lastPage}">Ä©Ò³</a>&nbsp;&nbsp; 
+          <a href="${lastPage}">æœ«é¡µ</a>&nbsp;&nbsp; 
        </p>
      </c:if>
   </p>
   <p align='center'>
-    <a href="<c:url value='/jsp/admin/config/new.jsp' />">Ìí¼ÓÅäÖÃĞÅÏ¢</a>  &nbsp;&nbsp;&nbsp;&nbsp; <a href=" <c:url value='/jsp/admin/config/upload.jsp' />">ÉÏ´«ÅäÖÃĞÅÏ¢</a>
+    <a href="<c:url value='/jsp/admin/config/new.jsp' />">æ·»åŠ é…ç½®ä¿¡æ¯</a>  &nbsp;&nbsp;&nbsp;&nbsp; <a href=" <c:url value='/jsp/admin/config/upload.jsp' />">ä¸Šä¼ é…ç½®ä¿¡æ¯</a>
   </p>
 </body>
 </html>

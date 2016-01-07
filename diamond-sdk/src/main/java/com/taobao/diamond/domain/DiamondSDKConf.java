@@ -20,11 +20,11 @@ public class DiamondSDKConf {
 
     private String serverId;
 
-    // 多个diamond配置
+    // 澶氫釜diamond閰嶇疆
     private List<DiamondConf> diamondConfs;
 
 
-    // 构造时需要传入diamondConfs 列表
+    // 鏋勯�犳椂闇�瑕佷紶鍏iamondConfs 鍒楄〃
     public DiamondSDKConf(List<DiamondConf> diamondConfs) {
         this.diamondConfs = diamondConfs;
     }

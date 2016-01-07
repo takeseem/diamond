@@ -15,7 +15,7 @@ import com.taobao.diamond.configinfo.ConfigureInfomation;
 
 
 /**
- * Diamond¶©ÔÄÕßµÄÅäÖÃĞÅÏ¢¼àÌıÆ÷
+ * Diamondè®¢é˜…è€…çš„é…ç½®ä¿¡æ¯ç›‘å¬å™¨
  * 
  * @author aoqiong
  * 
@@ -26,7 +26,7 @@ public interface SubscriberListener {
 
 
     /**
-     * ½ÓÊÕµ½Ò»´ÎÅäÖÃĞÅÏ¢
+     * æ¥æ”¶åˆ°ä¸€æ¬¡é…ç½®ä¿¡æ¯
      * 
      * @param configureInfomation
      */

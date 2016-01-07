@@ -69,7 +69,7 @@ public class MD5 {
 
 
     /**
-     * 对字符串进行md5
+     * 瀵瑰瓧绗︿覆杩涜md5
      * 
      * @param str
      * @return md5 byte[16]
@@ -93,7 +93,7 @@ public class MD5 {
 
 
     /**
-     * 对二进制数据进行md5
+     * 瀵逛簩杩涘埗鏁版嵁杩涜md5
      * 
      * @param str
      * @return md5 byte[16]
@@ -114,7 +114,7 @@ public class MD5 {
 
 
     /**
-     * 将一个字节数组转化为可见的字符串
+     * 灏嗕竴涓瓧鑺傛暟缁勮浆鍖栦负鍙鐨勫瓧绗︿覆
      * 
      * @param bt
      * @return
@@ -138,17 +138,17 @@ public class MD5 {
 
 
     /**
-     * 将字符串转换为bytes
+     * 灏嗗瓧绗︿覆杞崲涓篵ytes
      * 
      * @param str
      * @return byte[]
      */
     public byte[] string2bytes(String str) {
         if (null == str) {
-            throw new NullPointerException("参数不能为空");
+            throw new NullPointerException("鍙傛暟涓嶈兘涓虹┖");
         }
         if (str.length() != 32) {
-            throw new IllegalArgumentException("字符串长度必须是32");
+            throw new IllegalArgumentException("瀛楃涓查暱搴﹀繀椤绘槸32");
         }
         byte[] data = new byte[16];
         char[] chs = str.toCharArray();
