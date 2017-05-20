@@ -70,6 +70,7 @@
 	<servlet-mapping>
 		<servlet-name>diamond</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<!--<url-pattern>/</url-pattern>-->
 	</servlet-mapping>
 	
 	<servlet-mapping>

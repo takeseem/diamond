@@ -19,7 +19,7 @@ public class Constants {
 
     public static final String DAILY_DOMAINNAME = "d.e.f";
 
-    public static final int DEFAULT_PORT = 0;
+    public static final int DEFAULT_PORT = 8080;
 
     public static final String NULL = "";
 
@@ -45,15 +45,16 @@ public class Constants {
 
     public static final String SPACING_INTERVAL = "client-spacing-interval";
 
-    public static final int POLLING_INTERVAL_TIME = 15;// Ãë
+    public static final int POLLING_INTERVAL_TIME = 15;// ï¿½ï¿½
 
-    public static final int ONCE_TIMEOUT = 2000;// ºÁÃë
+    public static final int ONCE_TIMEOUT = 2000;// ï¿½ï¿½ï¿½ï¿½
 
-    public static final int CONN_TIMEOUT = 2000;// ºÁÃë
+    public static final int CONN_TIMEOUT = 2000;// ï¿½ï¿½ï¿½ï¿½
 
-    public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// ºÁÃë
+    public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// ï¿½ï¿½ï¿½ï¿½
 
-    public static final String HTTP_URI_FILE = "/url";
+//    public static final String HTTP_URI_FILE = "/url";
+    public static final String HTTP_URI_FILE = "/config.co";
 
     public static final String CONFIG_HTTP_URI_FILE = "/url";
 
@@ -70,17 +71,17 @@ public class Constants {
     public static final String DEFAULT_PASSWORD = "xxx";
     
     /*
-     * ÅúÁ¿²Ù×÷Ê±, µ¥ÌõÊý¾ÝµÄ×´Ì¬Âë
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½×´Ì¬ï¿½ï¿½
      */
-    // ·¢ÉúÒì³£
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ì³£
     public static final int BATCH_OP_ERROR = -1;
-    // ²éÑ¯³É¹¦, Êý¾Ý´æÔÚ
+    // ï¿½ï¿½Ñ¯ï¿½É¹ï¿½, ï¿½ï¿½Ý´ï¿½ï¿½ï¿½
     public static final int BATCH_QUERY_EXISTS = 1;
-    // ²éÑ¯³É¹¦, Êý¾Ý²»´æÔÚ
+    // ï¿½ï¿½Ñ¯ï¿½É¹ï¿½, ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½
     public static final int BATCH_QUERY_NONEXISTS = 2;
-    // ÐÂÔö³É¹¦
+    // ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½
     public static final int BATCH_ADD_SUCCESS = 3;
-    // ¸üÐÂ³É¹¦
+    // ï¿½ï¿½ï¿½Â³É¹ï¿½
     public static final int BATCH_UPDATE_SUCCESS = 4;
 
 }

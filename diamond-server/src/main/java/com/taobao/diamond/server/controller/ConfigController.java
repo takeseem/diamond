@@ -30,7 +30,7 @@ import com.taobao.diamond.server.utils.GlobalCounter;
 
 
 /**
- * ´¦ÀíÅäÖÃĞÅÏ¢»ñÈ¡ºÍÌá½»µÄcontroller
+ * å¤„ç†é…ç½®ä¿¡æ¯è·å–å’Œæäº¤çš„controller
  * 
  * @author boyan
  * @date 2010-5-4
@@ -49,7 +49,7 @@ public class ConfigController {
         response.setHeader("Content-Type", "text/html;charset=GBK");
         final String address = getRemortIP(request);
         if (address == null) {
-            // Î´ÕÒµ½Ô¶¶ËµØÖ·£¬·µ»Ø400´íÎó
+            // æœªæ‰¾åˆ°è¿œç«¯åœ°å€ï¼Œè¿”å›400é”™è¯¯
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return "400";
         }
@@ -66,18 +66,18 @@ public class ConfigController {
 
         response.setHeader(Constants.CONTENT_MD5, md5);
 
-        // ÕıÔÚ±»ĞŞ¸Ä£¬·µ»Ø304£¬ÕâÀïµÄ¼ì²é²¢Ã»ÓĞ°ì·¨±£Ö¤Ò»ÖÂĞÔ£¬Òò´Ë×ödouble-check¾¡Á¦±£Ö¤
+        // æ­£åœ¨è¢«ä¿®æ”¹ï¼Œè¿”å›304ï¼Œè¿™é‡Œçš„æ£€æŸ¥å¹¶æ²¡æœ‰åŠæ³•ä¿è¯ä¸€è‡´æ€§ï¼Œå› æ­¤åšdouble-checkå°½åŠ›ä¿è¯
         if (diskService.isModified(dataId, group)) {
             response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             return "304";
         }
         String path = configService.getConfigInfoPath(dataId, group);
-        // ÔÙ´Î¼ì²é
+        // å†æ¬¡æ£€æŸ¥
         if (diskService.isModified(dataId, group)) {
             response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             return "304";
         }
-        // ½ûÓÃ»º´æ
+        // ç¦ç”¨ç¼“å­˜
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-cache,no-store");
@@ -89,7 +89,7 @@ public class ConfigController {
         response.setHeader("Content-Type", "text/html;charset=GBK");
         final String address = getRemortIP(request);
         if (address == null) {
-            // Î´ÕÒµ½Ô¶¶ËµØÖ·£¬·µ»Ø400´íÎó
+            // æœªæ‰¾åˆ°è¿œç«¯åœ°å€ï¼Œè¿”å›400é”™è¯¯
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return "400";
         }
@@ -119,7 +119,7 @@ public class ConfigController {
         }
 
         request.setAttribute("content", returnHeader);
-        // ½ûÓÃ»º´æ
+        // ç¦ç”¨ç¼“å­˜
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-cache,no-store");
@@ -148,7 +148,7 @@ public class ConfigController {
 
 
     /**
-     * ²éÕÒÕæÊµµÄIPµØÖ·
+     * æŸ¥æ‰¾çœŸå®çš„IPåœ°å€
      * 
      * @param request
      * @return
