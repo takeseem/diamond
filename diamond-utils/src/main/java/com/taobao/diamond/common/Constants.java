@@ -12,7 +12,7 @@ package com.taobao.diamond.common;
 public class Constants {
 
     public static final String DEFAULT_GROUP = "DEFAULT_GROUP";
-    
+
     public static final String BASE_DIR = "config-data";
 
     public static final String DEFAULT_DOMAINNAME = "a.b.c";
@@ -45,15 +45,14 @@ public class Constants {
 
     public static final String SPACING_INTERVAL = "client-spacing-interval";
 
-    public static final int POLLING_INTERVAL_TIME = 15;// ��
+    public static final int POLLING_INTERVAL_TIME = 15;// 秒
 
-    public static final int ONCE_TIMEOUT = 2000;// ����
+    public static final int ONCE_TIMEOUT = 2000;// 毫秒
 
-    public static final int CONN_TIMEOUT = 2000;// ����
+    public static final int CONN_TIMEOUT = 2000;// 毫秒
 
-    public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// ����
+    public static final int RECV_WAIT_TIMEOUT = ONCE_TIMEOUT * 5;// 毫秒
 
-//    public static final String HTTP_URI_FILE = "/url";
     public static final String HTTP_URI_FILE = "/config.co";
 
     public static final String CONFIG_HTTP_URI_FILE = "/url";
@@ -69,19 +68,19 @@ public class Constants {
     public static final String DEFAULT_USERNAME = "xxx";
 
     public static final String DEFAULT_PASSWORD = "xxx";
-    
+
     /*
-     * ��������ʱ, ������ݵ�״̬��
+     * 批量操作时, 单条数据的状态码
      */
-    // �����쳣
+    // 发生异常
     public static final int BATCH_OP_ERROR = -1;
-    // ��ѯ�ɹ�, ��ݴ���
+    // 查询成功, 数据存在
     public static final int BATCH_QUERY_EXISTS = 1;
-    // ��ѯ�ɹ�, ��ݲ�����
+    // 查询成功, 数据不存在
     public static final int BATCH_QUERY_NONEXISTS = 2;
-    // �����ɹ�
+    // 新增成功
     public static final int BATCH_ADD_SUCCESS = 3;
-    // ���³ɹ�
+    // 更新成功
     public static final int BATCH_UPDATE_SUCCESS = 4;
 
 }
