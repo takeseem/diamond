@@ -18,7 +18,6 @@
 		<module>diamond-sdk</module>
 		<module>diamond-server</module>
 		<module>diamond-utils</module>
-		<module>release</module>
 	</modules>
 
 	<build>
