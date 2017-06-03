@@ -9,15 +9,15 @@
  */
 package com.taobao.diamond.common;
 
-public class Constants {
+public interface Constants {
 
     public static final String DEFAULT_GROUP = "DEFAULT_GROUP";
 
     public static final String BASE_DIR = "config-data";
 
-    public static final String DEFAULT_DOMAINNAME = "a.b.c";
+    public static final String DEFAULT_DOMAINNAME = "config.diamond.org";
 
-    public static final String DAILY_DOMAINNAME = "d.e.f";
+    public static final String DAILY_DOMAINNAME = "config.diamond.org";
 
     public static final int DEFAULT_PORT = 8080;
 
@@ -55,7 +55,7 @@ public class Constants {
 
     public static final String HTTP_URI_FILE = "/config.co";
 
-    public static final String CONFIG_HTTP_URI_FILE = "/url";
+    public static final String CONFIG_HTTP_URI_FILE = "/url.do";
 
     public static final String HTTP_URI_LOGIN = "/url";
 
@@ -82,5 +82,8 @@ public class Constants {
     public static final int BATCH_ADD_SUCCESS = 3;
     // 更新成功
     public static final int BATCH_UPDATE_SUCCESS = 4;
+
+    String CONF_KEY_CONFIG_IP = "diamond.config.ip";
+    String CONF_KEY_PORT = "diamond.port";
 
 }

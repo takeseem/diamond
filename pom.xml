@@ -10,6 +10,7 @@
 	<name>taobao diamond v${project.version}</name>
 
 	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<modules>
@@ -234,20 +235,28 @@
 					<xmlOutput>true</xmlOutput>
 				</configuration>
 			</plugin>
-		</plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
 	</reporting>
 
-	<distributionManagement>
-        <repository>
-             <id>taocodeReleases</id>
-			 <name>taocode nexus</name>
-             <url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases/</url> 
-        </repository>
-        <snapshotRepository>
-              <id>taocodeSnapshots</id>
-			  <name>taocode nexus</name>
-              <url>http://mvnrepo.code.taobao.org/nexus/content/repositories/snapshots/</url>
-         </snapshotRepository>
-	</distributionManagement>
+	<!--<distributionManagement>-->
+        <!--<repository>-->
+             <!--<id>taocodeReleases</id>-->
+			 <!--<name>taocode nexus</name>-->
+             <!--<url>http://mvnrepo.code.taobao.org/nexus/content/repositories/releases/</url> -->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+              <!--<id>taocodeSnapshots</id>-->
+			  <!--<name>taocode nexus</name>-->
+              <!--<url>http://mvnrepo.code.taobao.org/nexus/content/repositories/snapshots/</url>-->
+         <!--</snapshotRepository>-->
+	<!--</distributionManagement>-->
 
 </project>

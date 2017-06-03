@@ -29,6 +29,8 @@ under the License.
     </parent>
 
     <artifactId>gzllol-Diamond</artifactId>
+    <version>2.0.5.4.taocode-SNAPSHOT</version>
+
     <packaging>pom</packaging>
 
     <name>Gzllol Diamond Distribution</name>
@@ -40,7 +42,11 @@ under the License.
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.taobao.diamond</groupId>
+            <artifactId>diamond-server</artifactId>
+            <version>2.0.5.4.taocode-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

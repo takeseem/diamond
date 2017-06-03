@@ -10,9 +10,13 @@
 package com.taobao.diamond.client;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 import com.taobao.diamond.common.Constants;
 import com.taobao.diamond.mockserver.MockServer;
@@ -30,6 +34,9 @@ public class DiamondConfigure {
     private volatile int onceTimeout = Constants.ONCE_TIMEOUT;// 获取对于一个DiamondServer所对应的查询一个DataID对应的配置信息的Timeout时间
     private volatile int receiveWaitTime = Constants.RECV_WAIT_TIMEOUT;// 同步查询一个DataID所花费的时间
 
+    /**
+     * DiamondServer的服务地址列表
+     */
     private volatile List<String> domainNameList = new LinkedList<String>();
 
     private volatile boolean useFlowControl = true;
@@ -41,11 +48,17 @@ public class DiamondConfigure {
     private boolean connectionStaleCheckingEnabled = true;
     private int maxTotalConnections = 20;
     private int connectionTimeout = Constants.CONN_TIMEOUT;
+    /**
+     * DiamondServer的端口号
+     */
     private int port = Constants.DEFAULT_PORT;
     private int scheduledThreadPoolSize = 1;
     // 获取数据时的重试次数
     private int retrieveDataRetryTimes = Integer.MAX_VALUE / 10;
 
+    /**
+     * 获取DiamondServer地址列表的服务器地址
+     */
     private String configServerAddress = null;
     private int configServerPort = Constants.DEFAULT_PORT;
 
@@ -61,8 +74,29 @@ public class DiamondConfigure {
         if (!dir.exists()) {
             throw new RuntimeException("创建diamond目录失败：" + filePath);
         }
+
+        loadConfig();
+
     }
 
+    private void loadConfig() {
+        URL url = this.getClass().getClassLoader().getResource("diamond.properties");
+        if (url != null) {
+            File file = new File(url.getFile());
+            Properties prop = new Properties();
+            try {
+                prop.load(new FileInputStream(file));
+                configServerAddress = prop.getProperty(Constants.CONF_KEY_CONFIG_IP, Constants.DEFAULT_DOMAINNAME);
+                String portStr = prop.getProperty(Constants.CONF_KEY_PORT, "8080");
+                try {
+                    port = Integer.parseInt(portStr);
+                } catch (NumberFormatException nfe) {
+                    port = 8080;
+                }
+            } catch (IOException e) {
+            }
+        }
+    }
 
     /**
      * 获取和同一个DiamondServer的最大连接数

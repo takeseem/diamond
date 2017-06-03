@@ -2,3 +2,5 @@
 .svn
 .idea
 *.iml
+target/
+*.log

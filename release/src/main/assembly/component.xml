@@ -17,6 +17,14 @@
             <!--</excludes>-->
         <!--</dependencySet>-->
     <!--</dependencySets>-->
+
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <!--<scope>runtime</scope>-->
+        </dependencySet>
+    </dependencySets>
+
     <fileSets>
         <fileSet>
             <includes>
