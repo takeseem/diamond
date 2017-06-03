@@ -27,7 +27,7 @@ import com.taobao.diamond.utils.ResourceUtils;
 
 
 /**
- * 管理服务
+ * 绠＄悊鏈嶅姟
  * 
  * @author boyan
  * @date 2010-5-5
@@ -40,7 +40,7 @@ public class AdminService {
     private volatile Properties properties = new Properties();
 
     /**
-     * user.properties的路径url
+     * user.properties鐨勮矾寰剈rl
      */
     private URL url;
 
@@ -64,7 +64,7 @@ public class AdminService {
             tempProperties.load(in);
         }
         catch (IOException e) {
-            log.error("加载user.properties文件失败", e);
+            log.error("鍔犺浇user.properties鏂囦欢澶辫触", e);
         }
         finally {
             if (in != null) {
@@ -72,7 +72,7 @@ public class AdminService {
                     in.close();
                 }
                 catch (IOException e) {
-                    log.error("关闭user.properties文件失败", e);
+                    log.error("鍏抽棴user.properties鏂囦欢澶辫触", e);
                 }
             }
         }
@@ -107,7 +107,7 @@ public class AdminService {
             return true;
         }
         catch (IOException e) {
-            log.error("保存user.properties文件失败", e);
+            log.error("淇濆瓨user.properties鏂囦欢澶辫触", e);
             return false;
         }
         finally {
@@ -116,7 +116,7 @@ public class AdminService {
                     out.close();
                 }
                 catch (IOException e) {
-                    log.error("关闭user.properties文件失败", e);
+                    log.error("鍏抽棴user.properties鏂囦欢澶辫触", e);
                 }
             }
         }

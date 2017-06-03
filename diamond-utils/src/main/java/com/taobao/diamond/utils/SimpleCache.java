@@ -16,7 +16,7 @@ import com.taobao.diamond.common.Constants;
 
 
 /**
- * 一个带TTL的简单Cache，对于过期的entry没有清理
+ * 涓�涓甫TTL鐨勭畝鍗旵ache锛屽浜庤繃鏈熺殑entry娌℃湁娓呯悊
  * 
  * @author fenghan
  * 

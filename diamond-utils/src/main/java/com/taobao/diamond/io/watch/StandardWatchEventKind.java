@@ -13,7 +13,7 @@ import com.taobao.diamond.io.Path;
 
 
 /**
- * ±ê×¼WatchEvent
+ * æ ‡å‡†WatchEvent
  * 
  * @author boyan
  * 

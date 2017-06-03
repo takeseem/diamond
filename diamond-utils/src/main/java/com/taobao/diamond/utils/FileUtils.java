@@ -33,7 +33,7 @@ public class FileUtils {
     public static String getFileName(String path) {
         File file = new File(path);
         if (!file.isFile()) {
-            throw new RuntimeException("´ËÂ·¾¶±í´ïµÄ²»ÊÇÎÄ¼ş");
+            throw new RuntimeException("æ­¤è·¯å¾„è¡¨è¾¾çš„ä¸æ˜¯æ–‡ä»¶");
         }
         return file.getName();
     }
@@ -42,14 +42,14 @@ public class FileUtils {
     public static String getParentDir(String path) {
         File file = new File(path);
         if (!file.isFile()) {
-            throw new RuntimeException("´ËÂ·¾¶±í´ïµÄ²»ÊÇÎÄ¼ş");
+            throw new RuntimeException("æ­¤è·¯å¾„è¡¨è¾¾çš„ä¸æ˜¯æ–‡ä»¶");
         }
         File parent = file.getParentFile();
         if (parent.isDirectory()) {
             return parent.getName();
         }
         else {
-            throw new RuntimeException("¸¸Ä¿Â¼²»ÊÇÄ¿Â¼");
+            throw new RuntimeException("çˆ¶ç›®å½•ä¸æ˜¯ç›®å½•");
         }
     }
 
@@ -57,7 +57,7 @@ public class FileUtils {
     public static String getGrandpaDir(String path) {
         File file = new File(path);
         if (file.isDirectory()) {
-            throw new RuntimeException("´ËÂ·¾¶±í´ïµÄ²»ÊÇÎÄ¼ş");
+            throw new RuntimeException("æ­¤è·¯å¾„è¡¨è¾¾çš„ä¸æ˜¯æ–‡ä»¶");
         }
         File parent = file.getParentFile();
         if (parent.isDirectory()) {
@@ -66,11 +66,11 @@ public class FileUtils {
                 return grandpa.getName();
             }
             else {
-                throw new RuntimeException("×æÄ¿Â¼²»ÊÇÄ¿Â¼");
+                throw new RuntimeException("ç¥–ç›®å½•ä¸æ˜¯ç›®å½•");
             }
         }
         else {
-            throw new RuntimeException("¸¸Ä¿Â¼²»ÊÇÄ¿Â¼");
+            throw new RuntimeException("çˆ¶ç›®å½•ä¸æ˜¯ç›®å½•");
         }
     }
 
@@ -78,7 +78,7 @@ public class FileUtils {
     public static String getFileContent(String path) throws IOException {
         File tFile = new File(path);
         if (!tFile.isFile()) {
-            throw new RuntimeException("²»ÊÇÎÄ¼ş");
+            throw new RuntimeException("ä¸æ˜¯æ–‡ä»¶");
         }
         RandomAccessFile file = new RandomAccessFile(tFile, "r");
         long fileSize = file.length();

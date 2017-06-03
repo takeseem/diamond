@@ -20,4 +20,19 @@
 	<context:component-scan
 		base-package="com.taobao.diamond.server.controller,com.taobao.diamond.server.service" />
 
+    <!-- 使用注解注入properties中的值 -->
+    <bean id="config"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:system.properties</value>
+            </list>
+        </property>
+        <!-- 设置编码格式 -->
+        <property name="fileEncoding" value="UTF-8"></property>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer" id="propertyConfigurer">
+        <property name="properties" ref="config">
+        </property></bean>
 </beans>

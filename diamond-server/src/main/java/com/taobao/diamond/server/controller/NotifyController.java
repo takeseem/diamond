@@ -19,7 +19,7 @@ import com.taobao.diamond.server.service.ConfigService;
 
 
 /**
- * 用于其他节点通知的控制器
+ * 鐢ㄤ簬鍏朵粬鑺傜偣閫氱煡鐨勬帶鍒跺櫒
  * 
  * @author boyan
  * @date 2010-5-7
@@ -43,7 +43,7 @@ public class NotifyController {
 
 
     /**
-     * 通知配置信息改变
+     * 閫氱煡閰嶇疆淇℃伅鏀瑰彉
      * 
      * @param id
      * @return

@@ -23,7 +23,7 @@ import com.taobao.diamond.io.Path;
 
 
 /**
- * Watch����Ϊ�ļ�ϵͳ�ṩ���ӹ��ܣ����ļ�����Ŀ¼���ӡ�ɾ�����߸��ĵ�ʱ���ṩ����֪ͨ����
+ * Watch服务，为文件系统提供监视功能，当文件或者目录添加、删除或者更改的时候提供主动通知服务
  * 
  * @author boyan
  * @date 2010-5-4
@@ -52,7 +52,7 @@ public final class WatchService {
 
 
     /**
-     * ����check
+     * 主动check
      */
     public void check() {
         synchronized (this) {
@@ -66,7 +66,7 @@ public final class WatchService {
                     }
                 }
                 catch (Throwable t) {
-                    log.error("���WatchKey�쳣,key=" + key, t);
+                    log.error("检测WatchKey异常,key=" + key, t);
                 }
             }
         }
@@ -74,7 +74,7 @@ public final class WatchService {
 
 
     /**
-     * ע��Ŀ¼
+     * 注册目录
      * 
      * @param root
      * @param events
@@ -84,9 +84,9 @@ public final class WatchService {
         if (events == null || events.length == 0)
             throw new UnsupportedOperationException("null events");
         if (this.service.isShutdown())
-            throw new IllegalStateException("�����Ѿ��ر�");
+            throw new IllegalStateException("服务已经关闭");
         if (!root.exists())
-            throw new IllegalArgumentException("���ӵ�Ŀ¼������");
+            throw new IllegalArgumentException("监视的目录不存在");
         WatchKey key = new WatchKey(root, this, false, events);
         resetKey(key);
         return key;
@@ -97,9 +97,9 @@ public final class WatchService {
         if (events == null || events.length == 0)
             throw new UnsupportedOperationException("null events");
         if (this.service.isShutdown())
-            throw new IllegalStateException("�����Ѿ��ر�");
+            throw new IllegalStateException("服务已经关闭");
         if (!root.exists())
-            throw new IllegalArgumentException("���ӵ�Ŀ¼������");
+            throw new IllegalArgumentException("监视的目录不存在");
         WatchKey key = new WatchKey(root, this, fireCreatedEventOnIndex, events);
         resetKey(key);
         return key;
@@ -112,7 +112,7 @@ public final class WatchService {
 
 
     /**
-     * ֹͣ����
+     * 停止服务
      */
     public void close() {
         this.service.shutdown();
@@ -120,7 +120,7 @@ public final class WatchService {
 
 
     /**
-     * ��ȡ�ı��WatchKey
+     * 获取改变的WatchKey
      * 
      * @return
      */
@@ -130,7 +130,7 @@ public final class WatchService {
 
 
     /**
-     * ��ȡ�ı��WatchKey
+     * 获取改变的WatchKey
      * 
      * @return
      */
@@ -140,7 +140,7 @@ public final class WatchService {
 
 
     /**
-     * ��ȡ�ı��WatchKey
+     * 获取改变的WatchKey
      * 
      * @return
      */

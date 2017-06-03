@@ -31,7 +31,7 @@
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>GBK</param-value>
+			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
 	<!-- 授权过滤器 -->
@@ -70,7 +70,14 @@
 	<servlet-mapping>
 		<servlet-name>diamond</servlet-name>
 		<url-pattern>*.do</url-pattern>
+		<!--<url-pattern>/</url-pattern>-->
 	</servlet-mapping>
+
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>diamond</servlet-name>-->
+        <!--<url-pattern>*.do</url-pattern>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
 	
 	<servlet-mapping>
 		<servlet-name>ConfigServlet</servlet-name>

@@ -21,7 +21,7 @@ import com.taobao.diamond.io.watch.util.PathNode;
 
 
 /**
- * WatchKey£¬±íÊ¾Ò»¸ö×¢²áµÄµÄÆ¾Ö¤
+ * WatchKeyï¼Œè¡¨ç¤ºä¸€ä¸ªæ³¨å†Œçš„çš„å‡­è¯
  * 
  * @author boyan
  * @date 2010-5-4
@@ -43,7 +43,7 @@ public class WatchKey {
             WatchEvent.Kind<?>... events) {
         valid = true;
         this.watcher = watcher;
-        // ½¨Á¢ÄÚ´æË÷Òı
+        // å»ºç«‹å†…å­˜ç´¢å¼•
         this.root = new PathNode(path, true);
         if (events != null) {
             for (WatchEvent.Kind<?> event : events) {
@@ -57,7 +57,7 @@ public class WatchKey {
 
 
     /**
-     * Ë÷ÒıÄ¿Â¼
+     * ç´¢å¼•ç›®å½•
      * 
      * @param node
      */
@@ -109,7 +109,7 @@ public class WatchKey {
 
 
     /**
-     * ¼ì²âÊÇ·ñÓĞ±ä»¯
+     * æ£€æµ‹æ˜¯å¦æœ‰å˜åŒ–
      * 
      * @return
      */
@@ -145,34 +145,34 @@ public class WatchKey {
             }
         }
         else
-            throw new IllegalStateException("PathNodeÃ»ÓĞpath");
+            throw new IllegalStateException("PathNodeæ²¡æœ‰path");
     }
 
 
     private boolean checkNodeChildren(PathNode node, List<WatchEvent<?>> changedEvents, File nodeNewFile) {
         boolean changed = false;
         Iterator<PathNode> it = node.getChildren().iterator();
-        // ÓÃÓÚÅĞ¶ÏÊÇ·ñÓĞĞÂÔöÎÄ¼ş»òÕßÄ¿Â¼µÄÏÖÓĞÃû³Æ¼¯ºÏ
+        // ç”¨äºåˆ¤æ–­æ˜¯å¦æœ‰æ–°å¢æ–‡ä»¶æˆ–è€…ç›®å½•çš„ç°æœ‰åç§°é›†åˆ
         Set<String> childNameSet = new HashSet<String>();
         while (it.hasNext()) {
             PathNode child = it.next();
             Path childPath = child.getPath();
             childNameSet.add(childPath.getName());
             File childNewFile = new File(childPath.getAbsolutePath());
-            // 1¡¢ÅĞ¶ÏÎÄ¼şÊÇ·ñ»¹´æÔÚ
+            // 1ã€åˆ¤æ–­æ–‡ä»¶æ˜¯å¦è¿˜å­˜åœ¨
             if (!childNewFile.exists() && filterSet.contains(StandardWatchEventKind.ENTRY_DELETE)) {
                 changed = true;
                 changedEvents.add(new WatchEvent<Path>(StandardWatchEventKind.ENTRY_DELETE, 1, childPath));
-                it.remove();// ÒÆ³ı½Úµã
+                it.remove();// ç§»é™¤èŠ‚ç‚¹
             }
-            // 2¡¢Èç¹ûÊÇÎÄ¼ş£¬ÅĞ¶ÏÊÇ·ñ±»ĞŞ¸Ä
+            // 2ã€å¦‚æœæ˜¯æ–‡ä»¶ï¼Œåˆ¤æ–­æ˜¯å¦è¢«ä¿®æ”¹
             if (childPath.isFile()) {
                 if (checkFile(changedEvents, child, childNewFile) && !changed) {
                     changed = true;
                 }
 
             }
-            // 3¡¢µİ¹é¼ì²âÄ¿Â¼
+            // 3ã€é€’å½’æ£€æµ‹ç›®å½•
             if (childPath.isDirectory()) {
                 if (check(child, changedEvents) && !changed) {
                     changed = true;
@@ -180,7 +180,7 @@ public class WatchKey {
             }
         }
 
-        // ²é¿´ÊÇ·ñÓĞĞÂÔöÎÄ¼ş
+        // æŸ¥çœ‹æ˜¯å¦æœ‰æ–°å¢æ–‡ä»¶
         File[] newChildFiles = nodeNewFile.listFiles();
         if(newChildFiles!=null)
         for (File newChildFile : newChildFiles) {
@@ -190,8 +190,8 @@ public class WatchKey {
                 Path newChildPath = new Path(newChildFile);
                 changedEvents.add(new WatchEvent<Path>(StandardWatchEventKind.ENTRY_CREATE, 1, newChildPath));
                 PathNode newSubNode = new PathNode(newChildPath, false);
-                node.addChild(newSubNode);// ĞÂÔö×Ó½Úµã
-                // Èç¹ûÊÇÄ¿Â¼£¬µİ¹éµ÷ÓÃ
+                node.addChild(newSubNode);// æ–°å¢å­èŠ‚ç‚¹
+                // å¦‚æœæ˜¯ç›®å½•ï¼Œé€’å½’è°ƒç”¨
                 if (newChildFile.isDirectory()) {
                     checkNodeChildren(newSubNode, changedEvents, newChildFile);
                 }
@@ -203,13 +203,13 @@ public class WatchKey {
 
     private boolean checkFile(List<WatchEvent<?>> changedEvents, PathNode child, File childNewFile) {
         boolean changed = false;
-        // ²é¿´ÎÄ¼şÊÇ·ñ±»ĞŞ¸Ä
+        // æŸ¥çœ‹æ–‡ä»¶æ˜¯å¦è¢«ä¿®æ”¹
         if (childNewFile.lastModified() != child.lastModified()
                 && filterSet.contains(StandardWatchEventKind.ENTRY_MODIFY)) {
             changed = true;
             Path newChildPath = new Path(childNewFile);
             changedEvents.add(new WatchEvent<Path>(StandardWatchEventKind.ENTRY_MODIFY, 1, newChildPath));
-            child.setPath(newChildPath);// ¸üĞÂpath
+            child.setPath(newChildPath);// æ›´æ–°path
         }
         return changed;
     }

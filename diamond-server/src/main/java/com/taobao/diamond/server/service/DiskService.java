@@ -20,7 +20,7 @@ import com.taobao.diamond.server.exception.ConfigServiceException;
 
 
 /**
- * ´ÅÅÌ²Ù×÷·şÎñ
+ * ç£ç›˜æ“ä½œæœåŠ¡
  * 
  * @author boyan
  * @date 2010-5-4
@@ -31,9 +31,9 @@ public class DiskService {
     private static final Log log = LogFactory.getLog(DiskService.class);
 
     /**
-     * ĞŞ¸Ä±ê¼Ç»º´æ
+     * ä¿®æ”¹æ ‡è®°ç¼“å­˜
      */
-    private final ConcurrentHashMap<String/* dataId + group */, Boolean/* ÊÇ·ñÕıÔÚĞŞ¸Ä */> modifyMarkCache =
+    private final ConcurrentHashMap<String/* dataId + group */, Boolean/* æ˜¯å¦æ­£åœ¨ä¿®æ”¹ */> modifyMarkCache =
             new ConcurrentHashMap<String, Boolean>();
 
     @Autowired
@@ -51,7 +51,7 @@ public class DiskService {
 
 
     /**
-     * µ¥Ôª²âÊÔÓÃ
+     * å•å…ƒæµ‹è¯•ç”¨
      * 
      * @return
      */
@@ -61,7 +61,7 @@ public class DiskService {
 
 
     /**
-     * »ñÈ¡ÅäÖÃÎÄ¼şÂ·¾¶, µ¥Ôª²âÊÔÓÃ
+     * è·å–é…ç½®æ–‡ä»¶è·¯å¾„, å•å…ƒæµ‹è¯•ç”¨
      * 
      * @param dataId
      * @param group
@@ -78,20 +78,20 @@ public class DiskService {
         String dataId = configInfo.getDataId();
         String content = configInfo.getContent();
         String cacheKey = generateCacheKey(group, dataId);
-        // ±ê¼ÇÕıÔÚĞ´´ÅÅÌ
+        // æ ‡è®°æ­£åœ¨å†™ç£ç›˜
         if (this.modifyMarkCache.putIfAbsent(cacheKey, true) == null) {
             File tempFile = null;
             try {
-                // Ä¿±êÄ¿Â¼
+                // ç›®æ ‡ç›®å½•
                 String groupPath = getFilePath(Constants.BASE_DIR + "/" + group);
                 createDirIfNessary(groupPath);
-                // Ä¿±êÎÄ¼ş
+                // ç›®æ ‡æ–‡ä»¶
                 File targetFile = createFileIfNessary(groupPath, dataId);
-                // ´´½¨ÁÙÊ±ÎÄ¼ş
+                // åˆ›å»ºä¸´æ—¶æ–‡ä»¶
                 tempFile = createTempFile(dataId, group);
-                // Ğ´Êı¾İÖÁÁÙÊ±ÎÄ¼ş
+                // å†™æ•°æ®è‡³ä¸´æ—¶æ–‡ä»¶
                 FileUtils.writeStringToFile(tempFile, content, Constants.ENCODE);
-                // ÓÃÁÙÊ±ÎÄ¼ş¸²¸ÇÄ¿±êÎÄ¼ş, Íê³É±¾´Î´ÅÅÌ²Ù×÷
+                // ç”¨ä¸´æ—¶æ–‡ä»¶è¦†ç›–ç›®æ ‡æ–‡ä»¶, å®Œæˆæœ¬æ¬¡ç£ç›˜æ“ä½œ
                 FileUtils.copyFile(tempFile, targetFile);
             }
             catch (Exception e) {
@@ -100,11 +100,11 @@ public class DiskService {
                 throw new ConfigServiceException(errorMsg, e);
             }
             finally {
-                // É¾³ıÁÙÊ±ÎÄ¼ş
+                // åˆ é™¤ä¸´æ—¶æ–‡ä»¶
                 if (tempFile != null && tempFile.exists()) {
                     FileUtils.deleteQuietly(tempFile);
                 }
-                // Çå³ı±ê¼Ç
+                // æ¸…é™¤æ ‡è®°
                 this.modifyMarkCache.remove(cacheKey);
             }
         }
@@ -121,7 +121,7 @@ public class DiskService {
 
 
     /**
-     * Éú³É»º´ækey£¬ÓÃÓÚ±ê¼ÇÎÄ¼şÊÇ·ñÕıÔÚ±»ĞŞ¸Ä
+     * ç”Ÿæˆç¼“å­˜keyï¼Œç”¨äºæ ‡è®°æ–‡ä»¶æ˜¯å¦æ­£åœ¨è¢«ä¿®æ”¹
      * 
      * @param group
      * @param dataId
@@ -135,7 +135,7 @@ public class DiskService {
 
     public void removeConfigInfo(String dataId, String group) {
         String cacheKey = generateCacheKey(group, dataId);
-        // ±ê¼ÇÕıÔÚĞ´´ÅÅÌ
+        // æ ‡è®°æ­£åœ¨å†™ç£ç›˜
         if (this.modifyMarkCache.putIfAbsent(cacheKey, true) == null) {
             try {
                 String basePath = getFilePath(Constants.BASE_DIR);
@@ -161,7 +161,7 @@ public class DiskService {
                 throw new ConfigServiceException(errorMsg, e);
             }
             finally {
-                // Çå³ı±ê¼Ç
+                // æ¸…é™¤æ ‡è®°
                 this.modifyMarkCache.remove(cacheKey);
             }
         }
@@ -188,7 +188,7 @@ public class DiskService {
         final File file = new File(parent, child);
         if (!file.exists()) {
             file.createNewFile();
-            // ÉèÖÃÎÄ¼şÈ¨ÏŞ
+            // è®¾ç½®æ–‡ä»¶æƒé™
             changeFilePermission(file);
         }
         return file;
@@ -196,7 +196,7 @@ public class DiskService {
 
 
     private void changeFilePermission(File file) {
-        // ÎÄ¼şÈ¨ÏŞÉèÖÃÎª600
+        // æ–‡ä»¶æƒé™è®¾ç½®ä¸º600
         file.setExecutable(false, false);
         file.setWritable(false, false);
         file.setReadable(false, false);
