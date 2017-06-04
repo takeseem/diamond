@@ -14,11 +14,6 @@ import java.util.concurrent.Executor;
 public class ClientTest {
     public static void main(String[] args) {
 
-//        System.setProperty("http.proxyHost", "localhost");
-//        System.setProperty("http.proxyPort", "8888");
-//        System.setProperty("https.proxyHost", "localhost");
-//        System.setProperty("https.proxyPort", "8888");
-
         DiamondManager manager = new DefaultDiamondManager("1", new ManagerListener() {
             @Override
             public Executor getExecutor() {
@@ -30,7 +25,6 @@ public class ClientTest {
                 System.out.println("receive config: " + configInfo);
             }
         });
-//        manager.get
         String configInfo = manager.getAvailableConfigureInfomation(1000);
         System.out.println("config: " + configInfo);
 
