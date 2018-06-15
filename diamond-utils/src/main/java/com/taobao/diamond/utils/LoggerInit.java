@@ -24,7 +24,7 @@ import org.apache.log4j.PropertyConfigurator;
 /**
  * 
  * 
- * logger³õÊ¼»¯£¬°ÑÈÕÖ¾Êä³öµ½Ó¦ÓÃµÄÄ¿Â¼Àï
+ * loggeråˆå§‹åŒ–ï¼ŒæŠŠæ—¥å¿—è¾“å‡ºåˆ°åº”ç”¨çš„ç›®å½•é‡Œ
  * 
  */
 public class LoggerInit {
@@ -58,16 +58,16 @@ public class LoggerInit {
         Thread.currentThread().setContextClassLoader(LoggerInit.class.getClassLoader());
 
         try {
-            // Ê¹È±Ê¡µÄÅäÖÃÉúĞ§(Logger, Appender)
+            // ä½¿ç¼ºçœçš„é…ç½®ç”Ÿæ•ˆ(Logger, Appender)
             PropertyConfigurator.configure(defaultProperties);
 
             /**
-             * ÕÒµ½ÉÏ²ãÓ¦ÓÃÔÚRoot LoggerÉÏÉèÖÃµÄFileAppender£¬ÒÔ¼°HSFÅäÖÃµÄFileAppender¡£
-             * Ä¿µÄÊÇÎªÁËÈÃHSFµÄÈÕÖ¾ÓëÉÏ²ãÓ¦ÓÃµÄÈÕÖ¾Êä³öµ½Í¬Ò»¸öÄ¿Â¼¡£
+             * æ‰¾åˆ°ä¸Šå±‚åº”ç”¨åœ¨Root Loggerä¸Šè®¾ç½®çš„FileAppenderï¼Œä»¥åŠHSFé…ç½®çš„FileAppenderã€‚
+             * ç›®çš„æ˜¯ä¸ºäº†è®©HSFçš„æ—¥å¿—ä¸ä¸Šå±‚åº”ç”¨çš„æ—¥å¿—è¾“å‡ºåˆ°åŒä¸€ä¸ªç›®å½•ã€‚
              */
             FileAppender bizFileAppender = getFileAppender(Logger.getRootLogger());
             if (null == bizFileAppender) {
-                log.warn("ÉÏ²ãÒµÎñ²ãÃ»ÓĞÔÚROOT LOGGERÉÏÉèÖÃFileAppender!!!");
+                log.warn("ä¸Šå±‚ä¸šåŠ¡å±‚æ²¡æœ‰åœ¨ROOT LOGGERä¸Šè®¾ç½®FileAppender!!!");
                 bizFileAppender = new FileAppender();
                 bizFileAppender.setFile(System.getProperty("user.home") + "/diamond/logs/diamond_config_data.log");
             }
@@ -89,8 +89,8 @@ public class LoggerInit {
         File newLogFile = new File(bizLogDir, fileAppender.getFile());
 
         fileAppender.setFile(newLogFile.getAbsolutePath());
-        fileAppender.activateOptions(); // ºÜÖØÒª£¬·ñÔòÔ­ÓĞÈÕÖ¾ÄÚÈİ»á±»Çå¿Õ
-        log.warn("³É¹¦Îª" + logName + "Ìí¼ÓAppender. Êä³öÂ·¾¶:" + newLogFile.getAbsolutePath());
+        fileAppender.activateOptions(); // å¾ˆé‡è¦ï¼Œå¦åˆ™åŸæœ‰æ—¥å¿—å†…å®¹ä¼šè¢«æ¸…ç©º
+        log.warn("æˆåŠŸä¸º" + logName + "æ·»åŠ Appender. è¾“å‡ºè·¯å¾„:" + newLogFile.getAbsolutePath());
     }
 
 

@@ -22,7 +22,7 @@ import com.taobao.diamond.server.service.AdminService;
 
 
 /**
- * µÇÂ¼µÇ³ö¿ØÖÆÆ÷
+ * ç™»å½•ç™»å‡ºæ§åˆ¶å™¨
  * 
  * @author boyan
  * @date 2010-5-6
@@ -42,7 +42,7 @@ public class LoginController {
             return "admin/admin";
         }
         else {
-            modelMap.addAttribute("message", "µÇÂ¼Ê§°Ü£¬ÓÃ»§ÃûÃÜÂë²»Æ¥Åä");
+            modelMap.addAttribute("message", "ç™»å½•å¤±è´¥ï¼Œç”¨æˆ·åå¯†ç ä¸åŒ¹é…");
             return "login";
         }
     }

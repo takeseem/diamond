@@ -10,7 +10,7 @@ import com.taobao.diamond.domain.Page;
 
 
 /**
- * DumpÅäÖÃĞÅÏ¢ÈÎÎñ
+ * Dumpé…ç½®ä¿¡æ¯ä»»åŠ¡
  * 
  * @author boyan
  * @date 2010-5-10
@@ -33,7 +33,7 @@ public final class DumpConfigInfoTask implements Runnable {
         try {
             Page<ConfigInfo> page = this.timerTaskService.getPersistService().findAllConfigInfo(1, PAGE_SIZE);
             if (page != null) {
-                // ×ÜÒ³Êı
+                // æ€»é¡µæ•°
                 int totalPages = page.getPagesAvailable();
                 updateConfigInfo(page);
                 if (totalPages > 1) {
@@ -58,7 +58,7 @@ public final class DumpConfigInfoTask implements Runnable {
                 continue;
             }
             try {
-                // Ğ´Èë´ÅÅÌ£¬¸üĞÂ»º´æ
+                // å†™å…¥ç£ç›˜ï¼Œæ›´æ–°ç¼“å­˜
                 this.timerTaskService.getConfigService().updateMD5Cache(configInfo);
                 this.timerTaskService.getDiskService().saveToDisk(configInfo);
             }

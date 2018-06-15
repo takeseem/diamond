@@ -16,7 +16,7 @@ import com.taobao.diamond.io.Path;
 
 
 /**
- * 树形目录结构的节点，缓存lastModified
+ * 鏍戝舰鐩綍缁撴瀯鐨勮妭鐐癸紝缂撳瓨lastModified
  * 
  * @author boyan
  * 

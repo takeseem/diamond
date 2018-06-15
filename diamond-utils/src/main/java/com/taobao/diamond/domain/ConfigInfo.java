@@ -16,7 +16,7 @@ import com.taobao.diamond.md5.MD5;
 
 
 /**
- * ÅäÖÃĞÅÏ¢Àà
+ * é…ç½®ä¿¡æ¯ç±»
  * 
  * @author boyan
  * @date 2010-5-4
